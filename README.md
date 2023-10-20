@@ -1,4 +1,4 @@
-# Look For Part Frontend
+# Look For Party Frontend
 
 This is the frontend for the Look For Part project. It is built with SvelteKit.
 
