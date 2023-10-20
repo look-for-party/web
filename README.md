@@ -1,29 +1,24 @@
----
-title: SvelteKit
-description: A simple SvelteKit app
-tags:
-  - svelte
-  - typescript
----
+# Look For Party Frontend
 
-# SvelteKit Example
+This is the frontend for the Look For Party social platform. It is built with SvelteKit.
 
-This example is a simple [SvelteKit](https://kit.svelte.dev/) app.
+## Developing
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/svelte-kit)
+Once you've installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-## ✨ Features
+```bash
+npm run dev
 
-- Svelte
-- TypeScript
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-## 💁‍♀️ How to use
+## Building
 
-- Install dependencies `yarn`
-- Connect to your Railway project `railway link`
-- Start the development server `railway run yarn dev`
+To create a production version of your app:
 
-## 📝 Notes
+```bash
+npm run build
+```
 
-This example was created by running `yarn create svelte`. Please see the [official
-documentation](https://kit.svelte.dev/docs) for more info.
+You can preview the production build with `npm run preview`.
