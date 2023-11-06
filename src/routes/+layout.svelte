@@ -1,7 +1,6 @@
 <script>
 	import Layout from '$components/layout.svelte';
-	import { LightSwitch } from '@skeletonlabs/skeleton';
-	import { autoModeWatcher } from '@skeletonlabs/skeleton';
+	import { LightSwitch, autoModeWatcher } from '@skeletonlabs/skeleton';
 </script>
 
 <svelte:head
