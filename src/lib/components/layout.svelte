@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "$src/app.postcss"
+	import '$src/app.postcss';
 </script>
 
-<slot></slot>
+<slot />
