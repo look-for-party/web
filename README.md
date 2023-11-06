@@ -1,7 +1,5 @@
 # Look For Party Frontend
 
-[![GitHub Super-Linter](https://github.com/FelixNgFender/look-for-party-frontend/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
-
 This is the frontend for the Look For Part project. It is built with SvelteKit.
 
 ## Developing
