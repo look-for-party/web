@@ -3,6 +3,6 @@
 </script>
 
 <Layout>
-  <nav class="text-secondary-500">I am nav</nav>
-  <slot />
+	<nav class="text-secondary-500">I am nav</nav>
+	<slot />
 </Layout>
