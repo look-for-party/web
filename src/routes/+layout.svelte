@@ -1,10 +1,6 @@
 <script>
 	import Layout from '$components/layout.svelte';
-	import { setModeCurrent, getModeOsPrefers, LightSwitch } from '@skeletonlabs/skeleton';
-	import { onMount } from 'svelte';
-	onMount(() => {
-		setModeCurrent(getModeOsPrefers());
-	});
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 </script>
 
 <Layout>
