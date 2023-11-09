@@ -3,13 +3,13 @@
 	import '$src/app.postcss';
 </script>
 
-<AppShell regionPage="relative" slotPageHeader="sticky top-0 z-10">
-	<svelte:fragment slot="header">
-		<AppBar>Look For Party</AppBar>
-	</svelte:fragment>
+<AppShell>
+	<!-- (header) -->
 	<svelte:fragment slot="sidebarLeft">Sidebar Left</svelte:fragment>
 	<svelte:fragment slot="sidebarRight">Sidebar Right</svelte:fragment>
-	<!-- (pageHeader) -->
+	<svelte:fragment slot="pageHeader">
+		<AppBar>Look For Party</AppBar>
+	</svelte:fragment>
 	<!-- Router Slot -->
 	<slot />
 	<!-- ---- / ---- -->
