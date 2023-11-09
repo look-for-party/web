@@ -30,7 +30,7 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
 />
 <Drawer>
-	<h1>This is right sidebar</h1>
+	<h1>This is left sidebar</h1>
 </Drawer>
 <AppShell>
 	<!-- (header) -->
