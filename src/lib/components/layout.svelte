@@ -13,7 +13,6 @@
 
 <AppShell>
 	<!-- (header) -->
-	<svelte:fragment slot="sidebarRight">Sidebar Right</svelte:fragment>
 	<svelte:fragment slot="pageHeader">
 		<Header />
 	</svelte:fragment>

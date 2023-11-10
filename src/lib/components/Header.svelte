@@ -18,8 +18,16 @@
 		width: 'w-[280px] md:w-[480px]',
 		position: 'left'
 	};
+	const rightDrawerSettings: DrawerSettings = {
+		id: 'right-sidebar',
+		width: 'w-[280px] md:w-[480px]',
+		position: 'right'
+	};
 	function openLeftSidebar(): void {
 		drawerStore.open(leftDrawerSettings);
+	}
+	function openRightSidebar(): void {
+		drawerStore.open(rightDrawerSettings);
 	}
 </script>
 
@@ -60,6 +68,7 @@
 				width="w-12"
 				border="border-4 border-surface-300-600-token hover:!border-primary-500"
 				cursor="cursor-pointer"
+				on:click={openRightSidebar}
 			/>
 		{:else}
 			<a href="/parties" class="btn hover:variant-soft-primary">Parties</a>
