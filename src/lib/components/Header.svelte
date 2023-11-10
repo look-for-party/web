@@ -6,7 +6,7 @@
 		type DrawerSettings,
 		Avatar
 	} from '@skeletonlabs/skeleton';
-	import SearchBar from './SearchBar.svelte';
+	import SearchBar from './forms/SearchBar.svelte';
 	import { loggedIn } from '../stores';
 
 	// must be invoked at the top level
