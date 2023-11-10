@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { AppBar, getDrawerStore, type DrawerSettings } from '@skeletonlabs/skeleton';
+	import SearchBar from './SearchBar.svelte';
 
 	// must be invoked at the top level
 	// https://www.skeleton.dev/utilities/drawers#drawer-store
@@ -22,5 +23,5 @@
 		<strong class="text-2xl">Look For Party</strong>
 	</svelte:fragment>
 
-	<svelte:fragment slot="trail">(avatar)</svelte:fragment>
+	<svelte:fragment slot="trail"><SearchBar />(avatar)</svelte:fragment>
 </AppBar>
