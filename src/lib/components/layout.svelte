@@ -8,6 +8,7 @@
 		type DrawerSettings
 	} from '@skeletonlabs/skeleton';
 	import '$src/app.postcss';
+	import { loggedIn } from '../stores';
 
 	// should be in root layout
 	// required only once when implementing Skeleton's Drawer, Modal, and Toast stores
@@ -46,6 +47,10 @@
 		</AppBar>
 	</svelte:fragment>
 	<!-- Router Slot -->
+	<label class="flex items-center space-x-2">
+		<input class="checkbox" type="checkbox" bind:checked={$loggedIn} />
+		<p>Logged in</p>
+	</label>
 	<slot />
 	<!-- ---- / ---- -->
 	<!-- (pageFooter) -->
