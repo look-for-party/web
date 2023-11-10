@@ -1,5 +1,11 @@
 <script lang="ts">
-	import { AppBar, getDrawerStore, type DrawerSettings, Avatar } from '@skeletonlabs/skeleton';
+	import {
+		AppBar,
+		getDrawerStore,
+		Drawer,
+		type DrawerSettings,
+		Avatar
+	} from '@skeletonlabs/skeleton';
 	import SearchBar from './SearchBar.svelte';
 	import { loggedIn } from '../stores';
 
@@ -7,9 +13,13 @@
 	// https://www.skeleton.dev/utilities/drawers#drawer-store
 	const drawerStore = getDrawerStore();
 
-	const drawerSettings: DrawerSettings = { width: 'w-[280px] md:w-[480px]' };
-	function openDrawer(): void {
-		drawerStore.open(drawerSettings);
+	const leftDrawerSettings: DrawerSettings = {
+		id: 'left-sidebar',
+		width: 'w-[280px] md:w-[480px]',
+		position: 'left'
+	};
+	function openLeftSidebar(): void {
+		drawerStore.open(leftDrawerSettings);
 	}
 </script>
 
@@ -18,9 +28,17 @@
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
 />
 
+<Drawer>
+	{#if $drawerStore.id === 'left-sidebar'}
+		<h1>This is the left sidebar</h1>
+	{:else if $drawerStore.id === 'right-sidebar'}
+		<h1>This is the right sidebar</h1>
+	{/if}
+</Drawer>
+
 <AppBar>
 	<svelte:fragment slot="lead">
-		<button class="material-symbols-outlined mr-4" on:click={openDrawer}> menu </button>
+		<button class="material-symbols-outlined mr-4" on:click={openLeftSidebar}> menu </button>
 		<strong class="text-2xl">Look For Party</strong>
 	</svelte:fragment>
 

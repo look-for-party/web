@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AppShell, Drawer, initializeStores } from '@skeletonlabs/skeleton';
+	import { AppShell, initializeStores } from '@skeletonlabs/skeleton';
 	import '$src/app.postcss';
 	import { loggedIn } from '../stores';
 	import Header from './Header.svelte';
@@ -11,9 +11,6 @@
 	initializeStores();
 </script>
 
-<Drawer>
-	<h1>This is left sidebar</h1>
-</Drawer>
 <AppShell>
 	<!-- (header) -->
 	<svelte:fragment slot="sidebarRight">Sidebar Right</svelte:fragment>
