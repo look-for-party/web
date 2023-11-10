@@ -31,11 +31,6 @@
 	}
 </script>
 
-<link
-	rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-/>
-
 <Drawer>
 	{#if $drawerStore.id === 'left-sidebar'}
 		<h1>This is the left sidebar</h1>

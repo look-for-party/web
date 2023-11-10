@@ -51,5 +51,8 @@
 		"vite": "^4.4.2",
 		"vitest": "^0.32.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"material-symbols": "^0.14.0"
+	}
 }
