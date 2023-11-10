@@ -1,12 +1,5 @@
 <script lang="ts">
-	import {
-		AppBar,
-		AppShell,
-		Drawer,
-		initializeStores,
-		getDrawerStore,
-		type DrawerSettings
-	} from '@skeletonlabs/skeleton';
+	import { AppShell, Drawer, initializeStores } from '@skeletonlabs/skeleton';
 	import '$src/app.postcss';
 	import { loggedIn } from '../stores';
 	import Header from './Header.svelte';
