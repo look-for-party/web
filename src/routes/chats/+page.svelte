@@ -81,6 +81,7 @@
 			timestamp: 'Yesterday @ 2:30pm',
 			message: lorem,
 			color: 'variant-soft-primary'
+			// }
 		},
 		{
 			id: 5,
@@ -102,6 +103,15 @@
 		},
 		{
 			id: 7,
+			host: false,
+			avatar: 14,
+			name: 'Michael',
+			timestamp: 'Yesterday @ 2:52pm',
+			message: lorem,
+			color: 'variant-soft-primary'
+		},
+		{
+			id: 8,
 			host: false,
 			avatar: 14,
 			name: 'Michael',
@@ -184,7 +194,7 @@
 		<!-- Chat -->
 		<div class="grid grid-row-[1fr_auto]">
 			<!-- Conversation -->
-			<section bind:this={elemChat} class="h-full p-4 overflow-y-auto space-y-4">
+			<section bind:this={elemChat} class="max-h-[85vh] p-4 overflow-y-auto space-y-4">
 				{#each messageFeed as bubble}
 					{#if bubble.host === true}
 						<div class="grid grid-cols-[auto_1fr] gap-2">
@@ -212,7 +222,7 @@
 				{/each}
 			</section>
 			<!-- Prompt -->
-			<section class="border-t border-surface-500/30 p-4">
+			<section class="border-t border-surface-500/30 p-4 max-h-min">
 				<div
 					class="input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-container-token"
 				>
@@ -235,6 +245,8 @@
 				</div>
 			</section>
 		</div>
+
+		<div class="grid grid-rows-[auto_1fr_auto]" />
 	</div>
 </section>
 
