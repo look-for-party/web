@@ -21,6 +21,7 @@
 		"@commitlint/cli": "^18.2.0",
 		"@commitlint/config-conventional": "^18.1.0",
 		"@commitlint/cz-commitlint": "^18.2.0",
+		"@faker-js/faker": "^8.2.0",
 		"@playwright/test": "^1.28.1",
 		"@skeletonlabs/skeleton": "^2.4.0",
 		"@skeletonlabs/tw-plugin": "^0.2.3",
