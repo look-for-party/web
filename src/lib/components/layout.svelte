@@ -17,10 +17,10 @@
 		<Header />
 	</svelte:fragment>
 	<!-- Router Slot -->
-	<label class="flex items-center space-x-2">
+	<!-- <label class="flex items-center space-x-2">
 		<input class="checkbox" type="checkbox" bind:checked={$loggedIn} />
 		<p>Logged in</p>
-	</label>
+	</label> -->
 	<slot />
 	<!-- ---- / ---- -->
 	<!-- (pageFooter) -->

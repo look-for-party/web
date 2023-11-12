@@ -4,7 +4,5 @@
 </script>
 
 <Layout>
-	<LightSwitch />
-	<nav class="text-secondary-500">I am nav</nav>
 	<slot />
 </Layout>

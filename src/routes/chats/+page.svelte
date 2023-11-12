@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	// Components
 	import { Avatar, ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
+	import SearchBar from '$components/forms/SearchBar.svelte';
 
 	// Types
 	interface Person {
@@ -71,6 +72,42 @@
 			timestamp: 'Yesterday @ 2:52pm',
 			message: lorem,
 			color: 'variant-soft-primary'
+		},
+		{
+			id: 4,
+			host: true,
+			avatar: 48,
+			name: 'Jane',
+			timestamp: 'Yesterday @ 2:30pm',
+			message: lorem,
+			color: 'variant-soft-primary'
+		},
+		{
+			id: 5,
+			host: false,
+			avatar: 14,
+			name: 'Michael',
+			timestamp: 'Yesterday @ 2:45pm',
+			message: lorem,
+			color: 'variant-soft-primary'
+		},
+		{
+			id: 6,
+			host: true,
+			avatar: 48,
+			name: 'Jane',
+			timestamp: 'Yesterday @ 2:50pm',
+			message: lorem,
+			color: 'variant-soft-primary'
+		},
+		{
+			id: 7,
+			host: false,
+			avatar: 14,
+			name: 'Michael',
+			timestamp: 'Yesterday @ 2:52pm',
+			message: lorem,
+			color: 'variant-soft-primary'
 		}
 	];
 	let currentMessage = '';
@@ -119,14 +156,14 @@
 	});
 </script>
 
-<section class="card">
-	<div class="chat w-full h-full grid grid-cols-1 lg:grid-cols-[30%_1fr]">
+<section class="card h-full">
+	<div class="chat w-full h-full grid grid-cols-1 lg:grid-cols-[20%_1fr_20%]">
 		<!-- Navigation -->
 		<div class="hidden lg:grid grid-rows-[auto_1fr_auto] border-r border-surface-500/30">
 			<!-- Header -->
-			<header class="border-b border-surface-500/30 p-4">
-				<input class="input" type="search" placeholder="Search..." />
-			</header>
+			<div class="p-4">
+				<SearchBar placeholder="Search..." />
+			</div>
 			<!-- List -->
 			<div class="p-4 space-y-4 overflow-y-auto">
 				<small class="opacity-50">Contacts</small>
@@ -147,7 +184,7 @@
 		<!-- Chat -->
 		<div class="grid grid-row-[1fr_auto]">
 			<!-- Conversation -->
-			<section bind:this={elemChat} class="max-h-[500px] p-4 overflow-y-auto space-y-4">
+			<section bind:this={elemChat} class="h-full p-4 overflow-y-auto space-y-4">
 				{#each messageFeed as bubble}
 					{#if bubble.host === true}
 						<div class="grid grid-cols-[auto_1fr] gap-2">

@@ -46,7 +46,7 @@
 	</svelte:fragment>
 
 	<svelte:fragment slot="trail">
-		<SearchBar />
+		<SearchBar placeholder="Global search..." />
 		{#if $loggedIn}
 			<a href="/parties" class="btn hover:variant-soft-primary">Parties</a>
 			<a href="/chats" class="btn hover:variant-soft-primary">Chats</a>
