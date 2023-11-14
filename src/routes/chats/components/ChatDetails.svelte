@@ -6,9 +6,11 @@
 	export let currentPerson: Person;
 </script>
 
-<div class="flex flex-col border-l border-surface-500/30">
+<div
+	class="flex flex-col items-center py-4 border-l border-surface-500/30 flex-[0_1_30%] min-w-[250px]"
+>
 	<!-- Header -->
-	<header class="p-4">
+	<header class="flex flex-col items-center space-y-4 flex-grow-0">
 		<Avatar src={currentPerson.avatar} width="w-24" />
 		<p>{currentPerson.name}</p>
 		<div class="btn-group variant-ringed-surface [&>*+*]:border-surface-500">
@@ -17,7 +19,7 @@
 		</div>
 	</header>
 	<!-- Details -->
-	<section class="flex-grow relative">
+	<section class="flex-grow relative w-full">
 		<div class="absolute inset-0 p-4 space-y-4 overflow-y-auto">
 			<Accordion>
 				<AccordionItem>
