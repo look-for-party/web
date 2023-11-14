@@ -15,7 +15,7 @@
 	let isDetailsOpen: boolean = true;
 </script>
 
-<section class="chat card h-full grid grid-cols-[90px_1fr_auto] lg:grid-cols-[360px_1fr_auto]">
+<section class="chat card h-full flex flex-row">
 	<ChatNavigation {people} bind:currentPerson />
 	<ChatFeed {currentPerson} bind:messageFeed bind:currentMessage bind:isDetailsOpen />
 	{#if isDetailsOpen}

@@ -56,7 +56,7 @@
 	});
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col flex-1">
 	<!-- Header -->
 	<header class="border-b border-surface-500/30 p-4">
 		<div class="flex justify-between items-center">

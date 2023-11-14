@@ -8,7 +8,7 @@
 	export let currentPerson: Person;
 </script>
 
-<div class="flex flex-col border-r border-surface-500/30">
+<div class="flex flex-col border-r border-surface-500/30 w-24 lg:w-80">
 	<!-- Header -->
 	<header class="p-4">
 		<SearchBar placeholder="Search contacts" />
