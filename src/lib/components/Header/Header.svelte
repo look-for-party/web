@@ -4,7 +4,8 @@
 		getDrawerStore,
 		Drawer,
 		type DrawerSettings,
-		Avatar
+		Avatar,
+		LightSwitch
 	} from '@skeletonlabs/skeleton';
 	import SearchBar from '../SearchBar.svelte';
 	import { loggedIn } from '../../stores';
@@ -46,12 +47,20 @@
 		<button
 			type="button"
 			class="material-symbols-outlined btn-icon mr-4"
-			style="font-size: 16px;"
+			style="font-size: 24px;"
 			on:click={openLeftSidebar}
 		>
 			menu
 		</button>
 		<h1 class="text-2xl"><a href="/" class="gradient-heading">Look For Party</a></h1>
+		<!-- TODO: This is only for testing, as LightSwitch cannot be hidden in the drawer. -->
+		<!-- See: https://www.skeleton.dev/utilities/lightswitches -->
+		<!-- Hide inside right drawer -->
+		<LightSwitch />
+		<label class="flex items-center space-x-2">
+			<input class="checkbox" type="checkbox" bind:checked={$loggedIn} />
+			<p>Logged in</p>
+		</label>
 	</svelte:fragment>
 
 	<svelte:fragment slot="trail">
@@ -66,7 +75,7 @@
 				<button
 					type="button"
 					class="material-symbols-outlined btn-icon hover:variant-soft-primary"
-					style="font-size: 16px;"
+					style="font-size: 24px;"
 				>
 					notifications
 				</button>
