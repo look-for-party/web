@@ -6,8 +6,10 @@
 		type DrawerSettings,
 		Avatar
 	} from '@skeletonlabs/skeleton';
-	import SearchBar from './forms/SearchBar.svelte';
-	import { loggedIn } from '../stores';
+	import SearchBar from '../SearchBar.svelte';
+	import { loggedIn } from '../../stores';
+	import LeftSidebar from './LeftSidebar.svelte';
+	import RightSidebar from './RightSidebar.svelte';
 
 	// must be invoked at the top level
 	// https://www.skeleton.dev/utilities/drawers#drawer-store
@@ -23,26 +25,33 @@
 		width: 'w-[280px] md:w-[480px]',
 		position: 'right'
 	};
-	function openLeftSidebar(): void {
+	const openLeftSidebar = (): void => {
 		drawerStore.open(leftDrawerSettings);
-	}
-	function openRightSidebar(): void {
+	};
+	const openRightSidebar = (): void => {
 		drawerStore.open(rightDrawerSettings);
-	}
+	};
 </script>
 
 <Drawer>
 	{#if $drawerStore.id === 'left-sidebar'}
-		<h1>This is the left sidebar</h1>
+		<LeftSidebar />
 	{:else if $drawerStore.id === 'right-sidebar'}
-		<h1>This is the right sidebar</h1>
+		<RightSidebar />
 	{/if}
 </Drawer>
 
 <AppBar>
 	<svelte:fragment slot="lead">
-		<button class="material-symbols-outlined mr-4" on:click={openLeftSidebar}> menu </button>
-		<strong class="text-2xl">Look For Party</strong>
+		<button
+			type="button"
+			class="material-symbols-outlined btn-icon mr-4"
+			style="font-size: 16px;"
+			on:click={openLeftSidebar}
+		>
+			menu
+		</button>
+		<h1 class="text-2xl"><a href="/" class="gradient-heading">Look For Party</a></h1>
 	</svelte:fragment>
 
 	<svelte:fragment slot="trail">
@@ -54,8 +63,12 @@
 
 			<div class="relative inline-block">
 				<span class="badge-icon variant-filled-warning absolute -top-0 -right-0 z-10">2</span>
-				<button class="btn-icon hover:variant-soft-primary">
-					<span class="material-symbols-outlined"> notifications </span>
+				<button
+					type="button"
+					class="material-symbols-outlined btn-icon hover:variant-soft-primary"
+					style="font-size: 16px;"
+				>
+					notifications
 				</button>
 			</div>
 
