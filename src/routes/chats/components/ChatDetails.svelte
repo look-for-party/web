@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Avatar, Accordion, AccordionItem, ListBox, ListBoxItem } from '@skeletonlabs/skeleton';
+	import { Avatar, Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 
 	import type { Person } from '$src/lib/types';
 
