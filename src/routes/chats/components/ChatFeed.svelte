@@ -94,22 +94,22 @@
 						<div>
 							<Avatar src={bubble.avatar} width="w-8" />
 						</div>
-						<div class="card p-4 variant-soft rounded-tl-none space-y-2">
+						<div class="card p-4 variant-soft rounded-tl-none space-y-2 overflow-x-auto">
 							<header class="flex justify-between items-center space-x-4">
 								<p class="font-bold">{bubble.name}</p>
 								<small class="opacity-50">{bubble.timestamp}</small>
 							</header>
-							<p>{bubble.message}</p>
+							<p class="break-words">{bubble.message}</p>
 						</div>
 					</div>
 				{:else}
 					<div class="flex justify-end space-x-2">
-						<div class="card p-4 rounded-tr-none space-y-2 {bubble.color}">
+						<div class="card p-4 rounded-tr-none space-y-2 {bubble.color} overflow-x-auto">
 							<header class="flex justify-between items-center space-x-4">
 								<p class="font-bold">{bubble.name}</p>
 								<small class="opacity-50">{bubble.timestamp}</small>
 							</header>
-							<p>{bubble.message}</p>
+							<p class="break-words">{bubble.message}</p>
 						</div>
 						<div>
 							<Avatar src={bubble.avatar} width="w-8" />
