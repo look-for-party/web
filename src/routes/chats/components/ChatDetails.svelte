@@ -19,7 +19,7 @@
 	<!-- Details -->
 	<section class="flex-grow relative">
 		<div class="absolute inset-0 p-4 space-y-4 overflow-y-auto">
-			<Accordion regionPanel="p-0">
+			<Accordion>
 				<AccordionItem>
 					<svelte:fragment slot="summary">Chat Info</svelte:fragment>
 					<svelte:fragment slot="content">
