@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { faker } from '@faker-js/faker';
 
@@ -31,6 +31,8 @@
 		setTimeout(() => {
 			scrollChatBottom('smooth');
 		}, 0);
+		// reset height
+		updateTextAreaHeight();
 	};
 
 	const onToggleDetails = (): void => {
@@ -54,6 +56,15 @@
 	onMount(() => {
 		scrollChatBottom();
 	});
+
+	let textAreaElement: HTMLElement;
+	const updateTextAreaHeight = async () => {
+		// TODO: Auto-expand text area and scroll feed to bottom if currently at bottom of feed
+		await tick(); // this fixes the issue where calls from addMessage doesn't update height
+
+		textAreaElement.style.height = 'auto'; // Reset to auto height to get the scroll height
+		textAreaElement.style.height = textAreaElement.scrollHeight + 'px';
+	};
 </script>
 
 <div class="flex flex-col flex-1">
@@ -115,14 +126,11 @@
 				class="material-symbols-outlined input-group-shim"
 				style="font-size: 16px;">attach_file_add</button
 			>
-			<!-- TODO: Auto-expand textarea -->
-			<!-- Possible direction: https://codepen.io/vsync/pen/bGgQzL-->
-			<!-- Requirements: Auto-expand and scroll feed if feed is at the bottom.-->
-			<!-- Only expand and do not scroll feed if feed is not at the bottom-->
-			<!-- See Discord chat area-->
 			<textarea
+				bind:this={textAreaElement}
+				on:input={updateTextAreaHeight}
 				bind:value={currentMessage}
-				class="textarea resize-y p-2 bg-transparent border-0 ring-0"
+				class="textarea p-2 bg-transparent border-0 ring-0 overflow-y-auto"
 				name="prompt"
 				id="prompt"
 				placeholder="Write a message..."
