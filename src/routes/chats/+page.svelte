@@ -17,6 +17,7 @@
 
 <section class="chat card h-full flex flex-row">
 	<ChatNavigation {people} bind:currentPerson />
+	<!-- TODO: chat feed scroll up when smaller window -->
 	<ChatFeed {currentPerson} bind:messageFeed bind:currentMessage bind:isDetailsOpen />
 	{#if isDetailsOpen}
 		<ChatDetails {currentPerson} />

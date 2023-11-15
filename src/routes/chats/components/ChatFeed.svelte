@@ -78,10 +78,12 @@
 		<div bind:this={elemChat} class="absolute inset-0 p-4 space-y-4 overflow-y-auto">
 			{#each messageFeed as bubble}
 				{#if bubble.host === true}
-					<div class="grid grid-cols-[auto_1fr]">
-						<Avatar src={bubble.avatar} width="w-8" />
+					<div class="flex space-x-2">
+						<div>
+							<Avatar src={bubble.avatar} width="w-8" />
+						</div>
 						<div class="card p-4 variant-soft rounded-tl-none space-y-2">
-							<header class="flex justify-between items-center">
+							<header class="flex justify-between items-center space-x-4">
 								<p class="font-bold">{bubble.name}</p>
 								<small class="opacity-50">{bubble.timestamp}</small>
 							</header>
@@ -89,15 +91,17 @@
 						</div>
 					</div>
 				{:else}
-					<div class="grid grid-cols-[1fr_auto] gap-2">
+					<div class="flex justify-end space-x-2">
 						<div class="card p-4 rounded-tr-none space-y-2 {bubble.color}">
-							<header class="flex justify-between items-center">
+							<header class="flex justify-between items-center space-x-4">
 								<p class="font-bold">{bubble.name}</p>
 								<small class="opacity-50">{bubble.timestamp}</small>
 							</header>
 							<p>{bubble.message}</p>
 						</div>
-						<Avatar src={bubble.avatar} width="w-8" />
+						<div>
+							<Avatar src={bubble.avatar} width="w-8" />
+						</div>
 					</div>
 				{/if}
 			{/each}
