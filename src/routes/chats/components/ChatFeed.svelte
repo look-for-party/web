@@ -60,6 +60,7 @@
 	let textAreaElement: HTMLElement;
 	const updateTextAreaHeight = async () => {
 		// TODO: Auto-expand text area and scroll feed to bottom if currently at bottom of feed
+		// TODO: Doesn't update when resizing to smaller window
 		await tick(); // this fixes the issue where calls from addMessage doesn't update height
 
 		textAreaElement.style.height = 'auto'; // Reset to auto height to get the scroll height
