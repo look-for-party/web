@@ -1,18 +1,18 @@
 <script lang="ts">
-  import type { Filter } from './types';
+	import type { Filter } from './types';
 	import { SlideToggle } from '@skeletonlabs/skeleton';
-  export let filter: Filter 
-  let filterNum = 0;
+	export let filter: Filter;
+	let filterNum = 0;
 
-  let skillSearch = '';
-  let matchProfile = false;
+	let skillSearch = '';
+	let matchProfile = false;
 
-  function clearFilters() {
-    filter.skills = [];
-    filter.commitments.forEach((commitment) => commitment.checked = false);
-    filter.interests = [];
-    filter = filter
-  }
+	function clearFilters() {
+		filter.skills = [];
+		filter.commitments.forEach((commitment) => (commitment.checked = false));
+		filter.interests = [];
+		filter = filter;
+	}
 </script>
 
 <section id="sidebar" class="flex flex-col w-[20vw] justify-start p-6">
@@ -41,10 +41,7 @@
 			{#each filter.commitments as commitment}
 				<li class="list-item justify-between">
 					<span>{commitment.name}</span>
-					<input
-						type="checkbox"
-            bind:checked={commitment.checked}
-					/>
+					<input type="checkbox" bind:checked={commitment.checked} />
 				</li>
 			{/each}
 		</ul>
@@ -55,9 +52,7 @@
 			{#each ['Politics', 'Environment', 'Education'] as interest}
 				<li class="list-item justify-between">
 					<span>{interest}</span>
-					<input
-						type="checkbox"
-					/>
+					<input type="checkbox" />
 				</li>
 			{/each}
 		</ul>
