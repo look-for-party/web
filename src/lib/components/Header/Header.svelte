@@ -90,8 +90,8 @@
 		{:else}
 			<a href="/parties" class="btn hover:variant-soft-primary">Parties</a>
 			<a href="/resources" class="btn hover:variant-soft-primary">Resources</a>
-			<a href="/signin" class="btn hover:variant-soft-primary">Sign In</a>
-			<a href="/signup" class="btn hover:variant-soft-primary">Sign Up</a>
+			<a href="/sign-in" class="btn hover:variant-soft-primary">Sign In</a>
+			<a href="/sign-up" class="btn hover:variant-soft-primary">Sign Up</a>
 		{/if}
 	</svelte:fragment>
 </AppBar>
