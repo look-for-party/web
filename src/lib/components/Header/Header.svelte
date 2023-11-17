@@ -71,7 +71,7 @@
 			<a href="/resources" class="btn hover:variant-soft-primary">Resources</a>
 
 			<div class="relative inline-block">
-				<span class="badge-icon variant-filled-warning absolute -top-0 -right-0 z-10">2</span>
+				<span class="variant-filled-warning badge-icon absolute -right-0 -top-0 z-10">2</span>
 				<button
 					type="button"
 					class="material-symbols-outlined btn-icon hover:variant-soft-primary"
