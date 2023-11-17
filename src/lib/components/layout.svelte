@@ -16,11 +16,6 @@
 	<svelte:fragment slot="pageHeader">
 		<Header />
 	</svelte:fragment>
-	<!-- Router Slot -->
-	<label class="flex items-center space-x-2">
-		<input class="checkbox" type="checkbox" bind:checked={$loggedIn} />
-		<p>Logged in</p>
-	</label>
 	<slot />
 	<!-- ---- / ---- -->
 	<!-- (pageFooter) -->
