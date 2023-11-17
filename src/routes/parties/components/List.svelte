@@ -5,16 +5,16 @@
 	import Filtering from './Filter.svelte';
 	import type { Filter, Party } from './types';
 
-  let filter: Filter = {
-    skills: [],
-    commitments: [
-      { name: '5-10hr/week', checked: false },
-      { name: '10-15hr/week', checked: false },
-      { name: '15-20hr/week', checked: false },
-      { name: '20+hr/week', checked: false },
-    ],
-    interests: [],
-  };
+	let filter: Filter = {
+		skills: [],
+		commitments: [
+			{ name: '5-10hr/week', checked: false },
+			{ name: '10-15hr/week', checked: false },
+			{ name: '15-20hr/week', checked: false },
+			{ name: '20+hr/week', checked: false }
+		],
+		interests: []
+	};
 
 	let parties: Party[] = [
 		{
@@ -39,9 +39,9 @@
 </script>
 
 <div class="flex h-full" in:fly={{ y: 20, duration: 300 }}>
-  <Filtering bind:filter={filter} />
+	<Filtering bind:filter />
 	<section class="col-span-3 flex flex-col items-center w-full" id="main-view">
-		<SearchBar placeholder="Search for party..."/>
+		<SearchBar placeholder="Search for party..." />
 		<div class="flex flex-col items-center w-full">
 			{#each parties as party}
 				<figure class="card flex min-w-[50%] items-center justify-between pr-4 bg-primary-200 m-4">
