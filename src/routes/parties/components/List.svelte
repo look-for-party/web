@@ -3,7 +3,7 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { fly } from 'svelte/transition';
 	import Filtering from './Filter.svelte';
-	import type { Filter } from './types';
+	import type { Filter, Party } from './types';
 
   let filter: Filter = {
     skills: [],
@@ -16,12 +16,7 @@
     interests: [],
   };
 
-	let parties: {
-		name: string;
-		description: string;
-		commitment: string;
-		leader: string;
-	}[] = [
+	let parties: Party[] = [
 		{
 			name: 'Party 1',
 			description: 'Description 1',
