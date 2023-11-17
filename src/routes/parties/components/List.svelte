@@ -38,7 +38,7 @@
 	];
 </script>
 
-<div class="flex h-full" in:fly={{ y: 20, duration: 300 }}>
+<div class="flex" in:fly={{ y: 20, duration: 300 }}>
 	<Filtering bind:filter />
 	<section class="col-span-3 flex flex-col items-center w-full" id="main-view">
 		<SearchBar placeholder="Search for party..." />
