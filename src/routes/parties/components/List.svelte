@@ -1,10 +1,21 @@
 <script lang="ts">
-	import SearchBar from '$src/lib/components/forms/SearchBar.svelte';
+	import SearchBar from '$src/lib/components/SearchBar.svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { fly } from 'svelte/transition';
-	import Filter from './Filter.svelte';
+	import Filtering from './Filter.svelte';
+	import type { Filter } from './types';
 
-  let filters: Set<string> = new Set();
+  let filter: Filter = {
+    skills: [],
+    commitments: [
+      { name: '5-10hr/week', checked: false },
+      { name: '10-15hr/week', checked: false },
+      { name: '15-20hr/week', checked: false },
+      { name: '20+hr/week', checked: false },
+    ],
+    interests: [],
+  };
+
 	let parties: {
 		name: string;
 		description: string;
@@ -33,9 +44,9 @@
 </script>
 
 <div class="flex h-full" in:fly={{ y: 20, duration: 300 }}>
-  <Filter bind:filters={filters} />
+  <Filtering bind:filter={filter} />
 	<section class="col-span-3 flex flex-col items-center w-full" id="main-view">
-		<SearchBar />
+		<SearchBar placeholder="Search for party..."/>
 		<div class="flex flex-col items-center w-full">
 			{#each parties as party}
 				<figure class="card flex min-w-[50%] items-center justify-between pr-4 bg-primary-200 m-4">

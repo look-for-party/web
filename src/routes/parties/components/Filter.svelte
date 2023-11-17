@@ -1,36 +1,26 @@
 <script lang="ts">
+  import type { Filter } from './types';
 	import { SlideToggle } from '@skeletonlabs/skeleton';
-	export let filters: Set<string>;
-  let commitments = ['1-5h/w', '5-10h/w', '10-15h/w'].map(val => {
-        return { value: val, checked: false }; 
-  })
-	let matchProfile = true;
-	let filterSearch = '';
+  export let filter: Filter 
+  let filterNum = 0;
 
-  function toggleFilter(val: string) {
-    if (filters.has(val)) {
-      filters.delete(val);
-    } else {
-      filters.add(val);
-    }
-    filters = filters
-  }
+  let skillSearch = '';
+  let matchProfile = false;
 
   function clearFilters() {
-    filters.clear();
-    filters = filters;
-    for (let i = 0; i < commitments.length; i++) {
-      commitments[i].checked = false;
-    }
+    filter.skills = [];
+    filter.commitments.forEach((commitment) => commitment.checked = false);
+    filter.interests = [];
+    filter = filter
   }
 </script>
 
 <section id="sidebar" class="flex flex-col w-[20vw] justify-start p-6">
 	<div class="my-2">
-		<button class="btn bg-primary-500" disabled={filters.size === 0} on:click={clearFilters}
+		<button class="btn bg-primary-500" disabled={filterNum === 0} on:click={clearFilters}
 			>Clear filters</button
 		>
-		<span class="chip variant-filled">{filters.size}</span>
+		<span class="chip variant-filled">{filterNum}</span>
 	</div>
 	<SlideToggle name="slider-label" size="sm" active="bg-secondary-500" bind:checked={matchProfile}
 		>Match my profile</SlideToggle
@@ -41,20 +31,19 @@
 			class="input px-2 py-1"
 			type="search"
 			name="demo"
-			bind:value={filterSearch}
+			bind:value={skillSearch}
 			placeholder="Search..."
 		/>
 	</div>
 	<div class="my-2">
 		<span>Commitment</span>
 		<ul class="list">
-			{#each commitments as commitment}
+			{#each filter.commitments as commitment}
 				<li class="list-item justify-between">
-					<span>{commitment.value}</span>
+					<span>{commitment.name}</span>
 					<input
 						type="checkbox"
             bind:checked={commitment.checked}
-            on:change={() => toggleFilter(commitment.value)}
 					/>
 				</li>
 			{/each}
