@@ -3,7 +3,8 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { fly } from 'svelte/transition';
 	import Filtering from './Filter.svelte';
-	import type { Filter, Party } from './types';
+	import type { Filter } from './types';
+	import { partiesMockData } from '$src/lib/utils/partiesMockData';
 
 	let filter: Filter = {
 		skills: [],
@@ -16,26 +17,7 @@
 		interests: []
 	};
 
-	let parties: Party[] = [
-		{
-			name: 'Party 1',
-			description: 'Description 1',
-			commitment: '5 hours/week',
-			leader: 'Leader 1'
-		},
-		{
-			name: 'Party 2',
-			description: 'Description 2',
-			commitment: '5 hours/week',
-			leader: 'Leader 2'
-		},
-		{
-			name: 'Party 3',
-			description: 'Description 3',
-			commitment: '5 hours/week',
-			leader: 'Leader 3'
-		}
-	];
+	let parties = partiesMockData;
 </script>
 
 <div class="flex" in:fly={{ y: 20, duration: 300 }}>
@@ -56,7 +38,7 @@
 					</div>
 					<div class="flex flex-col">
 						<span>{party.leader}</span>
-						<span>{party.commitment}</span>
+						<span>{party.requirements.commitment}</span>
 					</div>
 				</figure>
 			{/each}
