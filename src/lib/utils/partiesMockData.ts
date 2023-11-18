@@ -12,7 +12,8 @@ export const partiesMockData: Party[] = [
 			commitment: 'Less than 10 hours/week',
 			skills: ['JavaScript']
 		},
-		leader: createRandomPerson()
+		leader: createRandomPerson(),
+		upvotes: faker.number.int(1000)
 	},
 	{
 		id: faker.number.int(),
@@ -23,7 +24,8 @@ export const partiesMockData: Party[] = [
 			commitment: 'Flexible',
 			skills: ['HTML', 'CSS', 'JavaScript']
 		},
-		leader: createRandomPerson()
+		leader: createRandomPerson(),
+		upvotes: faker.number.int(1000)
 	},
 	{
 		id: faker.number.int(),
@@ -34,7 +36,8 @@ export const partiesMockData: Party[] = [
 			commitment: '10 to 15 hours/week',
 			skills: ['React', 'Firebase']
 		},
-		leader: createRandomPerson()
+		leader: createRandomPerson(),
+		upvotes: faker.number.int(1000)
 	},
 	{
 		name: 'Online Art Portfolio Showcase',
@@ -45,6 +48,7 @@ export const partiesMockData: Party[] = [
 			commitment: 'Flexible',
 			skills: ['Frontend Development', 'UI/UX Design']
 		},
-		leader: createRandomPerson()
+		leader: createRandomPerson(),
+		upvotes: faker.number.int(1000)
 	}
 ];

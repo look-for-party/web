@@ -7,4 +7,5 @@ export type Party = {
 	description: string;
 	requirements: Requirement;
 	leader: Person;
+	upvotes: number;
 };

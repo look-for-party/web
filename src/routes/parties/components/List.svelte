@@ -6,6 +6,7 @@
 	import type { Filter } from './types';
 	import { partiesMockData } from '$src/lib/utils/partiesMockData';
 	import { faker } from '@faker-js/faker/locale/af_ZA';
+	import type { Party } from '$src/lib/types/Party';
 
 	let filter: Filter = {
 		skills: [],
@@ -16,6 +17,29 @@
 			{ name: '20+hr/week', checked: false }
 		],
 		interests: []
+	};
+
+	let votedParties: { [id: number]: number | undefined } = {};
+
+	const onVote = (party: Party, isUpvote: boolean) => {
+		const previousVote = votedParties[party.id] || 0;
+
+		if (isUpvote && previousVote === 1) {
+			party.upvotes--;
+			delete votedParties[party.id];
+		} else if (!isUpvote && previousVote === -1) {
+			party.upvotes++;
+			delete votedParties[party.id];
+		} else {
+			const x = isUpvote ? 1 : -1;
+			party.upvotes += x;
+			votedParties[party.id] = x;
+
+			if (previousVote === -x) {
+				party.upvotes += x;
+			}
+		}
+		parties = parties; // svelte only update when assigning
 	};
 
 	let parties = partiesMockData;
@@ -43,11 +67,17 @@
 			{#each parties as party}
 				<div class="card card-hover flex items-center m-4 w-full h-32">
 					<div class="btn-group-vertical h-full rounded-r-none ring-outline-token">
-						<button class="">+</button>
+						<button
+							class={votedParties[party.id] === 1 ? 'bg-success-active-token' : ''}
+							on:click={() => onVote(party, true)}>+</button
+						>
 						<div class="flex-grow flex justify-center items-center">
-							<div>12</div>
+							<div>{party.upvotes}</div>
 						</div>
-						<button class="">-</button>
+						<button
+							class={votedParties[party.id] === -1 ? 'bg-error-active-token' : ''}
+							on:click={() => onVote(party, false)}>-</button
+						>
 					</div>
 					<div class="h-full aspect-square p-5">
 						<Avatar src={faker.image.url()} width="w-full" />
