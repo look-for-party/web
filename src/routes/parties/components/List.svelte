@@ -10,12 +10,7 @@
 
 	let filter: Filter = {
 		skills: [],
-		commitments: [
-			{ name: '5-10hr/week', checked: false },
-			{ name: '10-15hr/week', checked: false },
-			{ name: '15-20hr/week', checked: false },
-			{ name: '20+hr/week', checked: false }
-		],
+		commitments: [],
 		interests: []
 	};
 

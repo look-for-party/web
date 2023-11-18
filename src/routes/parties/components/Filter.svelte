@@ -1,18 +1,42 @@
 <script lang="ts">
+	import { commitments, type Commitment } from '$src/lib/partyRequirements/commitments';
+	import { interests, type Interest } from '$src/lib/partyRequirements/interests';
+	import { skills, type Skill } from '$src/lib/partyRequirements/skills';
 	import type { Filter } from './types';
 	import { SlideToggle } from '@skeletonlabs/skeleton';
 	export let filter: Filter;
 	let filterNum = 0;
+	$: filterNum = filter.commitments.length + filter.interests.length + filter.skills.length;
 
 	let skillSearch = '';
 	let matchProfile = false;
 
-	function clearFilters() {
-		filter.skills = [];
-		filter.commitments.forEach((commitment) => (commitment.checked = false));
-		filter.interests = [];
+	const clearFilters = () => {
+		filter = {
+			skills: [],
+			commitments: [],
+			interests: []
+		};
+	};
+
+	const addCommitment = (commitment: Commitment) => {
+		const idx = filter.commitments.indexOf(commitment);
+		if (idx === -1) {
+			filter.commitments.push(commitment);
+		} else {
+			filter.commitments = filter.commitments.splice(idx, 1);
+		}
 		filter = filter;
-	}
+	};
+	const addInterest = (interest: Interest) => {
+		const idx = filter.interests.indexOf(interest);
+		if (idx === -1) {
+			filter.interests.push(interest);
+		} else {
+			filter.interests = filter.interests.splice(idx, 1);
+		}
+		filter = filter;
+	};
 </script>
 
 <section id="sidebar" class="flex flex-col w-[20vw] min-w-[230px] space-y-6">
@@ -40,10 +64,15 @@
 	<div>
 		<h3 class="h3">Commitment</h3>
 		<ul class="list">
-			{#each filter.commitments as commitment}
+			{#each commitments as commitment}
 				<li class="list-item">
-					<input class="checkbox" type="checkbox" bind:checked={commitment.checked} />
-					<span>{commitment.name}</span>
+					<input
+						class="checkbox ml-1"
+						type="checkbox"
+						on:click={() => addCommitment(commitment)}
+						checked={filter.commitments.includes(commitment)}
+					/>
+					<span>{commitment}</span>
 				</li>
 			{/each}
 		</ul>
@@ -51,9 +80,14 @@
 	<div>
 		<h3 class="h3">Interests</h3>
 		<ul class="list">
-			{#each ['Politics', 'Environment', 'Education'] as interest}
+			{#each interests as interest}
 				<li class="list-item">
-					<input class="checkbox" type="checkbox" />
+					<input
+						class="checkbox ml-1"
+						type="checkbox"
+						on:click={() => addInterest(interest)}
+						checked={filter.interests.includes(interest)}
+					/>
 					<span>{interest}</span>
 				</li>
 			{/each}
