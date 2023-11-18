@@ -3,12 +3,17 @@
 	import { interests, type Interest } from '$src/lib/partyRequirements/interests';
 	import { skills, type Skill } from '$src/lib/partyRequirements/skills';
 	import type { Filter } from './types';
-	import { SlideToggle } from '@skeletonlabs/skeleton';
+	import {
+		Autocomplete,
+		InputChip,
+		SlideToggle,
+		type AutocompleteOption
+	} from '@skeletonlabs/skeleton';
+
 	export let filter: Filter;
 	let filterNum = 0;
 	$: filterNum = filter.commitments.length + filter.interests.length + filter.skills.length;
 
-	let skillSearch = '';
 	let matchProfile = false;
 
 	const clearFilters = () => {
@@ -37,6 +42,20 @@
 		}
 		filter = filter;
 	};
+
+	let skillInput = '';
+	const skillOptions: AutocompleteOption<Skill>[] = [];
+	for (let skill of skills) {
+		skillOptions.push({ label: skill, value: skill, keywords: '' });
+	}
+
+	const onInputChipSelect = (event: CustomEvent<AutocompleteOption<String>>) => {
+		if (filter.skills.includes(event.detail.value as Skill) === false) {
+			filter.skills.push(event.detail.value as Skill);
+			filter = filter;
+			skillInput = '';
+		}
+	};
 </script>
 
 <section id="sidebar" class="flex flex-col w-[20vw] min-w-[230px] space-y-6">
@@ -51,16 +70,25 @@
 	<SlideToggle name="slider-label" size="sm" active="bg-secondary-500" bind:checked={matchProfile}
 		>Match my profile</SlideToggle
 	>
-	<div class="my-2">
-		<span>Skills</span>
-		<input
-			class="input px-2 py-1"
-			type="search"
-			name="demo"
-			bind:value={skillSearch}
-			placeholder="Search..."
+	<div>
+		<h3 class="h3">Skills</h3>
+		<InputChip
+			bind:input={skillInput}
+			bind:value={filter.skills}
+			name="chips"
+			placeholder="Enter skills..."
 		/>
+		<!-- TODO: use popups -->
+		<div class="card w-full max-w-sm max-h-48 p-4 overflow-y-auto" tabindex="-1">
+			<Autocomplete
+				bind:input={skillInput}
+				options={skillOptions}
+				denylist={filter.skills}
+				on:selection={onInputChipSelect}
+			/>
+		</div>
 	</div>
+
 	<div>
 		<h3 class="h3">Commitment</h3>
 		<ul class="list">
