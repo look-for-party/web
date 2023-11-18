@@ -1,8 +1,10 @@
+import { faker } from '@faker-js/faker';
 import { createRandomPerson } from '.';
 import type { Party } from '../types/Party';
 
 export const partiesMockData: Party[] = [
 	{
+		id: faker.number.int(),
 		name: 'Snake web game',
 		description: 'We will be making the snake game using javascript.',
 		requirements: {
@@ -13,6 +15,7 @@ export const partiesMockData: Party[] = [
 		leader: createRandomPerson()
 	},
 	{
+		id: faker.number.int(),
 		name: 'Interactive Recipe App',
 		description: 'Building a web app to explore and share recipes interactively.',
 		requirements: {
@@ -23,6 +26,7 @@ export const partiesMockData: Party[] = [
 		leader: createRandomPerson()
 	},
 	{
+		id: faker.number.int(),
 		name: 'Fitness Tracker Mobile App',
 		description: 'Developing a mobile app to track fitness activities and progress.',
 		requirements: {
@@ -34,6 +38,7 @@ export const partiesMockData: Party[] = [
 	},
 	{
 		name: 'Online Art Portfolio Showcase',
+		id: faker.number.int(),
 		description: 'Creating a platform for artists to showcase their work online.',
 		requirements: {
 			interests: ['Art', 'Web', 'Design'],
