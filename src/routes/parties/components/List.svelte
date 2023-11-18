@@ -46,13 +46,13 @@
 </script>
 
 <!-- TODO: handle overflows -->
-<div class="flex" in:fly={{ y: 20, duration: 300 }}>
+<div class="flex px-6 pt-4 space-x-6" in:fly={{ y: 20, duration: 300 }}>
 	<Filtering bind:filter />
-	<section class="flex flex-col items-center w-full flex-grow" id="main-view">
-		<div class="w-full p-4">
+	<section class="flex flex-col items-center w-full flex-grow space-y-8" id="main-view">
+		<div class="w-full">
 			<SearchBar placeholder="Search for party..." />
 		</div>
-		<div class="w-full p-4 flex items-center justify-between">
+		<div class="w-full flex items-center justify-between">
 			<div>Showing 696 entries (0.420 ms)</div>
 			<div>
 				Sort by:
@@ -63,9 +63,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-col items-center w-full max-w-screen-lg">
+		<div class="flex flex-col items-center w-full max-w-screen-lg space-y-8">
 			{#each parties as party}
-				<div class="card card-hover flex items-center m-4 w-full h-32">
+				<div class="card card-hover flex items-center w-full h-32">
 					<div class="btn-group-vertical h-full rounded-r-none ring-outline-token">
 						<button
 							class={votedParties[party.id] === 1 ? 'bg-success-active-token' : ''}
