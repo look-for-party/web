@@ -15,12 +15,14 @@
 	}
 </script>
 
-<section id="sidebar" class="flex flex-col w-[20vw] justify-start p-6">
-	<div class="my-2">
-		<button class="btn bg-primary-500" disabled={filterNum === 0} on:click={clearFilters}
-			>Clear filters</button
+<section id="sidebar" class="flex flex-col w-[20vw] min-w-[230px] space-y-6">
+	<div class="w-full flex justify-between">
+		<button
+			class="btn text-lg variant-soft enabled:hover:variant-filled rounded-sm"
+			disabled={filterNum === 0}
+			on:click={clearFilters}>Clear filters</button
 		>
-		<span class="chip variant-filled">{filterNum}</span>
+		<span class="chip variant-ringed text-lg">{filterNum}</span>
 	</div>
 	<SlideToggle name="slider-label" size="sm" active="bg-secondary-500" bind:checked={matchProfile}
 		>Match my profile</SlideToggle
@@ -35,24 +37,24 @@
 			placeholder="Search..."
 		/>
 	</div>
-	<div class="my-2">
-		<span>Commitment</span>
+	<div>
+		<h3 class="h3">Commitment</h3>
 		<ul class="list">
 			{#each filter.commitments as commitment}
-				<li class="list-item justify-between">
+				<li class="list-item">
+					<input class="checkbox" type="checkbox" bind:checked={commitment.checked} />
 					<span>{commitment.name}</span>
-					<input type="checkbox" bind:checked={commitment.checked} />
 				</li>
 			{/each}
 		</ul>
 	</div>
-	<div class="my-2">
-		<span>Interests</span>
+	<div>
+		<h3 class="h3">Interests</h3>
 		<ul class="list">
 			{#each ['Politics', 'Environment', 'Education'] as interest}
-				<li class="list-item justify-between">
+				<li class="list-item">
+					<input class="checkbox" type="checkbox" />
 					<span>{interest}</span>
-					<input type="checkbox" />
 				</li>
 			{/each}
 		</ul>
