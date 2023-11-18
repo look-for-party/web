@@ -6,7 +6,6 @@
 	import type { Filter } from './types';
 	import { partiesMockData } from '$src/lib/utils/partiesMockData';
 	import { faker } from '@faker-js/faker/locale/af_ZA';
-	import { interests } from '$src/lib/partyRequirements/interests';
 
 	let filter: Filter = {
 		skills: [],
@@ -42,22 +41,25 @@
 		</div>
 		<div class="flex flex-col items-center w-full max-w-screen-lg">
 			{#each parties as party}
-				<div class="card flex rounded-none items-center bg-primary-200 m-4 w-full h-32">
+				<div class="card card-hover flex items-center m-4 w-full h-32">
 					<div class="btn-group-vertical h-full rounded-r-none ring-outline-token">
-						<button class="flex-grow bg-success-active-token">+1</button>
-						<button class="flex-grow bg-error-active-token">-1</button>
+						<button class="">+</button>
+						<div class="flex-grow flex justify-center items-center">
+							<div>12</div>
+						</div>
+						<button class="">-</button>
 					</div>
-					<div class="h-full aspect-square flex items-center justify-center p-5">
+					<div class="h-full aspect-square p-5">
 						<Avatar src={faker.image.url()} width="w-full" />
 					</div>
-					<div class="flex flex-col border-r-2 border-gray-300 h-full p-2 flex-grow">
-						<h2 class="h2">{party.name}</h2>
-						<p>{party.description}</p>
+					<div class="border-r-2 border-gray-300 h-full p-2 flex-1 overflow-auto">
+						<h2 class="h2 h-1/2 whitespace-nowrap">{party.name}</h2>
+						<p class="h-1/2">{party.description}</p>
 					</div>
 
 					<div class="flex flex-col w-1/4 pl-4 space-y-2 h-full p-2 overflow-scroll">
 						<div class="flex items-center w-full space-x-4">
-							<Avatar src={party.leader.avatar} width="w-8" />
+							<Avatar src={party.leader.avatar} width="w-6" />
 							<span>{party.leader.name}</span>
 						</div>
 						<div class="flex items-center w-full space-x-4">
@@ -68,7 +70,7 @@
 							<span class="material-symbols-outlined"> tag </span>
 							<div>
 								{#each party.requirements.skills as skill}
-									<span class="chip variant-filled mr-2 mb-2">{skill}</span>
+									<span class="chip variant-filled hover:variant-soft mr-2 mb-2">{skill}</span>
 								{/each}
 							</div>
 						</div>
