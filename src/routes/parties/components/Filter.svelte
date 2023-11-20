@@ -50,6 +50,11 @@
 	for (let skill of skills) {
 		skillOptions.push({ label: skill, value: skill, keywords: '' });
 	}
+	const isSkillInputValid = (inp: string) => {
+		// search for inp in skills ignoring case
+		const inpLowered = inp.toLowerCase();
+		return skills.some((str) => str.toLowerCase() === inpLowered);
+	};
 
 	let popupSettings: PopupSettings = {
 		event: 'focus-click',
@@ -84,6 +89,7 @@
 			<InputChip
 				bind:input={skillInput}
 				bind:value={filter.skills}
+				validation={isSkillInputValid}
 				name="chips"
 				placeholder="Enter skills..."
 				chips="variant-filled hover:variant-soft"
