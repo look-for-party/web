@@ -7,7 +7,9 @@
 		Autocomplete,
 		InputChip,
 		SlideToggle,
-		type AutocompleteOption
+		type AutocompleteOption,
+		type PopupSettings,
+		popup
 	} from '@skeletonlabs/skeleton';
 
 	export let filter: Filter;
@@ -49,6 +51,12 @@
 		skillOptions.push({ label: skill, value: skill, keywords: '' });
 	}
 
+	let popupSettings: PopupSettings = {
+		event: 'focus-click',
+		target: 'popupAutocomplete',
+		placement: 'bottom'
+	};
+
 	const onInputChipSelect = (event: CustomEvent<AutocompleteOption<String>>) => {
 		if (filter.skills.includes(event.detail.value as Skill) === false) {
 			filter.skills.push(event.detail.value as Skill);
@@ -58,7 +66,7 @@
 	};
 </script>
 
-<section id="sidebar" class="flex flex-col w-[20vw] min-w-[230px] space-y-6">
+<section id="sidebar" class="flex flex-col w-1/5 min-w-[230px] space-y-6">
 	<div class="w-full flex justify-between">
 		<button
 			class="btn text-lg variant-soft enabled:hover:variant-filled rounded-sm"
@@ -72,14 +80,22 @@
 	>
 	<div>
 		<h3 class="h3">Skills</h3>
-		<InputChip
-			bind:input={skillInput}
-			bind:value={filter.skills}
-			name="chips"
-			placeholder="Enter skills..."
-		/>
-		<!-- TODO: use popups -->
-		<div class="card w-full max-w-sm max-h-48 p-4 overflow-y-auto" tabindex="-1">
+		<div use:popup={popupSettings}>
+			<InputChip
+				bind:input={skillInput}
+				bind:value={filter.skills}
+				name="chips"
+				placeholder="Enter skills..."
+				chips="variant-filled hover:variant-soft"
+			/>
+		</div>
+
+		<!-- for some reason w-1/6 looks more correct than w-1/5 -->
+		<div
+			data-popup="popupAutocomplete"
+			class="card overflow-y-auto max-h-48 w-1/6 min-w-[230px]"
+			tabindex="-1"
+		>
 			<Autocomplete
 				bind:input={skillInput}
 				options={skillOptions}
