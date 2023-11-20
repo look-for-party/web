@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { AppShell, initializeStores } from '@skeletonlabs/skeleton';
+	import { AppShell, initializeStores, storePopup } from '@skeletonlabs/skeleton';
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
 	import Header from '$src/lib/components/Header/Header.svelte';
 	import '$src/app.postcss';
 
@@ -8,6 +9,10 @@
 	// prevent known issues with SvelteKit SSR.
 	// https://www.skeleton.dev/utilities/drawers#prerequisites
 	initializeStores();
+
+	// required for using popups
+	// https://www.skeleton.dev/utilities/popups#installation
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 </script>
 
 <AppShell>
