@@ -26,21 +26,21 @@
 		};
 	};
 
-	const addCommitment = (commitment: Commitment) => {
+	const onCommitmentCheck = (commitment: Commitment) => {
 		const idx = filter.commitments.indexOf(commitment);
 		if (idx === -1) {
 			filter.commitments.push(commitment);
 		} else {
-			filter.commitments = filter.commitments.splice(idx, 1);
+			filter.commitments.splice(idx);
 		}
 		filter = filter;
 	};
-	const addInterest = (interest: Interest) => {
+	const onInterestCheck = (interest: Interest) => {
 		const idx = filter.interests.indexOf(interest);
 		if (idx === -1) {
 			filter.interests.push(interest);
 		} else {
-			filter.interests = filter.interests.splice(idx, 1);
+			filter.interests.splice(idx);
 		}
 		filter = filter;
 	};
@@ -119,7 +119,7 @@
 					<input
 						class="checkbox ml-1"
 						type="checkbox"
-						on:click={() => addCommitment(commitment)}
+						on:click={() => onCommitmentCheck(commitment)}
 						checked={filter.commitments.includes(commitment)}
 					/>
 					<span>{commitment}</span>
@@ -135,7 +135,7 @@
 					<input
 						class="checkbox ml-1"
 						type="checkbox"
-						on:click={() => addInterest(interest)}
+						on:click={() => onInterestCheck(interest)}
 						checked={filter.interests.includes(interest)}
 					/>
 					<span>{interest}</span>
