@@ -58,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-col items-center w-full max-w-screen-lg space-y-8">
+		<div class="flex flex-col items-center w-full max-w-5xl space-y-8">
 			{#each parties as party}
 				<div class="card card-hover flex items-center w-full h-32">
 					<div class="btn-group-vertical h-full rounded-r-none ring-outline-token">

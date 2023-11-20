@@ -99,7 +99,7 @@
 		<!-- for some reason w-1/6 looks more correct than w-1/5 -->
 		<div
 			data-popup="popupAutocomplete"
-			class="card overflow-y-auto max-h-48 w-1/6 min-w-[230px]"
+			class="card overflow-y-auto max-h-48 w-1/6 min-w-[230px] p-4"
 			tabindex="-1"
 		>
 			<Autocomplete
