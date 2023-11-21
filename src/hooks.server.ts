@@ -1,8 +1,8 @@
 // import { handleHooks } from "@lucia-auth/sveltekit"
 import { auth } from '$lib/server/lucia';
-// import { sequence } from "@sveltejs/kit/hooks"
+import type { Handle } from '@sveltejs/kit';
 
-export const handle = async ({ event, resolve }) => {
+export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.auth = auth.handleRequest(event);
 	return await resolve(event);
 };
