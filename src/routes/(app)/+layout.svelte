@@ -1,7 +1,12 @@
 <script lang="ts">
+	import { AppShell } from '@skeletonlabs/skeleton';
 	import Header from '$src/lib/components/Header/Header.svelte';
 </script>
 
-<!-- TODO: Related to the TODO in the root layout -->
-<Header />
-<slot />
+<AppShell>
+	<svelte:fragment slot="pageHeader">
+		<Header />
+	</svelte:fragment>
+	<!-- Router Slot -->
+	<slot />
+</AppShell>

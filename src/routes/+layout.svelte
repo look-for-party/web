@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AppShell, initializeStores } from '@skeletonlabs/skeleton';
+	import { initializeStores } from '@skeletonlabs/skeleton';
 	import '$src/app.postcss';
 
 	// should be in root layout
@@ -9,11 +9,4 @@
 	initializeStores();
 </script>
 
-<AppShell>
-	<!-- TODO: Is this layout legit? -->
-	<!-- What I meant to do was having an optional header in the root layout-->
-	<!-- so any children layout under this can opt out if needed -->
-	<svelte:fragment slot="pageHeader" />
-	<!-- Router Slot -->
-	<slot />
-</AppShell>
+<slot />
