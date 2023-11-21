@@ -1,2 +1,2 @@
-export * from './getCurrentTimestamp';
 export * from './seed';
+export * from './isValidEmail';
