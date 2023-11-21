@@ -1,93 +1,111 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import Fa6BrandsGoogle from 'virtual:icons/fa6-brands/google';
+	import Fa6BrandsMeta from 'virtual:icons/fa6-brands/meta';
+	import Fa6BrandsGithub from 'virtual:icons/fa6-brands/github';
+	import LucideEye from 'virtual:icons/lucide/eye';
+	import LucideEyeOff from 'virtual:icons/lucide/eye-off';
+
+	let showPassword = false;
+	let showConfirmPassword = false;
+
+	const togglePasswordVisibility = () => {
+		showPassword = !showPassword;
+	};
+
+	const toggleConfirmPasswordVisibility = () => {
+		showConfirmPassword = !showConfirmPassword;
+	};
 </script>
 
-<!-- TODO: Adopt Skeleton styling, maybe break out of root layer?, follow https://dev.to/enter?state=new-user -->
-<h1
-	class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
->
-	Create an account
-</h1>
-<div class="flex flex-col space-y-6">
-	<a href="#top" class="btn variant-filled-surface">
-		<span> (icon) </span><span>Sign up with Google</span></a
+<h1 class="text-xl font-bold md:text-2xl">Create an account</h1>
+<div class="w-full btn-group-vertical variant-ringed-surface [&>*+*]:border-surface-500">
+	<a href="#top">
+		<span><Fa6BrandsGoogle /></span><span class="flex-1 self-center">Sign up with Google</span></a
 	>
-	<a href="#top" class="btn variant-filled-surface">
-		<span> (icon) </span><span>Sign up with Facebook</span></a
+	<a href="#top">
+		<span><Fa6BrandsMeta /></span><span class="flex-1 self-center">Sign up with Facebook</span></a
 	>
-	<a href="/sign-in/github" class="btn variant-filled-surface">
-		<span> (icon) </span><span>Sign up with GitHub</span></a
+	<a href="/sign-in/github">
+		<span><Fa6BrandsGithub /></span><span class="flex-1 self-center">Sign up with GitHub</span></a
 	>
 </div>
 <div class="flex items-center">
 	<hr class="flex-1" />
-	<span class="text-center px-5 text-gray-500 dark:text-gray-400">or</span>
+	<span class="px-4 text-surface-400/80">or</span>
 	<hr class="flex-1" />
 </div>
 <form class="space-y-4 md:space-y-6" method="post" use:enhance>
-	<div>
-		<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-			>Email</label
-		>
+	<label for="email" class="label"
+		><span class="font-medium">Email</span>
 		<input
 			type="email"
 			name="email"
 			id="email"
-			class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-			placeholder="torvalds@example.com"
+			class="input"
+			placeholder="you@email.com"
 			required
 		/>
-	</div>
-	<div>
-		<label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-			>Password</label
-		>
-		<input
-			type="password"
-			name="password"
-			id="password"
-			placeholder="••••••••"
-			class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-			required
-		/>
-		<!-- TODO: Add show button -->
-	</div>
-	<div>
-		<label
-			for="confirm-password"
-			class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label
-		>
-		<input
-			type="password"
-			name="confirm-password"
-			id="confirm-password"
-			placeholder="••••••••"
-			class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-			required
-		/>
-		<!-- TODO: Add show button -->
-	</div>
-	<p class="text-sm font-light text-gray-500 dark:text-gray-300">
-		By signing up, you are agreeing to our <a
-			href="#top"
-			class="font-medium text-primary-600 hover:underline dark:text-primary-500">privacy policy</a
-		>,
-		<a href="#top" class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-			>terms of use</a
-		>, and
-		<a href="#top" class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-			>code of conduct</a
-		>.
+	</label>
+	<label for="password" class="label"
+		><span class="font-medium">Password</span>
+		<div class="input-group grid-cols-[1fr_auto]">
+			<input
+				type={showPassword ? 'text' : 'password'}
+				name="password"
+				id="password"
+				placeholder="••••••••"
+				class="input"
+				required
+			/>
+			<button
+				type="button"
+				title={showPassword ? 'Hide password' : 'Show password'}
+				class="variant-filled-secondary"
+				on:click={togglePasswordVisibility}
+			>
+				{#if showPassword}
+					<LucideEyeOff />
+				{:else}
+					<LucideEye />
+				{/if}
+			</button>
+		</div>
+	</label>
+	<label for="confirm-password" class="label"
+		><span class="font-medium">Confirm password</span>
+		<div class="input-group grid-cols-[1fr_auto]">
+			<input
+				type={showConfirmPassword ? 'text' : 'password'}
+				name="confirm-password"
+				id="confirm-password"
+				placeholder="••••••••"
+				class="input"
+				required
+			/>
+			<button
+				type="button"
+				title={showConfirmPassword ? 'Hide password' : 'Show password'}
+				class="variant-filled-secondary"
+				on:click={toggleConfirmPasswordVisibility}
+			>
+				{#if showConfirmPassword}
+					<LucideEyeOff />
+				{:else}
+					<LucideEye />
+				{/if}
+			</button>
+		</div>
+	</label>
+	<p class="text-sm font-light">
+		<em>
+			By signing up, you are agreeing to our <a href="#top" class="anchor">privacy policy</a>,
+			<a href="#top" class="anchor">terms of use</a>, and
+			<a href="#top" class="anchor">code of conduct</a>.
+		</em>
 	</p>
-	<button
-		type="submit"
-		class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-		>Create an account</button
-	>
-	<p class="text-sm font-light text-gray-500 dark:text-gray-400">
-		Already have an account? <a
-			href="/sign-in"
-			class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a
-		>
+	<button type="submit" class="w-full btn variant-filled-primary">Create an account</button>
+	<p class="text-sm font-light">
+		Already have an account? <a href="/sign-in" class="anchor">Sign in</a>
 	</p>
 </form>

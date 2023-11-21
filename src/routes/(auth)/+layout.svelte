@@ -1,24 +1,22 @@
 <script lang="ts">
 	import { PUBLIC_APP_NAME } from '$env/static/public';
+	import { LightSwitch } from '@skeletonlabs/skeleton';
 </script>
 
-<!-- TODO: Adopt Skeleton styling, maybe break out of root layer?, follow https://dev.to/enter?state=new-user -->
-<section class="card h-full">
-	<div class="h-full flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-		<a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+<section class="h-full">
+	<div class="h-full flex flex-col items-center justify-center p-6">
+		<!-- TODO: Hacky way to persist theme state across layouts. Perhaps another method? -->
+		<LightSwitch class="hidden" />
+		<a href="/" class="flex items-center mb-6">
 			<img
 				class="w-8 h-8 mr-2"
 				src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
 				alt="logo"
 			/>
-			{PUBLIC_APP_NAME}
+			<span class="text-2xl font-semibold gradient-heading">{PUBLIC_APP_NAME}</span>
 		</a>
-		<div
-			class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
-		>
-			<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-				<slot />
-			</div>
+		<div class="card p-6 sm:p-8 w-full sm:max-w-lg space-y-4 md:space-y-6">
+			<slot />
 		</div>
 	</div>
 </section>
