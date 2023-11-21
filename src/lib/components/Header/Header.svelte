@@ -7,6 +7,7 @@
 		Avatar,
 		LightSwitch
 	} from '@skeletonlabs/skeleton';
+	import { PUBLIC_APP_NAME } from '$env/static/public';
 	import SearchBar from '../SearchBar.svelte';
 	import { loggedIn } from '../../stores';
 	import LeftSidebar from './LeftSidebar.svelte';
@@ -52,7 +53,7 @@
 		>
 			menu
 		</button>
-		<h1 class="text-2xl"><a href="/" class="gradient-heading">Look For Party</a></h1>
+		<h1 class="text-2xl"><a href="/" class="gradient-heading">{PUBLIC_APP_NAME}</a></h1>
 		<!-- TODO: This is only for testing, as LightSwitch cannot be hidden in the drawer. -->
 		<!-- See: https://www.skeleton.dev/utilities/lightswitches -->
 		<!-- Hide inside right drawer -->
