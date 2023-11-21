@@ -12,6 +12,20 @@ export const interests = [
 	'Mobile',
 	'Health',
 	'Art',
-	'Design'
+	'Design',
+	'Languages',
+	'Education',
+	'Community',
+	'Sustainability',
+	'App Development',
+	'Artisan Crafts',
+	'Web Development',
+	'E-commerce',
+	'Mental Health',
+	'AI',
+	'Chatbot Development',
+	'Environment',
+	'Virtual Reality',
+	'History'
 ] as const;
 export type Interest = (typeof interests)[number];
