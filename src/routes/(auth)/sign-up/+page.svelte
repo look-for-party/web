@@ -1,119 +1,93 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { PUBLIC_APP_NAME } from '$env/static/public';
 </script>
 
 <!-- TODO: Adopt Skeleton styling, maybe break out of root layer?, follow https://dev.to/enter?state=new-user -->
-<section class="card h-full">
-	<div class="h-full flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-		<a href="/" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-			<img
-				class="w-8 h-8 mr-2"
-				src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-				alt="logo"
-			/>
-			{PUBLIC_APP_NAME}
-		</a>
-		<div
-			class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+<h1
+	class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+>
+	Create an account
+</h1>
+<div class="flex flex-col space-y-6">
+	<a href="#top" class="btn variant-filled-surface">
+		<span> (icon) </span><span>Sign up with Google</span></a
+	>
+	<a href="#top" class="btn variant-filled-surface">
+		<span> (icon) </span><span>Sign up with Facebook</span></a
+	>
+	<a href="/sign-in/github" class="btn variant-filled-surface">
+		<span> (icon) </span><span>Sign up with GitHub</span></a
+	>
+</div>
+<div class="flex items-center">
+	<hr class="flex-1" />
+	<span class="text-center px-5 text-gray-500 dark:text-gray-400">or</span>
+	<hr class="flex-1" />
+</div>
+<form class="space-y-4 md:space-y-6" method="post" use:enhance>
+	<div>
+		<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+			>Email</label
 		>
-			<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-				<h1
-					class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
-				>
-					Create an account
-				</h1>
-				<div class="flex flex-col space-y-6">
-					<a href="#top" class="btn variant-filled-surface">
-						<span> (icon) </span><span>Sign up with Google</span></a
-					>
-					<a href="#top" class="btn variant-filled-surface">
-						<span> (icon) </span><span>Sign up with Facebook</span></a
-					>
-					<a href="/sign-in/github" class="btn variant-filled-surface">
-						<span> (icon) </span><span>Sign up with GitHub</span></a
-					>
-				</div>
-				<div class="flex items-center">
-					<hr class="flex-1" />
-					<span class="text-center px-5 text-gray-500 dark:text-gray-400">or</span>
-					<hr class="flex-1" />
-				</div>
-				<form class="space-y-4 md:space-y-6" method="post" use:enhance>
-					<div>
-						<label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-							>Email</label
-						>
-						<input
-							type="email"
-							name="email"
-							id="email"
-							class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							placeholder="torvalds@example.com"
-							required
-						/>
-					</div>
-					<div>
-						<label
-							for="password"
-							class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label
-						>
-						<input
-							type="password"
-							name="password"
-							id="password"
-							placeholder="••••••••"
-							class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							required
-						/>
-						<!-- TODO: Add show button -->
-					</div>
-					<div>
-						<label
-							for="confirm-password"
-							class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-							>Confirm password</label
-						>
-						<input
-							type="password"
-							name="confirm-password"
-							id="confirm-password"
-							placeholder="••••••••"
-							class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							required
-						/>
-						<!-- TODO: Add show button -->
-					</div>
-					<p class="text-sm font-light text-gray-500 dark:text-gray-300">
-						By signing up, you are agreeing to our <a
-							href="#top"
-							class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-							>privacy policy</a
-						>,
-						<a
-							href="#top"
-							class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-							>terms of use</a
-						>, and
-						<a
-							href="#top"
-							class="font-medium text-primary-600 hover:underline dark:text-primary-500"
-							>code of conduct</a
-						>.
-					</p>
-					<button
-						type="submit"
-						class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-						>Create an account</button
-					>
-					<p class="text-sm font-light text-gray-500 dark:text-gray-400">
-						Already have an account? <a
-							href="/sign-in"
-							class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a
-						>
-					</p>
-				</form>
-			</div>
-		</div>
+		<input
+			type="email"
+			name="email"
+			id="email"
+			class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+			placeholder="torvalds@example.com"
+			required
+		/>
 	</div>
-</section>
+	<div>
+		<label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+			>Password</label
+		>
+		<input
+			type="password"
+			name="password"
+			id="password"
+			placeholder="••••••••"
+			class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+			required
+		/>
+		<!-- TODO: Add show button -->
+	</div>
+	<div>
+		<label
+			for="confirm-password"
+			class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label
+		>
+		<input
+			type="password"
+			name="confirm-password"
+			id="confirm-password"
+			placeholder="••••••••"
+			class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+			required
+		/>
+		<!-- TODO: Add show button -->
+	</div>
+	<p class="text-sm font-light text-gray-500 dark:text-gray-300">
+		By signing up, you are agreeing to our <a
+			href="#top"
+			class="font-medium text-primary-600 hover:underline dark:text-primary-500">privacy policy</a
+		>,
+		<a href="#top" class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+			>terms of use</a
+		>, and
+		<a href="#top" class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+			>code of conduct</a
+		>.
+	</p>
+	<button
+		type="submit"
+		class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+		>Create an account</button
+	>
+	<p class="text-sm font-light text-gray-500 dark:text-gray-400">
+		Already have an account? <a
+			href="/sign-in"
+			class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</a
+		>
+	</p>
+</form>
