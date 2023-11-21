@@ -43,7 +43,7 @@
 <!-- TODO: handle overflows -->
 <div class="flex px-6 pt-4 space-x-6" in:fly={{ y: 20, duration: 300 }}>
 	<Filtering bind:filter />
-	<section class="flex flex-col items-center w-full flex-grow space-y-8" id="main-view">
+	<section class="flex flex-col items-center w-full flex-1 space-y-8" id="main-view">
 		<div class="w-full">
 			<SearchBar placeholder="Search for party..." />
 		</div>
