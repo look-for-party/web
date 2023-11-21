@@ -4,21 +4,29 @@ import { PostgresError } from 'postgres';
 
 import type { Actions, PageServerLoad } from './$types';
 
+import { generateEmailVerificationToken } from '$lib/server/token';
+import { sendEmailVerificationLink } from '$lib/server/email';
+import { isValidEmail } from '$lib/utils';
+
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
-	if (session) throw redirect(302, '/');
+	if (session) {
+		if (!session.user.emailVerified) throw redirect(302, '/email-verification');
+		throw redirect(302, '/');
+	}
 	return {};
 };
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
 		const formData = await request.formData();
-		const username = formData.get('username');
+		const email = formData.get('email');
 		const password = formData.get('password');
+		const confirmPassword = formData.get('confirm-password');
 		// basic check
-		if (typeof username !== 'string' || username.length < 4 || username.length > 31) {
+		if (!isValidEmail(email)) {
 			return fail(400, {
-				message: 'Invalid username'
+				message: 'Invalid email'
 			});
 		}
 		if (typeof password !== 'string' || password.length < 6 || password.length > 255) {
@@ -26,15 +34,23 @@ export const actions: Actions = {
 				message: 'Invalid password'
 			});
 		}
+		if (password !== confirmPassword) {
+			return fail(400, {
+				message: 'Passwords do not match'
+			});
+		}
 		try {
 			const user = await auth.createUser({
 				key: {
-					providerId: 'username', // auth method
-					providerUserId: username.toLowerCase(), // unique id when using "username" auth method
+					providerId: 'email', // auth method
+					providerUserId: email.toLowerCase(), // unique id when using "email" auth method
 					password // hashed by Lucia
 				},
 				attributes: {
-					username
+					username: email.toLowerCase(), // default username
+					username_lower: email.toLowerCase(),
+					email: email.toLowerCase(),
+					email_verified: false
 				}
 			});
 			const session = await auth.createSession({
@@ -42,6 +58,9 @@ export const actions: Actions = {
 				attributes: {}
 			});
 			locals.auth.setSession(session); // set session cookie
+
+			const token = await generateEmailVerificationToken(user.userId);
+			await sendEmailVerificationLink(email, token);
 		} catch (e) {
 			// this part depends on the database you're using
 			// check for unique constraint error in user table
@@ -49,7 +68,7 @@ export const actions: Actions = {
 			// https://lucia-auth.com/guidebook/sign-in-with-username-and-password/sveltekit/
 			if (e instanceof PostgresError && e.code === '23505') {
 				return fail(400, {
-					message: 'Username already taken'
+					message: 'Email already taken'
 				});
 			}
 			return fail(500, {
@@ -58,6 +77,6 @@ export const actions: Actions = {
 		}
 		// redirect to
 		// make sure you don't throw inside a try/catch block!
-		throw redirect(302, '/');
+		throw redirect(302, '/email-verification');
 	}
 };
