@@ -1,3 +1,4 @@
+/// <reference types="lucia" />
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 declare global {
@@ -9,18 +10,19 @@ declare global {
 		// interface PageData {}
 		// interface Platform {}
 	}
-}
 
-/// <reference types="lucia" />
-declare namespace Lucia {
-	type Auth = import('$/lib/server/lucia').Auth;
-	// Make sure to update this whenever new columns are added to the user table
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	type DatabaseUserAttributes = {
-		username: string;
-	};
-	// eslint-disable-next-line @typescript-eslint/ban-types
-	type DatabaseSessionAttributes = {};
+	namespace Lucia {
+		type Auth = import('$/lib/server/lucia').Auth;
+		// Make sure to update this whenever new columns are added to the user table
+		type DatabaseUserAttributes = {
+			username: string;
+			// https://lucia-auth.com/guidebook/sign-in-with-username-and-password/sveltekit/#case-sensitivity
+			username_lower: string;
+			email: string;
+			email_verified: boolean;
+		};
+		type DatabaseSessionAttributes = Record<string, never>;
+	}
 }
 
 export {};
