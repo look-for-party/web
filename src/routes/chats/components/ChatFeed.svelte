@@ -4,7 +4,6 @@
 	import { faker } from '@faker-js/faker';
 
 	import type { MessageFeed, Person } from '$src/lib/types';
-	import { getCurrentTimestamp } from '$src/lib/utils';
 
 	let elemChat: HTMLElement;
 	export let messageFeed: MessageFeed[];
@@ -33,6 +32,10 @@
 		}, 0);
 		// reset height
 		updateTextAreaHeight();
+	};
+
+	const getCurrentTimestamp = (): string => {
+		return new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 	};
 
 	const onToggleDetails = (): void => {
