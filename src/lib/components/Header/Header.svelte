@@ -7,6 +7,8 @@
 		Avatar,
 		LightSwitch
 	} from '@skeletonlabs/skeleton';
+	import LucideMenu from 'virtual:icons/lucide/menu';
+	import LucideBell from 'virtual:icons/lucide/bell';
 	import { PUBLIC_APP_NAME } from '$env/static/public';
 	import SearchBar from '../SearchBar.svelte';
 	import { loggedIn } from '../../stores';
@@ -45,15 +47,14 @@
 
 <AppBar>
 	<svelte:fragment slot="lead">
-		<button
-			type="button"
-			class="material-symbols-outlined btn-icon mr-4"
-			style="font-size: 24px;"
-			on:click={openLeftSidebar}
-		>
-			menu
+		<button type="button" class="btn-icon mr-4" on:click={openLeftSidebar}>
+			<span>
+				<LucideMenu />
+			</span>
 		</button>
-		<h1 class="text-2xl"><a href="/" class="gradient-heading">{PUBLIC_APP_NAME}</a></h1>
+		<h1 class="text-xl font-semibold whitespace-nowrap">
+			<a href="/" class="gradient-heading">{PUBLIC_APP_NAME}</a>
+		</h1>
 		<!-- TODO: This is only for testing, as LightSwitch cannot be hidden in the drawer. -->
 		<!-- See: https://www.skeleton.dev/utilities/lightswitches -->
 		<!-- Hide inside right drawer -->
@@ -73,12 +74,10 @@
 
 			<div class="relative inline-block">
 				<span class="badge-icon variant-filled-warning absolute -top-0 -right-0 z-10">2</span>
-				<button
-					type="button"
-					class="material-symbols-outlined btn-icon hover:variant-soft-primary"
-					style="font-size: 24px;"
-				>
-					notifications
+				<button type="button" class="btn-icon hover:variant-soft-primary">
+					<span>
+						<LucideBell />
+					</span>
 				</button>
 			</div>
 
