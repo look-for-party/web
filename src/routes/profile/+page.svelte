@@ -9,6 +9,6 @@
 <h1>Profile</h1>
 <p>User id: {data.userId}</p>
 <p>Username: {data.username}</p>
-<form method="post" action="?/logout" use:enhance>
+<form method="post" action="?/sign-out" use:enhance>
 	<input type="submit" value="Sign out" />
 </form>
