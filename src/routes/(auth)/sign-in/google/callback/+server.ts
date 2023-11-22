@@ -1,12 +1,12 @@
 import { OAuthRequestError } from '@lucia-auth/oauth';
 import { eq } from 'drizzle-orm';
 
-import { auth, githubAuth } from '$lib/server/lucia.js';
+import { auth, googleAuth } from '$lib/server/lucia.js';
 import { db } from '$src/lib/server/db.js';
 import { user as userTable } from '$src/lib/server/schema.js';
 
 export const GET = async ({ url, cookies, locals }) => {
-	const storedState = cookies.get('github_oauth_state');
+	const storedState = cookies.get('google_oauth_state');
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
 	// validate state
@@ -16,16 +16,21 @@ export const GET = async ({ url, cookies, locals }) => {
 		});
 	}
 	try {
-		const { getExistingUser, githubUser, createUser, createKey } =
-			await githubAuth.validateCallback(code);
+		const { getExistingUser, googleUser, createUser, createKey } =
+			await googleAuth.validateCallback(code);
 		const getUser = async () => {
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
-			if (!githubUser.email) throw new Error('Email not provided');
+			if (!googleUser.email_verified) {
+				throw new Error('Email not verified');
+			}
+			if (!googleUser.email) {
+				throw new Error('Email not provided');
+			}
 			const [existingDatabaseUserWithEmail] = await db
 				.select()
 				.from(userTable)
-				.where(eq(userTable.email, githubUser.email));
+				.where(eq(userTable.email, googleUser.email));
 			if (existingDatabaseUserWithEmail) {
 				// transform `UserSchema` to `User`
 				const user = auth.transformDatabaseUser({
@@ -39,10 +44,10 @@ export const GET = async ({ url, cookies, locals }) => {
 			}
 			return await createUser({
 				attributes: {
-					username: githubUser.login,
-					username_lower: githubUser.login.toLowerCase(),
-					email: githubUser.email,
-					email_verified: !!githubUser.email
+					username: googleUser.name,
+					username_lower: googleUser.name.toLowerCase(),
+					email: googleUser.email,
+					email_verified: googleUser.email_verified
 				}
 			});
 		};

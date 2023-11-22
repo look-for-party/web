@@ -1,12 +1,12 @@
 import { OAuthRequestError } from '@lucia-auth/oauth';
 import { eq } from 'drizzle-orm';
 
-import { auth, githubAuth } from '$lib/server/lucia.js';
+import { auth, facebookAuth } from '$lib/server/lucia.js';
 import { db } from '$src/lib/server/db.js';
 import { user as userTable } from '$src/lib/server/schema.js';
 
 export const GET = async ({ url, cookies, locals }) => {
-	const storedState = cookies.get('github_oauth_state');
+	const storedState = cookies.get('facebook_oauth_state');
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
 	// validate state
@@ -16,16 +16,16 @@ export const GET = async ({ url, cookies, locals }) => {
 		});
 	}
 	try {
-		const { getExistingUser, githubUser, createUser, createKey } =
-			await githubAuth.validateCallback(code);
+		const { getExistingUser, facebookUser, createUser, createKey } =
+			await facebookAuth.validateCallback(code);
 		const getUser = async () => {
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
-			if (!githubUser.email) throw new Error('Email not provided');
+			if (!facebookUser.email) throw new Error('Email not provided');
 			const [existingDatabaseUserWithEmail] = await db
 				.select()
 				.from(userTable)
-				.where(eq(userTable.email, githubUser.email));
+				.where(eq(userTable.email, facebookUser.email));
 			if (existingDatabaseUserWithEmail) {
 				// transform `UserSchema` to `User`
 				const user = auth.transformDatabaseUser({
@@ -39,10 +39,10 @@ export const GET = async ({ url, cookies, locals }) => {
 			}
 			return await createUser({
 				attributes: {
-					username: githubUser.login,
-					username_lower: githubUser.login.toLowerCase(),
-					email: githubUser.email,
-					email_verified: !!githubUser.email
+					username: facebookUser.name,
+					username_lower: facebookUser.name.toLowerCase(),
+					email: facebookUser.email,
+					email_verified: !!facebookUser.email
 				}
 			});
 		};

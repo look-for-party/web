@@ -17,10 +17,10 @@
 
 <h1 class="text-xl font-bold md:text-2xl">Welcome back</h1>
 <div class="w-full btn-group-vertical variant-ringed-surface [&>*+*]:border-surface-500">
-	<a href="#top">
+	<a href="/sign-in/google">
 		<span><Fa6BrandsGoogle /></span><span class="flex-1 self-center">Continue with Google</span></a
 	>
-	<a href="#top">
+	<a href="/sign-in/facebook">
 		<span><Fa6BrandsMeta /></span><span class="flex-1 self-center">Continue with Facebook</span></a
 	>
 	<a href="/sign-in/github">
