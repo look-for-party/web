@@ -1,7 +1,7 @@
 /// <reference types="lucia" />
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
-import 'unplugin-icons/types/svelte'
+import 'unplugin-icons/types/svelte';
 // https://github.com/unplugin/unplugin-icons?tab=readme-ov-file#frameworks
 declare global {
 	namespace App {
