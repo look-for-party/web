@@ -8,14 +8,10 @@ export const user = pgTable('auth_user', {
 	}).primaryKey(),
 	username: varchar('username', {
 		length: 32
-	})
-		.unique()
-		.notNull(),
+	}).notNull(),
 	usernameLower: varchar('username_lower', {
 		length: 32
-	})
-		.unique()
-		.notNull(),
+	}).notNull(),
 	email: varchar('email', {
 		length: 255
 	})
