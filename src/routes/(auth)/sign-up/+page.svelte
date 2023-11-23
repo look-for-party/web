@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import Fa6BrandsGoogle from 'virtual:icons/fa6-brands/google';
 	import Fa6BrandsMeta from 'virtual:icons/fa6-brands/meta';
 	import Fa6BrandsGithub from 'virtual:icons/fa6-brands/github';
@@ -8,6 +9,7 @@
 
 	let showPassword = false;
 	let showConfirmPassword = false;
+	let submitting = false;
 
 	const togglePasswordVisibility = () => {
 		showPassword = !showPassword;
@@ -35,7 +37,17 @@
 	<span class="px-4 text-surface-400/80">or</span>
 	<hr class="flex-1" />
 </div>
-<form class="space-y-4 md:space-y-6" method="post" use:enhance>
+<form
+	class="space-y-4 md:space-y-6"
+	method="post"
+	use:enhance={() => {
+		submitting = true;
+		return async ({ update }) => {
+			await update();
+			submitting = false;
+		};
+	}}
+>
 	<label for="email" class="label"
 		><span class="font-medium">Email</span>
 		<input
@@ -45,6 +57,7 @@
 			class="input"
 			placeholder="you@email.com"
 			required
+			disabled={submitting}
 		/>
 	</label>
 	<label for="password" class="label"
@@ -57,6 +70,7 @@
 				placeholder="••••••••"
 				class="input"
 				required
+				disabled={submitting}
 			/>
 			<button
 				type="button"
@@ -82,6 +96,7 @@
 				placeholder="••••••••"
 				class="input"
 				required
+				disabled={submitting}
 			/>
 			<button
 				type="button"
@@ -104,7 +119,13 @@
 			<a href="#top" class="anchor">code of conduct</a>.
 		</em>
 	</p>
-	<button type="submit" class="w-full btn variant-filled-primary">Create an account</button>
+	<button type="submit" disabled={submitting} class="w-full btn variant-filled-primary"
+		>{#if submitting}
+			<ProgressRadial width="w-6" />
+		{:else}
+			Create an account
+		{/if}</button
+	>
 	<p class="text-sm font-light">
 		Already have an account? <a href="/sign-in" class="anchor">Sign in</a>
 	</p>

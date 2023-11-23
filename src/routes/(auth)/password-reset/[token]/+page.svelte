@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import LucideEye from 'virtual:icons/lucide/eye';
 	import LucideEyeOff from 'virtual:icons/lucide/eye-off';
 
 	let showPassword = false;
 	let showConfirmPassword = false;
+	let submitting = false;
 
 	const togglePasswordVisibility = () => {
 		showPassword = !showPassword;
@@ -16,7 +18,17 @@
 </script>
 
 <h1 class="text-xl font-bold md:text-2xl">Set your new password</h1>
-<form class="space-y-4 md:space-y-6" method="post" use:enhance>
+<form
+	class="space-y-4 md:space-y-6"
+	method="post"
+	use:enhance={() => {
+		submitting = true;
+		return async ({ update }) => {
+			await update();
+			submitting = false;
+		};
+	}}
+>
 	<label for="password" class="label"
 		><span class="font-medium">Password</span>
 		<div class="input-group grid-cols-[1fr_auto]">
@@ -27,6 +39,7 @@
 				placeholder="••••••••"
 				class="input"
 				required
+				disabled={submitting}
 			/>
 			<button
 				type="button"
@@ -52,6 +65,7 @@
 				placeholder="••••••••"
 				class="input"
 				required
+				disabled={submitting}
 			/>
 			<button
 				type="button"
@@ -67,5 +81,11 @@
 			</button>
 		</div>
 	</label>
-	<button type="submit" class="w-full btn variant-filled-primary">Reset password</button>
+	<button type="submit" disabled={submitting} class="w-full btn variant-filled-primary"
+		>{#if submitting}
+			<ProgressRadial width="w-6" />
+		{:else}
+			Reset password
+		{/if}</button
+	>
 </form>

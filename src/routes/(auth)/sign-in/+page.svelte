@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import Fa6BrandsGoogle from 'virtual:icons/fa6-brands/google';
 	import Fa6BrandsMeta from 'virtual:icons/fa6-brands/meta';
 	import Fa6BrandsGithub from 'virtual:icons/fa6-brands/github';
@@ -9,6 +10,7 @@
 	import { PUBLIC_APP_NAME } from '$env/static/public';
 
 	let showPassword = false;
+	let submitting = false;
 
 	const togglePasswordVisibility = () => {
 		showPassword = !showPassword;
@@ -32,7 +34,17 @@
 	<span class="px-4 text-surface-400/80">or</span>
 	<hr class="flex-1" />
 </div>
-<form class="space-y-4 md:space-y-6" method="post" use:enhance>
+<form
+	class="space-y-4 md:space-y-6"
+	method="post"
+	use:enhance={() => {
+		submitting = true;
+		return async ({ update }) => {
+			await update();
+			submitting = false;
+		};
+	}}
+>
 	<label for="email" class="label"
 		><span class="font-medium">Email</span>
 		<input
@@ -42,6 +54,7 @@
 			class="input"
 			placeholder="you@email.com"
 			required
+			disabled={submitting}
 		/>
 	</label>
 	<label for="password" class="label"
@@ -54,6 +67,7 @@
 				placeholder="••••••••"
 				class="input"
 				required
+				disabled={submitting}
 			/>
 			<button
 				type="button"
@@ -71,12 +85,25 @@
 	</label>
 	<div class="flex items-center justify-between">
 		<label for="remember" class="flex items-center space-x-2">
-			<input id="remember" aria-describedby="remember" type="checkbox" class="checkbox" checked />
+			<input
+				id="remember"
+				aria-describedby="remember"
+				disabled={submitting}
+				type="checkbox"
+				class="checkbox"
+				checked
+			/>
 			<p class="text-sm font-light">Remember me</p>
 		</label>
 		<a href="/password-reset" class="anchor text-sm">Forgot password?</a>
 	</div>
-	<button type="submit" class="w-full btn variant-filled-primary">Sign in</button>
+	<button type="submit" disabled={submitting} class="w-full btn variant-filled-primary"
+		>{#if submitting}
+			<ProgressRadial width="w-6" />
+		{:else}
+			Sign in
+		{/if}
+	</button>
 	<p class="text-sm font-light">
 		<em>
 			By signing in, you are agreeing to our <a href="#top" class="anchor">privacy policy</a>,
