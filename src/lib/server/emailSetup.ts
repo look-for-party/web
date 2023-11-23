@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import {
+	EMAIL_SERVICE,
 	EMAIL_HOST,
 	EMAIL_PORT,
 	EMAIL_USE_SSL,
@@ -9,6 +10,7 @@ import {
 
 export const transporter = nodemailer.createTransport({
 	pool: true,
+	service: EMAIL_SERVICE,
 	host: EMAIL_HOST,
 	port: Number(EMAIL_PORT),
 	secure: Boolean(EMAIL_USE_SSL),
