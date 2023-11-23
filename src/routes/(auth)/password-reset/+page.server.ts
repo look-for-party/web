@@ -5,7 +5,7 @@ import { auth } from '$lib/server/lucia';
 import { generatePasswordResetToken } from '$lib/server/token';
 import { sendPasswordResetLink } from '$lib/server/email';
 import { db } from '$lib/server/db';
-import { user as userTable } from '$src/lib/server/schema';
+import { user as userTable } from '$lib/server/schema';
 import { isValidEmail } from '$lib/utils';
 
 import type { Actions } from './$types';

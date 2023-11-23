@@ -8,7 +8,7 @@
 	import LucidePaperclip from 'virtual:icons/lucide/paperclip';
 	import LucideSend from 'virtual:icons/lucide/send';
 
-	import type { MessageFeed, Person } from '$src/lib/types';
+	import type { MessageFeed, Person } from '$lib/types';
 
 	let elemChat: HTMLElement;
 	export let messageFeed: MessageFeed[];

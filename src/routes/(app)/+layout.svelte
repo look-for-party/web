@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { AppShell } from '@skeletonlabs/skeleton';
-	import Header from '$src/lib/components/Header/Header.svelte';
+	import Header from '$lib/components/Header/Header.svelte';
 </script>
 
 <AppShell>

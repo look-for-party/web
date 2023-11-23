@@ -7,7 +7,7 @@
 	import LucideFiles from 'virtual:icons/lucide/files';
 	import LucideLink2 from 'virtual:icons/lucide/link-2';
 
-	import type { Person } from '$src/lib/types';
+	import type { Person } from '$lib/types';
 
 	export let currentPerson: Person;
 </script>

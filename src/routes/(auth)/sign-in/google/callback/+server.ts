@@ -2,8 +2,8 @@ import { OAuthRequestError } from '@lucia-auth/oauth';
 import { eq } from 'drizzle-orm';
 
 import { auth, googleAuth } from '$lib/server/lucia.js';
-import { db } from '$src/lib/server/db.js';
-import { user as userTable } from '$src/lib/server/schema.js';
+import { db } from '$lib/server/db.js';
+import { user as userTable } from '$lib/server/schema.js';
 
 export const GET = async ({ url, cookies, locals }) => {
 	const storedState = cookies.get('google_oauth_state');
