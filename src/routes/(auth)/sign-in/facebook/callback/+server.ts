@@ -1,9 +1,9 @@
 import { OAuthRequestError } from '@lucia-auth/oauth';
 import { eq } from 'drizzle-orm';
 
-import { auth, facebookAuth } from '$lib/server/lucia.js';
-import { db } from '$lib/server/db.js';
-import { user as userTable } from '$lib/server/schema.js';
+import { auth, facebookAuth } from '$lib/server/lucia';
+import { db } from '$lib/server/db';
+import { user as userTable } from '$lib/server/schema';
 
 export const GET = async ({ url, cookies, locals }) => {
 	const storedState = cookies.get('facebook_oauth_state');
