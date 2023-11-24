@@ -1,12 +1,15 @@
 import { auth } from '$lib/server/lucia';
 import { fail, redirect } from '@sveltejs/kit';
-import { PostgresError } from 'postgres';
+import { z } from 'zod';
+import { eq } from 'drizzle-orm';
+import { superValidate } from 'sveltekit-superforms/server';
 
 import type { Actions, PageServerLoad } from './$types';
 
 import { generateEmailVerificationToken } from '$lib/server/token';
 import { sendEmailVerificationLink } from '$lib/server/email';
-import { isValidEmail } from '$lib/utils';
+import { insertUserSchema, user as userTable } from '$lib/server/schema';
+import { db } from '$lib/server/db';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -14,31 +17,20 @@ export const load: PageServerLoad = async ({ locals }) => {
 		if (!session.user.emailVerified) throw redirect(302, '/email-verification');
 		throw redirect(302, '/');
 	}
-	return {};
+	// Server API
+	const signUpForm = await superValidate(userSignUpSchema);
+	// Unless you throw, always return { form } in load and form actions.
+	return { signUpForm };
 };
 
 export const actions: Actions = {
 	default: async ({ request, locals }) => {
-		const formData = await request.formData();
-		const email = formData.get('email');
-		const password = formData.get('password');
-		const confirmPassword = formData.get('confirm-password');
-		// basic check
-		if (!isValidEmail(email)) {
-			return fail(400, {
-				message: 'Invalid email'
-			});
+		const signUpForm = await superValidate(request, userSignUpSchema);
+		// console.log('POST', signUpForm);
+		if (!signUpForm.valid) {
+			return fail(400, { signUpForm });
 		}
-		if (typeof password !== 'string' || password.length < 6 || password.length > 255) {
-			return fail(400, {
-				message: 'Invalid password'
-			});
-		}
-		if (password !== confirmPassword) {
-			return fail(400, {
-				message: 'Passwords do not match'
-			});
-		}
+		const { email, password } = signUpForm.data;
 		try {
 			const user = await auth.createUser({
 				key: {
@@ -66,11 +58,12 @@ export const actions: Actions = {
 			// check for unique constraint error in user table
 			// https://www.postgresql.org/docs/current/errcodes-appendix.html
 			// https://lucia-auth.com/guidebook/sign-in-with-username-and-password/sveltekit/
-			if (e instanceof PostgresError && e.code === '23505') {
-				return fail(400, {
-					message: 'Email already taken'
-				});
-			}
+			// if (e instanceof PostgresError && e.code === '23505') {
+			// 	return fail(400, {
+			// 		message: 'Email already taken'
+			// 	});
+			// }
+			// Don't need the above check because of the schema below.
 			return fail(500, {
 				message: 'An unknown error occurred'
 			});
@@ -80,3 +73,45 @@ export const actions: Actions = {
 		throw redirect(302, '/email-verification');
 	}
 };
+
+const userSignUpSchema = insertUserSchema
+	.pick({ email: true })
+	.extend({
+		// https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#implement-proper-password-strength-controls
+		password: z
+			.string()
+			.min(8, {
+				message: 'Password must be at least 8 characters long'
+			})
+			.max(64, {
+				message: 'Password must be at most 64 characters long'
+			}),
+		confirmPassword: z
+			.string()
+			.min(8, {
+				message: 'Password must be at least 8 characters long'
+			})
+			.max(64, {
+				message: 'Password must be at most 64 characters long'
+			})
+	})
+	.refine(({ password, confirmPassword }) => password === confirmPassword, {
+		message: 'Passwords do not match',
+		path: ['confirmPassword']
+	})
+	.refine(
+		async ({ email }) => {
+			const [user] = await db
+				.select()
+				.from(userTable)
+				.where(eq(userTable.email, email.toLowerCase()));
+			if (user) {
+				return false;
+			}
+			return true;
+		},
+		{
+			message: 'Email already taken',
+			path: ['email']
+		}
+	);

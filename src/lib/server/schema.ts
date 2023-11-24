@@ -1,6 +1,7 @@
 // This file should not contain any runtime logic besides defining the schema.
 // See https://orm.drizzle.team/docs/migrations#quick-start
 import { pgTable, bigint, varchar, boolean } from 'drizzle-orm/pg-core';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 export const user = pgTable('auth_user', {
 	id: varchar('id', {
@@ -19,6 +20,38 @@ export const user = pgTable('auth_user', {
 		.notNull(),
 	emailVerified: boolean('email_verified').notNull()
 	// other user attributes
+});
+
+// Schema for inserting a user - can be used to validate API requests
+export const insertUserSchema = createInsertSchema(user, {
+	// Refining the fields - useful if you want to change the fields before they become nullable/optional in the final schema
+	id: (schema) => schema.id.nullable(), // prefer null over empty string & undefined
+	username: (schema) =>
+		schema.username
+			.min(3, { message: 'Username must be at least 3 characters long' })
+			.max(32, { message: 'Username must be at most 32 characters long' }),
+	usernameLower: (schema) =>
+		schema.usernameLower
+			.min(3, { message: 'Username must be at least 3 characters long' })
+			.max(32, { message: 'Username must be at most 32 characters long' })
+			.toLowerCase(),
+	email: (schema) => schema.email.email({ message: 'Invalid email address' })
+});
+
+// Schema for selecting a user - can be used to validate API responses
+export const selectUserSchema = createSelectSchema(user, {
+	// Refining the fields - useful if you want to change the fields before they become nullable/optional in the final schema
+	id: (schema) => schema.id.nullable(), // prefer null over empty string & undefined
+	username: (schema) =>
+		schema.username
+			.min(3, { message: 'Username must be at least 3 characters long' })
+			.max(32, { message: 'Username must be at most 32 characters long' }),
+	usernameLower: (schema) =>
+		schema.usernameLower
+			.min(3, { message: 'Username must be at least 3 characters long' })
+			.max(32, { message: 'Username must be at most 32 characters long' })
+			.toLowerCase(),
+	email: (schema) => schema.email.email({ message: 'Invalid email address' })
 });
 
 export const session = pgTable('user_session', {
