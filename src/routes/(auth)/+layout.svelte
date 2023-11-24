@@ -1,12 +1,10 @@
 <script lang="ts">
 	import { PUBLIC_APP_NAME } from '$env/static/public';
-	import { LightSwitch } from '@skeletonlabs/skeleton';
 </script>
 
 <section class="h-full">
 	<div class="h-full flex flex-col items-center justify-center p-6">
 		<!-- TODO: Hacky way to persist theme state across layouts. Perhaps another method? -->
-		<LightSwitch class="hidden" />
 		<a href="/" class="flex items-center mb-6">
 			<img
 				class="w-8 h-8 mr-2"
