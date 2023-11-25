@@ -1,48 +1,68 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import SvelteMarkdown from 'svelte-markdown';
-	import Code from './renderers/Code.svelte';
-	export let src: string;
-	let elem: HTMLDivElement;
+	import { Editor, rootCtx, defaultValueCtx, editorViewOptionsCtx } from '@milkdown/core';
+	import {
+		commonmark,
+		headingAttr,
+		linkAttr,
+		blockquoteAttr,
+		inlineCodeAttr,
+	} from '@milkdown/preset-commonmark';
+	import { nord } from '@milkdown/theme-nord';
+	import { listener, listenerCtx } from '@milkdown/plugin-listener';
+	import { prism } from '@milkdown/plugin-prism';
 
-	onMount(() => {
-		const classes: Record<string, string> = {
-			a: 'anchor',
-			h1: 'h1',
-			h2: 'h2',
-			h3: 'h3',
-			h4: 'h4',
-			h5: 'h5',
-			h6: 'h6',
-			ol: 'list',
-			ul: 'list',
-		};
-		(function addClass(node: Element) {
-			if (!node) return;
+	export let text: string = ""
+	export let readonly = true;
 
-			const cls = classes[node.localName];
-			if (cls) {
-				node.classList.add(cls);
-			}
+	const editable = () => !readonly;
 
-			for (const child of node.children) {
-				addClass(child);
-			}
-		})(elem);
+	function editor(dom: HTMLElement) {
+		// to obtain the editor instance we need to store a reference of the editor.
+		Editor.make()
+			.config((ctx) => {
+				ctx.set(rootCtx, dom);
+				ctx.set(defaultValueCtx, text);
 
-		const anchors = elem.querySelectorAll('a');
-		for (const anchor of anchors) {
-			anchor.target = '_blank';
-			anchor.title = anchor.href;
-		}
-	});
+                ctx.update(editorViewOptionsCtx, (prev) => ({
+                    ...prev,
+                    editable,
+                }))
+
+				ctx.set(headingAttr.key, (node) => {
+					const level = node.attrs.level;
+					return {
+						class: `h${level}`
+					};
+				});
+				ctx.set(linkAttr.key, () => {
+					return {
+						class: 'anchor'
+					};
+				});
+				ctx.set(blockquoteAttr.key, () => {
+					return {
+						class: 'blockquote'
+					};
+				});
+				ctx.set(inlineCodeAttr.key, () => {
+					return {
+						class: 'code'
+					};
+				});
+			})
+			.config((ctx) => {
+				ctx.get(listenerCtx).markdownUpdated((_, md, prevmd) => {
+					if (md !== prevmd) {
+						text = md;
+					}
+				});
+			})
+			.config(nord)
+			.use(commonmark)
+			.use(listener)
+			.use(prism)
+			.create();
+	}
 </script>
 
-<div bind:this={elem}>
-	<SvelteMarkdown
-		source={src}
-		renderers={{
-			code: Code
-		}}
-	/>
-</div>
+<div class="min-h-[50vh] w-[40%] rounded-md border-2 border-gray-500" use:editor></div>

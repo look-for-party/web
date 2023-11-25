@@ -1,10 +1,10 @@
+import { Role } from './types';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
-	const id = params.id;
-    console.log(id)
-
     return {
-        id
+        id: params.id,
+        role: Role.Owner,
+        md: "# Hello World"
     }
 };
