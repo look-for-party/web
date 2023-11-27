@@ -2,6 +2,9 @@
 	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
 	import List from './components/List.svelte';
 	import Host from './components/Host.svelte';
+
+	export let data;
+
 	let tabSet = 0;
 </script>
 
@@ -14,7 +17,7 @@
 	<!-- Tab Panels --->
 	<svelte:fragment slot="panel">
 		{#if tabSet === 0}
-			<List />
+			<List parties={data.parties} />
 		{:else if tabSet === 1}
 			<Host />
 		{/if}

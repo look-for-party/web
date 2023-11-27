@@ -4,9 +4,10 @@
 	import { fly } from 'svelte/transition';
 	import Filtering from './Filter.svelte';
 	import type { Filter } from './types';
-	import { partiesMockData } from '$src/lib/utils/partiesMockData';
 	import { faker } from '@faker-js/faker/locale/af_ZA';
 	import type { Party } from '$src/lib/types/Party';
+
+	export let parties: Party[];
 
 	let filter: Filter = {
 		skills: [],
@@ -36,8 +37,6 @@
 		}
 		parties = parties; // svelte only update when assigning
 	};
-
-	let parties = partiesMockData;
 </script>
 
 <!-- TODO: handle overflows -->
