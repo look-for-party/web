@@ -94,7 +94,7 @@
 						<div class="flex w-full space-x-4">
 							<span class="material-symbols-outlined"> tag </span>
 							<div>
-								{#each party.requirements.skills as skill}
+								{#each [...party.requirements.skills, ...party.requirements.interests] as skill}
 									<span class="chip variant-filled hover:variant-soft mr-2 mb-2">{skill}</span>
 								{/each}
 							</div>
