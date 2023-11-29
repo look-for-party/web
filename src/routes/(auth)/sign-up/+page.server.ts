@@ -4,14 +4,12 @@ import { z } from 'zod';
 import { eq } from 'drizzle-orm';
 import { superValidate } from 'sveltekit-superforms/server';
 
-import type { Actions, PageServerLoad } from './$types';
-
 import { generateEmailVerificationToken } from '$lib/server/token';
 import { sendEmailVerificationLink } from '$lib/server/email';
 import { insertUserSchema, user as userTable } from '$lib/server/schema';
 import { db } from '$lib/server/db';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) {
 		if (!session.user.emailVerified) throw redirect(302, '/email-verification');
@@ -23,7 +21,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	return { signUpForm };
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ request, locals }) => {
 		const signUpForm = await superValidate(request, userSignUpSchema);
 		// console.log('POST', signUpForm);

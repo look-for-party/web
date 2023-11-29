@@ -3,9 +3,7 @@
 	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
 
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	export let data;
 
 	// Client API
 	const { form, errors, constraints, enhance, delayed } = superForm(data.newPasswordForm);

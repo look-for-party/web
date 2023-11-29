@@ -2,9 +2,7 @@ import { redirect, fail } from '@sveltejs/kit';
 import { generateEmailVerificationToken } from '$lib/server/token';
 import { sendEmailVerificationLink } from '$lib/server/email';
 
-import type { PageServerLoad, Actions } from './$types';
-
-export const load: PageServerLoad = async ({ locals }) => {
+export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (!session) throw redirect(302, '/sign-in');
 	if (session.user.emailVerified) {
@@ -13,7 +11,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	return {};
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ locals }) => {
 		const session = await locals.auth.validate();
 		if (!session) throw redirect(302, '/sign-in');

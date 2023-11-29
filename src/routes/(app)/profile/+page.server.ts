@@ -1,9 +1,8 @@
 import { redirect } from '@sveltejs/kit';
 
-import type { Actions, PageServerLoad } from './$types';
 import { auth } from '$lib/server/lucia';
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (!session) throw redirect(302, '/sign-in');
 	if (!session.user.emailVerified) {
@@ -17,7 +16,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	};
 };
 
-export const actions: Actions = {
+export const actions = {
 	signOut: async ({ locals }) => {
 		const session = await locals.auth.validate();
 		if (!session) throw redirect(302, '/sign-in');

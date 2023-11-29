@@ -8,16 +8,14 @@ import { sendPasswordResetLink } from '$lib/server/email';
 import { db } from '$lib/server/db';
 import { selectUserSchema, user as userTable } from '$lib/server/schema';
 
-import type { Actions, PageServerLoad } from './$types';
-
-export const load: PageServerLoad = async () => {
+export const load = async () => {
 	// Server API
 	const passwordResetForm = await superValidate(passwordResetSchema);
 	// Unless you throw, always return { form } in load and form actions.
 	return { passwordResetForm };
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ request }) => {
 		const passwordResetForm = await superValidate(request, passwordResetSchema);
 		if (!passwordResetForm.valid) {

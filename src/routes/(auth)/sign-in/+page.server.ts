@@ -4,12 +4,11 @@ import { z } from 'zod';
 import { superValidate } from 'sveltekit-superforms/server';
 import { fail, redirect } from '@sveltejs/kit';
 
-import type { Actions, PageServerLoad } from './$types';
 import { selectUserSchema } from '$lib/server/schema';
 
 // TODO: Implement login throttling https://lucia-auth.com/guidebook/login-throttling/. Consider Postgres vs Redis.
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (session) {
 		if (!session.user.emailVerified) throw redirect(302, '/email-verification');
@@ -21,7 +20,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	return { signInForm };
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ request, locals }) => {
 		const signInForm = await superValidate(request, userSignInSchema);
 		// console.log('POST', signInForm);

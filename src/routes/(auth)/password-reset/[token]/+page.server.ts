@@ -5,16 +5,14 @@ import { auth } from '$lib/server/lucia';
 import { fail, redirect } from '@sveltejs/kit';
 import { validatePasswordResetToken } from '$lib/server/token';
 
-import type { Actions, PageServerLoad } from './$types';
-
-export const load: PageServerLoad = async () => {
+export const load = async () => {
 	// Server API
 	const newPasswordForm = await superValidate(newPasswordSchema);
 	// Unless you throw, always return { form } in load and form actions.
 	return { newPasswordForm };
 };
 
-export const actions: Actions = {
+export const actions = {
 	default: async ({ request, params, locals }) => {
 		const newPasswordForm = await superValidate(request, newPasswordSchema);
 		if (!newPasswordForm.valid) {

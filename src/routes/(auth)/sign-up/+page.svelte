@@ -6,9 +6,7 @@
 	import Fa6BrandsMeta from 'virtual:icons/fa6-brands/meta';
 	import Fa6BrandsGithub from 'virtual:icons/fa6-brands/github';
 
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	export let data;
 
 	// Client API
 	const { form, errors, constraints, enhance, delayed } = superForm(data.signUpForm);
