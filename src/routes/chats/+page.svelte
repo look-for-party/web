@@ -3,9 +3,9 @@
 	import ChatFeed from './components/ChatFeed.svelte';
 	import ChatDetails from './components/ChatDetails.svelte';
 
-	import type { MessageFeed, Person } from '$src/lib/types';
+	import type { MessageFeed, Person } from '$lib/types';
 
-	import { peopleMockData, messageFeedMockData } from '$src/lib/utils';
+	import { peopleMockData, messageFeedMockData } from '$lib/utils';
 
 	const people: Person[] = peopleMockData;
 	let currentPerson: Person = people[0];
