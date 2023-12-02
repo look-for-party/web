@@ -30,62 +30,7 @@
 </script>
 
 <!-- TODO: handle overflows -->
-<section id="party-list" class="flex flex-col md:hidden">
-	<!-- <div class="w-full flex items-center justify-between">
-		<div>Showing 696 entries (0.420 ms)</div>
-		<div>
-			Sort by:
-			<div class="btn-group variant-ghost-surface">
-				<button>Most relevant</button>
-				<button>Most popular</button>
-				<button>Recently added</button>
-			</div>
-		</div>
-	</div> -->
-	<!-- <div class="flex flex-col items-center space-y-4">
-		{#each parties as party}
-			<div class="card card-hover flex items-center w-full h-32">
-				<Avatar src={faker.image.url()} width="w-12" rounded="rounded-xl" />
-				<div class="border-r-2 border-gray-300 h-full p-2 flex-1 overflow-auto">
-					<h2 class="h2 h-1/2 whitespace-nowrap">{party.name}</h2>
-					<p class="h-1/2">{party.description}</p>
-				</div>
-
-				<div class="flex flex-col w-1/4 pl-4 space-y-2 h-full p-2 overflow-scroll">
-					<div class="flex items-center w-full space-x-4">
-						<Avatar src={party.leader.avatar} width="w-6" />
-						<span>{party.leader.name}</span>
-					</div>
-					<div class="flex items-center w-full space-x-4">
-						<span class="material-symbols-outlined"> calendar_clock </span>
-						<span>{party.requirement.commitment}</span>
-					</div>
-					<div class="flex w-full space-x-4">
-						<span class="material-symbols-outlined"> tag </span>
-						<div>
-							{#each [...party.requirement.skills, ...party.requirement.interests] as skill}
-								<span class="chip variant-filled hover:variant-soft mr-2 mb-2">{skill}</span>
-							{/each}
-						</div>
-					</div>
-				</div>
-				<div class="btn-group-vertical h-full rounded-r-none ring-outline-token">
-					<button
-						class={votedParties[party.id] === 1 ? 'bg-success-active-token' : ''}
-						on:click={() => onVote(party, true)}>+</button
-					>
-					<div class="flex-grow flex justify-center items-center">
-						<div>{party.upvotes}</div>
-					</div>
-					<button
-						class={votedParties[party.id] === -1 ? 'bg-error-active-token' : ''}
-						on:click={() => onVote(party, false)}>-</button
-					>
-				</div>
-			</div>
-		{/each}
-	</div> -->
-
+<section id="party-list" class="flex flex-col">
 	<div class="flex flex-col items-center space-y-8">
 		{#each parties as party}
 			<a
@@ -145,38 +90,6 @@
 						</div>
 					</div>
 				</section>
-
-				<!-- <div class="flex flex-col w-1/4 pl-4 space-y-2 h-full p-2 overflow-scroll">
-					<div class="flex items-center w-full space-x-4">
-						<Avatar src={party.leader.avatar} width="w-6" />
-						<span>{party.leader.name}</span>
-					</div>
-					<div class="flex items-center w-full space-x-4">
-						<span class="material-symbols-outlined"> calendar_clock </span>
-						<span>{party.requirement.commitment}</span>
-					</div>
-					<div class="flex w-full space-x-4">
-						<span class="material-symbols-outlined"> tag </span>
-						<div>
-							{#each [...party.requirement.skills, ...party.requirement.interests] as skill}
-								<span class="chip variant-filled hover:variant-soft mr-2 mb-2">{skill}</span>
-							{/each}
-						</div>
-					</div>
-				</div>
-				<div class="btn-group-vertical h-full rounded-r-none ring-outline-token">
-					<button
-						class={votedParties[party.id] === 1 ? 'bg-success-active-token' : ''}
-						on:click={() => onVote(party, true)}>+</button
-					>
-					<div class="flex-grow flex justify-center items-center">
-						<div>{party.upvotes}</div>
-					</div>
-					<button
-						class={votedParties[party.id] === -1 ? 'bg-error-active-token' : ''}
-						on:click={() => onVote(party, false)}>-</button
-					>
-				</div> -->
 			</a>
 		{/each}
 	</div>

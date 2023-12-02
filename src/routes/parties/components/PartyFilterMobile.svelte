@@ -24,7 +24,7 @@
 	}
 </script>
 
-<section id="filter" class="space-y-4 md:hidden">
+<section id="filter" class="space-y-4">
 	<div class="space-y-4">
 		<div class="flex items-end justify-between">
 			<h2 class="inline h2 font-semibold">All parties</h2>
