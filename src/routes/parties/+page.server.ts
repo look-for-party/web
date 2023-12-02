@@ -1,7 +1,7 @@
-import { partiesMockData } from '$src/lib/utils/partiesMockData';
+import { partyMockData } from '$lib/utils';
 
 export const load = () => {
 	return {
-		parties: partiesMockData
+		parties: partyMockData
 	};
 };
