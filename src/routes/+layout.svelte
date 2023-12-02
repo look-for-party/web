@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { AppShell, initializeStores, storePopup } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-	import Header from '$src/lib/components/Header/Header.svelte';
+	import Header from '$lib/components/Header/Header.svelte';
 	import '$src/app.postcss';
 
 	// should be in root layout

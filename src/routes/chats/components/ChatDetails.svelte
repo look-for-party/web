@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Avatar, Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 
-	import type { Person } from '$src/lib/types';
+	import type { Person } from '$lib/types';
 
 	export let currentPerson: Person;
 </script>

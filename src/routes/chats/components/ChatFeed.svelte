@@ -3,8 +3,8 @@
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { faker } from '@faker-js/faker';
 
-	import type { MessageFeed, Person } from '$src/lib/types';
-	import { getCurrentTimestamp } from '$src/lib/utils';
+	import type { MessageFeed, Person } from '$lib/types';
+	import { getCurrentTimestamp } from '$lib/utils';
 
 	let elemChat: HTMLElement;
 	export let messageFeed: MessageFeed[];
