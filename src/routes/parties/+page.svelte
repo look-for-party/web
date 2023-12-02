@@ -1,25 +1,35 @@
 <script lang="ts">
-	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
-	import List from './components/List.svelte';
-	import Host from './components/Host.svelte';
+	import SearchBar from '$lib/components/SearchBar.svelte';
+	import Banner from './components/Banner.svelte';
+	import PartyFilter from './components/PartyFilter.svelte';
+	import PartyFilterMobile from './components/PartyFilterMobile.svelte';
+	import PartyList from './components/PartyList.svelte';
+	import PartyListMobile from './components/PartyListMobile.svelte';
+	import type { Filter } from './types';
 
 	export let data;
+	// Don't use reactive statement here because we only want to initialize it
+	let parties = data.parties;
 
-	let tabSet = 0;
+	let filter: Filter = {
+		skills: [],
+		commitments: [],
+		interests: []
+	};
 </script>
 
-<TabGroup>
-	<Tab bind:group={tabSet} class="flex-grow" name="find" value={0}>
-		<!-- <svelte:fragment slot="lead">(icon)</svelte:fragment> -->
-		<span>Find a Party</span>
-	</Tab>
-	<Tab bind:group={tabSet} class="flex-grow" name="host" value={1}>Host a Party</Tab>
-	<!-- Tab Panels --->
-	<svelte:fragment slot="panel">
-		{#if tabSet === 0}
-			<List parties={data.parties} />
-		{:else if tabSet === 1}
-			<Host />
-		{/if}
-	</svelte:fragment>
-</TabGroup>
+<Banner />
+<section id="parties" class="flex flex-col p-4 space-y-8">
+	<!-- Mobile -->
+	<PartyFilterMobile bind:filter />
+	<PartyListMobile {parties} />
+	<!-- Web -->
+	<div class="hidden md:block w-full pl-64 !mt-4">
+		<SearchBar placeholder="Search by party name or keyword" />
+	</div>
+	<hr class="!hidden md:!block" />
+	<div class="hidden md:flex space-x-8">
+		<PartyFilter bind:filter />
+		<PartyList {parties} />
+	</div>
+</section>
