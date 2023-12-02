@@ -1,11 +1,12 @@
-import type { Requirement } from '../partyRequirements';
+import type { PartyRequirement } from './PartyRequirement';
 import type { Person } from './Person';
 
 export type Party = {
 	id: number;
 	name: string;
 	description: string;
-	requirements: Requirement;
+	requirement: PartyRequirement;
 	leader: Person;
 	upvotes: number;
+	thumbnail?: string;
 };
