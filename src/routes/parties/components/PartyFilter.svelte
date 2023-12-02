@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { commitments, type Commitment } from '$src/lib/partyRequirements/commitments';
-	import { interests, type Interest } from '$src/lib/partyRequirements/interests';
-	import { skills, type Skill } from '$src/lib/partyRequirements/skills';
-	import type { Filter } from './types';
+	import { commitments, skills, interests } from '$lib/utils';
+	import type { Filter } from '../types';
 	import {
 		Autocomplete,
 		InputChip,
@@ -13,7 +11,6 @@
 	} from '@skeletonlabs/skeleton';
 
 	export let filter: Filter;
-	let filterNum = 0;
 	$: filterNum = filter.commitments.length + filter.interests.length + filter.skills.length;
 
 	let matchProfile = false;
@@ -26,7 +23,7 @@
 		};
 	};
 
-	const onCommitmentCheck = (commitment: Commitment) => {
+	const onCommitmentCheck = (commitment: string) => {
 		const idx = filter.commitments.indexOf(commitment);
 		if (idx === -1) {
 			filter.commitments.push(commitment);
@@ -35,7 +32,7 @@
 		}
 		filter = filter;
 	};
-	const onInterestCheck = (interest: Interest) => {
+	const onInterestCheck = (interest: string) => {
 		const idx = filter.interests.indexOf(interest);
 		if (idx === -1) {
 			filter.interests.push(interest);
@@ -46,7 +43,7 @@
 	};
 
 	let skillInput = '';
-	const skillOptions: AutocompleteOption<Skill>[] = [];
+	const skillOptions: AutocompleteOption<string>[] = [];
 	for (let skill of skills) {
 		skillOptions.push({ label: skill, value: skill, keywords: '' });
 	}
@@ -56,47 +53,50 @@
 		return skills.some((str) => str.toLowerCase() === inpLowered);
 	};
 
-	let popupSettings: PopupSettings = {
+	const popupSettings: PopupSettings = {
 		event: 'focus-click',
 		target: 'popupAutocomplete',
 		placement: 'bottom'
 	};
 
-	const onInputChipSelect = (event: CustomEvent<AutocompleteOption<String>>) => {
-		if (filter.skills.includes(event.detail.value as Skill) === false) {
-			filter.skills.push(event.detail.value as Skill);
+	const onInputChipSelect = (event: CustomEvent<AutocompleteOption<string>>) => {
+		if (filter.skills.includes(event.detail.value) === false) {
+			filter.skills.push(event.detail.value);
 			filter = filter;
 			skillInput = '';
 		}
 	};
+
+	let showAll = false;
+	const toggleShowAll = () => {
+		showAll = !showAll;
+	};
 </script>
 
-<section id="sidebar" class="flex flex-col w-1/5 min-w-[230px] space-y-6">
-	<div class="w-full flex justify-between">
-		<button
-			class="btn text-lg variant-soft enabled:hover:variant-filled rounded-sm"
-			disabled={filterNum === 0}
-			on:click={clearFilters}>Clear filters</button
-		>
-		<span class="chip variant-ringed text-lg">{filterNum}</span>
-	</div>
-	<SlideToggle name="slider-label" size="sm" active="bg-secondary-500" bind:checked={matchProfile}
-		>Match my profile</SlideToggle
+<section id="sidebar" class="flex flex-col space-y-8 w-56">
+	<button
+		class="btn variant-soft enabled:hover:variant-filled-warning rounded-sm"
+		disabled={filterNum === 0}
+		on:click={clearFilters}
 	>
-	<div>
-		<h3 class="h3">Skills</h3>
+		<span>Clear filters</span>
+		<span class="chip variant-ringed">{filterNum}</span>
+	</button>
+	<SlideToggle name="slider-label" size="sm" active="bg-secondary-500" bind:checked={matchProfile}
+		>Match my profile
+	</SlideToggle>
+	<div class="space-y-2">
+		<p class="h6 font-bold">Skills</p>
 		<div use:popup={popupSettings}>
 			<InputChip
 				bind:input={skillInput}
 				bind:value={filter.skills}
 				validation={isSkillInputValid}
 				name="chips"
-				placeholder="Enter skills..."
+				placeholder="Select skills"
 				chips="variant-filled hover:variant-soft"
 			/>
 		</div>
-
-		<!-- for some reason w-1/6 looks more correct than w-1/5 -->
 		<div
 			data-popup="popupAutocomplete"
 			class="card overflow-y-auto max-h-48 w-1/5 min-w-[230px] p-4"
@@ -111,36 +111,44 @@
 		</div>
 	</div>
 
-	<div>
-		<h3 class="h3">Commitment</h3>
+	<div class="space-y-2">
+		<p class="h6 font-bold">Commitments</p>
 		<ul class="list">
 			{#each commitments as commitment}
 				<li class="list-item">
-					<input
-						class="checkbox ml-1"
-						type="checkbox"
-						on:click={() => onCommitmentCheck(commitment)}
-						checked={filter.commitments.includes(commitment)}
-					/>
-					<span>{commitment}</span>
+					<label class="flex items-center space-x-2">
+						<input
+							class="checkbox"
+							type="checkbox"
+							on:click={() => onCommitmentCheck(commitment)}
+							checked={filter.commitments.includes(commitment)}
+						/>
+						<p>{commitment}</p>
+					</label>
 				</li>
 			{/each}
 		</ul>
 	</div>
-	<div>
-		<h3 class="h3">Interests</h3>
+	<div class="space-y-2">
+		<p class="h6 font-bold">Interests</p>
 		<ul class="list">
-			{#each interests as interest}
+			{#each showAll ? interests : interests.slice(0, 5) as interest}
 				<li class="list-item">
-					<input
-						class="checkbox ml-1"
-						type="checkbox"
-						on:click={() => onInterestCheck(interest)}
-						checked={filter.interests.includes(interest)}
-					/>
-					<span>{interest}</span>
+					<label class="flex items-center space-x-2">
+						<input
+							class="checkbox"
+							type="checkbox"
+							on:click={() => onInterestCheck(interest)}
+							checked={filter.interests.includes(interest)}
+						/>
+						<p>{interest}</p>
+					</label>
 				</li>
 			{/each}
+			<!-- TODO: Buggy state saving behaviour -->
+			<button class="underline" on:click={toggleShowAll}>
+				{showAll ? 'Show less' : 'Show more'}
+			</button>
 		</ul>
 	</div>
 </section>
