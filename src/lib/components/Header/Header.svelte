@@ -69,6 +69,8 @@
 			<a href="/parties" class="btn hover:variant-soft-primary">Parties</a>
 			<a href="/chats" class="btn hover:variant-soft-primary">Chats</a>
 			<a href="/resources" class="btn hover:variant-soft-primary">Resources</a>
+			<!-- TODO: Temporary below, delete later -->
+			<a href="/parties/new" class="btn hover:variant-soft-primary">Host</a>
 
 			<div class="relative inline-block">
 				<span class="badge-icon variant-filled-warning absolute -top-0 -right-0 z-10">2</span>
