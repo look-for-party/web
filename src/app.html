@@ -3,10 +3,17 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<link
+			rel="preload"
+			href="%sveltekit.assets%/fonts/Karla-Italic-VariableFont_wght.ttf"
+			as="font"
+			type="font/ttf"
+			crossorigin
+		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
 	</head>
-	<body data-theme="skeleton" data-sveltekit-preload-data="hover">
+	<body data-theme="theme" data-sveltekit-preload-data="hover">
 		<div style="display: contents" class="h-full overflow-hidden">%sveltekit.body%</div>
 	</body>
 </html>
