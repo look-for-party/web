@@ -15,9 +15,7 @@ export const load = async ({ locals }) => {
 		if (!session.user.emailVerified) throw redirect(302, '/email-verification');
 		throw redirect(302, '/');
 	}
-	// Server API
 	const signUpForm = await superValidate(userSignUpSchema);
-	// Unless you throw, always return { form } in load and form actions.
 	return { signUpForm };
 };
 
@@ -32,12 +30,12 @@ export const actions = {
 		try {
 			const user = await auth.createUser({
 				key: {
-					providerId: 'email', // auth method
-					providerUserId: email.toLowerCase(), // unique id when using "email" auth method
+					providerId: 'email',
+					providerUserId: email.toLowerCase(),
 					password // hashed by Lucia
 				},
 				attributes: {
-					username: email.toLowerCase(), // default username
+					username: email.toLowerCase(),
 					username_lower: email.toLowerCase(),
 					email: email.toLowerCase(),
 					email_verified: false
@@ -47,27 +45,15 @@ export const actions = {
 				userId: user.userId,
 				attributes: {}
 			});
-			locals.auth.setSession(session); // set session cookie
+			locals.auth.setSession(session);
 
 			const token = await generateEmailVerificationToken(user.userId);
 			await sendEmailVerificationLink(email, token);
 		} catch (e) {
-			// this part depends on the database you're using
-			// check for unique constraint error in user table
-			// https://www.postgresql.org/docs/current/errcodes-appendix.html
-			// https://lucia-auth.com/guidebook/sign-in-with-username-and-password/sveltekit/
-			// if (e instanceof PostgresError && e.code === '23505') {
-			// 	return fail(400, {
-			// 		message: 'Email already taken'
-			// 	});
-			// }
-			// Don't need the above check because of the schema below.
 			return fail(500, {
 				message: 'An unknown error occurred'
 			});
 		}
-		// redirect to
-		// make sure you don't throw inside a try/catch block!
 		throw redirect(302, '/email-verification');
 	}
 };

@@ -6,9 +6,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { validatePasswordResetToken } from '$lib/server/token';
 
 export const load = async () => {
-	// Server API
 	const newPasswordForm = await superValidate(newPasswordSchema);
-	// Unless you throw, always return { form } in load and form actions.
 	return { newPasswordForm };
 };
 

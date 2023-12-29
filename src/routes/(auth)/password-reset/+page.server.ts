@@ -1,4 +1,4 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { superValidate } from 'sveltekit-superforms/server';
 
@@ -9,9 +9,7 @@ import { db } from '$lib/server/db';
 import { selectUserSchema, user as userTable } from '$lib/server/schema';
 
 export const load = async () => {
-	// Server API
 	const passwordResetForm = await superValidate(passwordResetSchema);
-	// Unless you throw, always return { form } in load and form actions.
 	return { passwordResetForm };
 };
 
@@ -23,17 +21,10 @@ export const actions = {
 		}
 		const { email } = passwordResetForm.data;
 		try {
-			// const storedUser = await db.table('user').where('email', '=', email.toLowerCase()).get();
 			const [storedUser] = await db
 				.select()
 				.from(userTable)
 				.where(eq(userTable.email, email.toLowerCase()));
-			// if (!storedUser) {
-			// 	return fail(400, {
-			// 		message: 'User does not exist'
-			// 	});
-			// }
-			// Don't need the above check because of the schema below.
 			const user = auth.transformDatabaseUser({
 				...storedUser,
 				username_lower: storedUser.usernameLower,
@@ -41,14 +32,12 @@ export const actions = {
 			});
 			const token = await generatePasswordResetToken(user.userId);
 			await sendPasswordResetLink(user.email, token);
-			return {
-				success: true
-			};
 		} catch (e) {
 			return fail(500, {
 				message: 'An unknown error occurred'
 			});
 		}
+		throw redirect(302, '/password-reset/sent');
 	}
 };
 

@@ -5,9 +5,7 @@
 
 	export let data;
 
-	// Client API
 	const { form, errors, constraints, enhance, delayed } = superForm(data.passwordResetForm);
-	// Use delayed instead of submitting: https://superforms.rocks/concepts/timers#loading-indicators
 </script>
 
 <!-- Uncomment to view Superforms debug info -->

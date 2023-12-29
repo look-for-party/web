@@ -3,7 +3,6 @@ import { facebookAuth } from '$lib/server/lucia';
 
 export const GET = async ({ cookies }) => {
 	const [url, state] = await facebookAuth.getAuthorizationUrl();
-	// store state
 	cookies.set('facebook_oauth_state', state, {
 		httpOnly: true,
 		secure: !dev,
