@@ -2,9 +2,13 @@
 	import { onMount, tick } from 'svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { faker } from '@faker-js/faker';
+	import LucidePhoneCall from 'virtual:icons/lucide/phone-call';
+	import LucideVideo from 'virtual:icons/lucide/video';
+	import LucideInfo from 'virtual:icons/lucide/info';
+	import LucidePaperclip from 'virtual:icons/lucide/paperclip';
+	import LucideSend from 'virtual:icons/lucide/send';
 
-	import type { MessageFeed, Person } from '$src/lib/types';
-	import { getCurrentTimestamp } from '$src/lib/utils';
+	import type { MessageFeed, Person } from '$lib/types';
 
 	let elemChat: HTMLElement;
 	export let messageFeed: MessageFeed[];
@@ -33,6 +37,10 @@
 		}, 0);
 		// reset height
 		updateTextAreaHeight();
+	};
+
+	const getCurrentTimestamp = (): string => {
+		return new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 	};
 
 	const onToggleDetails = (): void => {
@@ -77,11 +85,9 @@
 				<h2 class="font-bold">{currentPerson.name}</h2>
 			</div>
 			<div class="variant-ringed-surface btn-group [&>*+*]:border-surface-500">
-				<button type="button" class="material-symbols-outlined"> call </button>
-				<button type="button" class="material-symbols-outlined"> video_call </button>
-				<button type="button" class="material-symbols-outlined" on:click={onToggleDetails}>
-					info
-				</button>
+				<button type="button"><span><LucidePhoneCall /></span></button>
+				<button type="button"><span><LucideVideo /></span></button>
+				<button type="button" on:click={onToggleDetails}><span><LucideInfo /></span></button>
 			</div>
 		</div>
 	</header>
@@ -122,11 +128,7 @@
 	<!-- Prompt -->
 	<section class="border-t border-surface-500/30 p-4">
 		<div class="input-group input-group-divider grid-cols-[auto_1fr_auto] rounded-container-token">
-			<button
-				type="button"
-				class="material-symbols-outlined input-group-shim"
-				style="font-size: 16px;">attach_file_add</button
-			>
+			<button type="button" class="input-group-shim"><span><LucidePaperclip /></span></button>
 			<textarea
 				bind:this={textAreaElement}
 				on:input={updateTextAreaHeight}
@@ -139,14 +141,11 @@
 				on:keydown={onPromptKeydown}
 			/>
 			<button
-				class={currentMessage
-					? 'material-symbols-outlined variant-filled-primary'
-					: 'material-symbols-outlined input-group-shim'}
-				style="font-size: 16px;"
+				class={currentMessage ? 'variant-filled-primary' : 'input-group-shim'}
 				on:click={addMessage}
 				disabled={!currentMessage}
 			>
-				send
+				<span><LucideSend /></span>
 			</button>
 		</div>
 	</section>

@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { Avatar, Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+	import LucideUser from 'virtual:icons/lucide/user';
+	import LucideMailSearch from 'virtual:icons/lucide/mail-search';
+	import LucidePin from 'virtual:icons/lucide/pin';
+	import LucideFilm from 'virtual:icons/lucide/film';
+	import LucideFiles from 'virtual:icons/lucide/files';
+	import LucideLink2 from 'virtual:icons/lucide/link-2';
 
-	import type { Person } from '$src/lib/types';
+	import type { Person } from '$lib/types';
 
 	export let currentPerson: Person;
 </script>
@@ -12,8 +18,9 @@
 		<Avatar src={currentPerson.avatar} width="w-24" />
 		<p>{currentPerson.name}</p>
 		<div class="variant-ringed-surface btn-group [&>*+*]:border-surface-500">
-			<a href={currentPerson.avatar} class="material-symbols-outlined">person</a>
-			<button type="button" class="material-symbols-outlined">search</button>
+			<a href={currentPerson.avatar} title="View profile"><span><LucideUser /></span></a>
+			<button type="button" title="Search in conversation"><span><LucideMailSearch /></span></button
+			>
 		</div>
 	</header>
 	<!-- Details -->
@@ -24,7 +31,7 @@
 					<svelte:fragment slot="summary">Chat Info</svelte:fragment>
 					<svelte:fragment slot="content">
 						<span class="variant-soft chip w-full justify-start hover:variant-filled">
-							<span class="material-symbols-outlined">push_pin</span>
+							<span><LucidePin /></span>
 							<span class="text-base">View pinned messages</span>
 						</span></svelte:fragment
 					>
@@ -34,15 +41,15 @@
 					<svelte:fragment slot="content"
 						><div class="flex w-full flex-col space-y-2">
 							<span class="variant-soft chip w-full justify-start hover:variant-filled"
-								><span class="material-symbols-outlined">movie</span>
+								><span><LucideFilm /></span>
 								<span class="text-base">Media</span></span
 							>
 							<span class="variant-soft chip w-full justify-start hover:variant-filled"
-								><span class="material-symbols-outlined">description</span>
+								><span><LucideFiles /></span>
 								<span class="text-base">Files</span></span
 							>
 							<span class="variant-soft chip w-full justify-start hover:variant-filled"
-								><span class="material-symbols-outlined">link</span>
+								><span><LucideLink2 /></span>
 								<span class="text-base">Links</span></span
 							>
 						</div></svelte:fragment

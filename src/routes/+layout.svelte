@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { AppShell, initializeStores } from '@skeletonlabs/skeleton';
-	import Header from '$src/lib/components/Header/Header.svelte';
+	import { initializeStores } from '@skeletonlabs/skeleton';
 	import '$src/app.postcss';
 
 	// should be in root layout
@@ -10,10 +9,4 @@
 	initializeStores();
 </script>
 
-<AppShell>
-	<svelte:fragment slot="pageHeader">
-		<Header />
-	</svelte:fragment>
-	<!-- Router Slot -->
-	<slot />
-</AppShell>
+<slot />

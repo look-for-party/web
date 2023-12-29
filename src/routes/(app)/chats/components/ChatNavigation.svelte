@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { ListBox, ListBoxItem, Avatar } from '@skeletonlabs/skeleton';
 
-	import type { Person } from '$src/lib/types';
-	import SearchBar from '$src/lib/components/SearchBar.svelte';
+	import type { Person } from '$lib/types';
+	import SearchBar from '$lib/components/SearchBar.svelte';
 
 	export let people: Person[];
 	export let currentPerson: Person;
