@@ -5,7 +5,9 @@ Dockerfile
 .gitattributes
 README.md
 .npmrc
+.prettierignore
 .prettierrc
+.eslintignore
 .eslintrc.cjs
 .graphqlrc
 .editorconfig
