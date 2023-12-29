@@ -3,13 +3,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	/* Reference name */
+	font-family: 'Karla';
+	src: url('/fonts/Karla-VariableFont_wght.ttf'), url('/fonts/Karla-Italic-VariableFont_wght.ttf');
+}
+
 html,
 body {
 	@apply h-full overflow-hidden;
 }
 
 .gradient-heading {
-	@apply bg-clip-text text-transparent box-decoration-clone;
+	@apply box-decoration-clone bg-clip-text text-transparent;
 	/* Direction */
 	@apply bg-gradient-to-br;
 	/* Color Stops */

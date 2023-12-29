@@ -76,15 +76,15 @@
 	};
 </script>
 
-<div class="flex flex-col flex-1">
+<div class="flex flex-1 flex-col">
 	<!-- Header -->
 	<header class="border-b border-surface-500/30 p-4">
-		<div class="flex justify-between items-center">
+		<div class="flex items-center justify-between">
 			<div class="flex items-center space-x-2">
 				<Avatar src={currentPerson.avatar} width="w-12" />
 				<h2 class="font-bold">{currentPerson.name}</h2>
 			</div>
-			<div class="btn-group variant-ringed-surface [&>*+*]:border-surface-500">
+			<div class="variant-ringed-surface btn-group [&>*+*]:border-surface-500">
 				<button type="button"><span><LucidePhoneCall /></span></button>
 				<button type="button"><span><LucideVideo /></span></button>
 				<button type="button" on:click={onToggleDetails}><span><LucideInfo /></span></button>
@@ -92,16 +92,16 @@
 		</div>
 	</header>
 	<!-- Conversation -->
-	<section class="flex-grow relative">
-		<div bind:this={elemChat} class="absolute inset-0 p-4 space-y-4 overflow-y-auto">
+	<section class="relative flex-grow">
+		<div bind:this={elemChat} class="absolute inset-0 space-y-4 overflow-y-auto p-4">
 			{#each messageFeed as bubble}
 				{#if bubble.host === true}
 					<div class="flex space-x-2">
 						<div>
 							<Avatar src={bubble.avatar} width="w-8" />
 						</div>
-						<div class="card p-4 variant-soft rounded-tl-none space-y-2 overflow-x-auto">
-							<header class="flex justify-between items-center space-x-4">
+						<div class="card variant-soft space-y-2 overflow-x-auto rounded-tl-none p-4">
+							<header class="flex items-center justify-between space-x-4">
 								<p class="font-bold">{bubble.name}</p>
 								<small class="opacity-50">{bubble.timestamp}</small>
 							</header>
@@ -110,8 +110,8 @@
 					</div>
 				{:else}
 					<div class="flex justify-end space-x-2">
-						<div class="card p-4 rounded-tr-none space-y-2 {bubble.color} overflow-x-auto">
-							<header class="flex justify-between items-center space-x-4">
+						<div class="card space-y-2 rounded-tr-none p-4 {bubble.color} overflow-x-auto">
+							<header class="flex items-center justify-between space-x-4">
 								<p class="font-bold">{bubble.name}</p>
 								<small class="opacity-50">{bubble.timestamp}</small>
 							</header>
@@ -133,7 +133,7 @@
 				bind:this={textAreaElement}
 				on:input={updateTextAreaHeight}
 				bind:value={currentMessage}
-				class="textarea p-2 bg-transparent border-0 ring-0 overflow-y-auto"
+				class="textarea overflow-y-auto border-0 bg-transparent p-2 ring-0"
 				name="prompt"
 				id="prompt"
 				placeholder="Write a message..."

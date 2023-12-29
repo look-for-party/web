@@ -8,14 +8,14 @@
 	export let currentPerson: Person;
 </script>
 
-<div class="flex flex-col border-r border-surface-500/30 w-24 lg:w-80">
+<div class="flex w-24 flex-col border-r border-surface-500/30 lg:w-80">
 	<!-- Header -->
 	<header class="p-4">
 		<SearchBar placeholder="Search contacts" />
 	</header>
 	<!-- Navigation -->
-	<section class="flex-grow relative">
-		<div class="absolute inset-0 p-4 space-y-4 overflow-y-auto">
+	<section class="relative flex-grow">
+		<div class="absolute inset-0 space-y-4 overflow-y-auto p-4">
 			<small class="opacity-50">Contacts</small>
 			<ListBox
 				rounded="rounded-full lg:rounded-token"
@@ -40,7 +40,7 @@
 						>
 						<!--TODO: Clear trail when messages are read-->
 						<svelte:fragment slot="trail">
-							<span class="badge-icon variant-filled-secondary">2</span>
+							<span class="variant-filled-secondary badge-icon">2</span>
 						</svelte:fragment>
 					</ListBoxItem>
 				{/each}
