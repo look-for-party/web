@@ -1,5 +1,5 @@
 {
-	"name": "look-for-party-frontend",
+	"name": "look-for-party-web",
 	"version": "0.0.4",
 	"private": true,
 	"scripts": {
@@ -17,9 +17,9 @@
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
 		"studio": "drizzle-kit studio",
-		"push-db": "drizzle-kit push:pg",
-		"generate": "drizzle-kit generate:pg",
-		"migrate": "vite-node --options.transformMode.ssr='/.*/' src/lib/utils/migrate.ts"
+		"db:push": "drizzle-kit push:pg",
+		"db:generate": "drizzle-kit generate:pg",
+		"db:migrate": "node migrations/migrate"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^18.2.0",
@@ -28,6 +28,7 @@
 		"@faker-js/faker": "^8.2.0",
 		"@iconify/json": "^2.2.144",
 		"@lucia-auth/adapter-postgresql": "^2.0.2",
+		"@lucia-auth/adapter-session-redis": "^2.1.2",
 		"@lucia-auth/oauth": "^3.5.0",
 		"@playwright/test": "^1.28.1",
 		"@skeletonlabs/skeleton": "^2.4.0",
@@ -43,8 +44,7 @@
 		"autoprefixer": "^10.4.14",
 		"commitizen": "^4.3.0",
 		"dotenv": "^16.3.1",
-		"drizzle-kit": "^0.20.2",
-		"drizzle-orm": "^0.29.0",
+		"drizzle-kit": "^0.20.7",
 		"drizzle-zod": "^0.5.1",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
@@ -53,12 +53,12 @@
 		"inquirer": "^8.2.6",
 		"lint-staged": "^15.0.2",
 		"lucia": "^2.7.4",
-		"nodemailer": "^6.9.7",
 		"postcss": "^8.4.24",
 		"postcss-load-config": "^4.0.1",
-		"postgres": "^3.4.3",
+		"postmark": "^4.0.2",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
+		"redis": "^4.6.12",
 		"standard-version": "^9.5.0",
 		"svelte": "^4.0.5",
 		"svelte-check": "^3.4.3",
@@ -68,8 +68,11 @@
 		"typescript": "^5.0.0",
 		"unplugin-icons": "^0.17.4",
 		"vite": "^4.4.2",
-		"vite-node": "^0.34.6",
 		"vitest": "^0.32.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"drizzle-orm": "^0.29.2",
+		"postgres": "^3.4.3"
+	}
 }
