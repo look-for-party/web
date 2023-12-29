@@ -1,29 +1,24 @@
 import { postgres as postgresAdapter } from '@lucia-auth/adapter-postgresql';
+import { redis as redisAdapter } from '@lucia-auth/adapter-session-redis';
 import { lucia } from 'lucia';
-import 'lucia/polyfill/node'; // polyfill, following https://lucia-auth.com/getting-started/#polyfill
+import 'lucia/polyfill/node'; // polyfill
 import { sveltekit } from 'lucia/middleware';
 import { google, facebook, github } from '@lucia-auth/oauth/providers';
 
-import {
-	GOOGLE_CLIENT_ID,
-	GOOGLE_CLIENT_SECRET,
-	GOOGLE_REDIRECT_URI,
-	GITHUB_CLIENT_ID,
-	GITHUB_CLIENT_SECRET,
-	FACEBOOK_CLIENT_ID,
-	FACEBOOK_CLIENT_SECRET,
-	FACEBOOK_REDIRECT_URI
-} from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { dev } from '$app/environment';
 
-import { queryClient } from './db';
+import { queryClient, redisClient } from './db';
 
 export const auth = lucia({
-	adapter: postgresAdapter(queryClient, {
-		user: 'auth_user',
-		key: 'user_key',
-		session: 'user_session'
-	}),
+	adapter: {
+		user: postgresAdapter(queryClient, {
+			user: 'auth_user',
+			key: 'user_key',
+			session: null // will be stored in Redis
+		}),
+		session: redisAdapter(redisClient)
+	},
 	env: dev ? 'DEV' : 'PROD',
 	middleware: sveltekit(),
 	getUserAttributes(databaseUser) {
@@ -37,9 +32,9 @@ export const auth = lucia({
 });
 
 export const googleAuth = google(auth, {
-	clientId: GOOGLE_CLIENT_ID,
-	clientSecret: GOOGLE_CLIENT_SECRET,
-	redirectUri: GOOGLE_REDIRECT_URI,
+	clientId: env.GOOGLE_CLIENT_ID,
+	clientSecret: env.GOOGLE_CLIENT_SECRET,
+	redirectUri: env.GOOGLE_REDIRECT_URI,
 	scope: [
 		'https://www.googleapis.com/auth/userinfo.email',
 		'https://www.googleapis.com/auth/userinfo.profile',
@@ -48,15 +43,15 @@ export const googleAuth = google(auth, {
 });
 
 export const facebookAuth = facebook(auth, {
-	clientId: FACEBOOK_CLIENT_ID,
-	clientSecret: FACEBOOK_CLIENT_SECRET,
-	redirectUri: FACEBOOK_REDIRECT_URI,
+	clientId: env.FACEBOOK_CLIENT_ID,
+	clientSecret: env.FACEBOOK_CLIENT_SECRET,
+	redirectUri: env.FACEBOOK_REDIRECT_URI,
 	scope: ['email', 'public_profile']
 });
 
 export const githubAuth = github(auth, {
-	clientId: GITHUB_CLIENT_ID,
-	clientSecret: GITHUB_CLIENT_SECRET
+	clientId: env.GITHUB_CLIENT_ID,
+	clientSecret: env.GITHUB_CLIENT_SECRET
 });
 
 export type Auth = typeof auth;

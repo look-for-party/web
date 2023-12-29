@@ -9,7 +9,7 @@
 	} from '@skeletonlabs/skeleton';
 	import LucideMenu from 'virtual:icons/lucide/menu';
 	import LucideBell from 'virtual:icons/lucide/bell';
-	import { PUBLIC_APP_NAME } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 	import SearchBar from '../SearchBar.svelte';
 	import { loggedIn } from '../../stores';
 	import LeftSidebar from './LeftSidebar.svelte';
@@ -53,7 +53,7 @@
 			</span>
 		</button>
 		<h1 class="text-xl font-semibold whitespace-nowrap">
-			<a href="/" class="gradient-heading">{PUBLIC_APP_NAME}</a>
+			<a href="/" class="gradient-heading">{env.PUBLIC_APP_NAME}</a>
 		</h1>
 		<!-- TODO: This is only for testing, as LightSwitch cannot be hidden in the drawer. -->
 		<!-- See: https://www.skeleton.dev/utilities/lightswitches -->

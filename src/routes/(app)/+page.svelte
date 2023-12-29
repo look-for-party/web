@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { PUBLIC_APP_NAME } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 </script>
 
-<h1>Welcome to {PUBLIC_APP_NAME}</h1>
+<h1>Welcome to {env.PUBLIC_APP_NAME}</h1>
 <p>Currently under development</p>

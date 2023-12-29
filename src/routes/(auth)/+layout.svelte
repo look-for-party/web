@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PUBLIC_APP_NAME } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 </script>
 
@@ -13,7 +13,7 @@
 				src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
 				alt="logo"
 			/>
-			<span class="text-2xl font-semibold gradient-heading">{PUBLIC_APP_NAME}</span>
+			<span class="text-2xl font-semibold gradient-heading">{env.PUBLIC_APP_NAME}</span>
 		</a>
 		<div class="card p-6 sm:p-8 w-full sm:max-w-lg space-y-4 md:space-y-6">
 			<slot />
