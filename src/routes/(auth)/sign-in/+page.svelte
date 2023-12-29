@@ -3,16 +3,13 @@
 	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import Fa6BrandsGoogle from 'virtual:icons/fa6-brands/google';
-	import Fa6BrandsMeta from 'virtual:icons/fa6-brands/meta';
+	import Fa6BrandsFacebook from 'virtual:icons/fa6-brands/facebook';
 	import Fa6BrandsGithub from 'virtual:icons/fa6-brands/github';
-
-	import { PUBLIC_APP_NAME } from '$env/static/public';
+	import { env } from '$env/dynamic/public';
 
 	export let data;
 
-	// Client API
 	const { form, errors, constraints, enhance, delayed } = superForm(data.signInForm);
-	// Use delayed instead of submitting: https://superforms.rocks/concepts/timers#loading-indicators
 </script>
 
 <!-- Uncomment to view Superforms debug info -->
@@ -23,7 +20,8 @@
 		<span><Fa6BrandsGoogle /></span><span class="flex-1 self-center">Continue with Google</span></a
 	>
 	<a href="/sign-in/facebook">
-		<span><Fa6BrandsMeta /></span><span class="flex-1 self-center">Continue with Facebook</span></a
+		<span><Fa6BrandsFacebook /></span><span class="flex-1 self-center">Continue with Facebook</span
+		></a
 	>
 	<a href="/sign-in/github">
 		<span><Fa6BrandsGithub /></span><span class="flex-1 self-center">Continue with GitHub</span></a
@@ -98,6 +96,6 @@
 	</p>
 	<hr />
 	<p class="text-sm font-light">
-		New to {PUBLIC_APP_NAME}? <a href="/sign-up" class="anchor">Create an account</a>.
+		New to {env.PUBLIC_APP_NAME}? <a href="/sign-up" class="anchor">Create an account</a>.
 	</p>
 </form>

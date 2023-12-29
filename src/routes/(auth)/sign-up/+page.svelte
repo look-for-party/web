@@ -3,17 +3,14 @@
 	// import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	import Fa6BrandsGoogle from 'virtual:icons/fa6-brands/google';
-	import Fa6BrandsMeta from 'virtual:icons/fa6-brands/meta';
+	import Fa6BrandsFacebook from 'virtual:icons/fa6-brands/facebook';
 	import Fa6BrandsGithub from 'virtual:icons/fa6-brands/github';
 
 	export let data;
 
-	// Client API
 	const { form, errors, constraints, enhance, delayed } = superForm(data.signUpForm);
-	// Use delayed instead of submitting: https://superforms.rocks/concepts/timers#loading-indicators
 </script>
 
-<!-- Uncomment to view Superforms debug info -->
 <!-- <SuperDebug data={$form} /> -->
 <h1 class="text-xl font-bold md:text-2xl">Create an account</h1>
 <div class="w-full btn-group-vertical variant-ringed-surface [&>*+*]:border-surface-500">
@@ -21,7 +18,8 @@
 		<span><Fa6BrandsGoogle /></span><span class="flex-1 self-center">Sign up with Google</span></a
 	>
 	<a href="/sign-in/facebook">
-		<span><Fa6BrandsMeta /></span><span class="flex-1 self-center">Sign up with Facebook</span></a
+		<span><Fa6BrandsFacebook /></span><span class="flex-1 self-center">Sign up with Facebook</span
+		></a
 	>
 	<a href="/sign-in/github">
 		<span><Fa6BrandsGithub /></span><span class="flex-1 self-center">Sign up with GitHub</span></a
