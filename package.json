@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"release": "standard-version",
+		"prepare": "husky install",
 		"commit": "cz",
 		"dev": "vite dev",
 		"build": "vite build",
