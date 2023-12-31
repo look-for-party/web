@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### 0.0.5 (2023-12-31)
+### 0.0.2 (2023-12-31)
 
 ### 📝 Documentation
 
@@ -50,6 +50,7 @@ All notable changes to this project will be documented in this file. See [standa
 - add `prepare` script for `husky` Git hooks ([0f65c0f](https://github.com/look-for-party/infra/commit/0f65c0f3f16317aebc8eb8e26366a249b1693987))
 - **release:** 0.0.3 ([5c55380](https://github.com/look-for-party/infra/commit/5c553805bd51a15d12f998e3bbf8fb37c239797b))
 - **release:** 0.0.4 ([e6fea67](https://github.com/look-for-party/infra/commit/e6fea678a36306bb1392b3b713bd262f0947b364))
+- **release:** 0.0.5 ([ff4fe85](https://github.com/look-for-party/infra/commit/ff4fe857e834961d82371baeb4336b8260be3e0d))
 - Test code contribution flow ([368f9c9](https://github.com/look-for-party/infra/commit/368f9c917de6d795cf8aa9a09d7bce5a27f49074))
 - Test code contribution flow ([#10](https://github.com/look-for-party/infra/issues/10)) ([ae4498b](https://github.com/look-for-party/infra/commit/ae4498b6ac1033046a76ff02ab8d1fceb37b51a6))
 - Test code contribution flow ([#9](https://github.com/look-for-party/infra/issues/9)) ([18deeff](https://github.com/look-for-party/infra/commit/18deeff06db27375effe1f66d4725d9dd91163ee))
