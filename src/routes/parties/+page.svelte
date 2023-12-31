@@ -6,7 +6,6 @@
 	import PartyList from './components/PartyList.svelte';
 	import PartyListMobile from './components/PartyListMobile.svelte';
 	import type { Filter } from './types';
-
 	export let data;
 	// Don't use reactive statement here because we only want to initialize it
 	let parties = data.parties;
@@ -16,24 +15,30 @@
 		commitments: [],
 		interests: []
 	};
+
+	// TODO: get width from tailwind instead of hardcode
+	const mdWidth = 784;
+	let innerWidth: number;
 </script>
 
+<svelte:window bind:innerWidth />
 <Banner />
 <section id="parties">
-	<!-- Mobile -->
-	<div class="block md:hidden p-4 space-y-8">
-		<PartyFilterMobile bind:filter />
-		<PartyListMobile {parties} />
-	</div>
-	<!-- Web -->
-	<div class="hidden md:flex mx-auto max-w-screen-xl flex-col p-8 space-y-8">
-		<div class="w-full pl-64">
-			<SearchBar placeholder="Search by party name or keyword" />
+	{#if innerWidth <= mdWidth}
+		<div class="block p-4 space-y-8">
+			<PartyFilterMobile bind:filter />
+			<PartyListMobile {parties} />
 		</div>
-		<hr />
-		<div class="flex space-x-8">
-			<PartyFilter bind:filter />
-			<PartyList {parties} />
+	{:else}
+		<div class="flex mx-auto max-w-screen-xl flex-col p-8 space-y-8">
+			<div class="w-full pl-64">
+				<SearchBar placeholder="Search by party name or keyword" />
+			</div>
+			<hr />
+			<div class="flex space-x-8">
+				<PartyFilter bind:filter />
+				<PartyList {parties} />
+			</div>
 		</div>
-	</div>
+	{/if}
 </section>
