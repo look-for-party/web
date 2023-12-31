@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, tick } from 'svelte';
+	import { createEventDispatcher, onMount, tick } from 'svelte';
 	import { Avatar } from '@skeletonlabs/skeleton';
 	import { faker } from '@faker-js/faker';
 
@@ -39,9 +39,12 @@
 		isDetailsOpen = !isDetailsOpen;
 	};
 
+	// send message
+	const dispatch = createEventDispatcher();
 	const onPromptKeydown = (event: KeyboardEvent): void => {
 		if (['Enter'].includes(event.code)) {
 			event.preventDefault();
+            dispatch('messageSent', { message: currentMessage });
 			addMessage();
 		}
 	};
