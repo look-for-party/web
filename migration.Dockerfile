@@ -1,6 +1,8 @@
 FROM node:18-alpine AS base
 WORKDIR /app
 COPY package*.json .
+# Prevent `husky` from installing completely
+RUN ["npm", "pkg", "delete", "scripts.prepare"]
 RUN [ "npm", "ci",  "--omit=dev" ]
 
 FROM node:18-alpine AS migration
