@@ -2,16 +2,20 @@
 FROM node:18-alpine AS base
 WORKDIR /app
 COPY package*.json .
+# Prevent `husky` from installing completely
+RUN ["npm", "pkg", "delete", "scripts.prepare"]
 RUN [ "npm", "ci"]
 COPY . .
 
 # Development stage
-# TODO: Intended to use with `docker compose watch`, but failed experiment
-# FROM base AS development
-# EXPOSE ${PORT}
-# EXPOSE ${HMR_PORT}
-# ENV NODE_ENV=development
-# CMD [ "npm", "run", "start:dev"]
+# This does not have graceful shutdown unfortunately, `docker compose kill` to quickly stop it
+FROM base AS development
+EXPOSE ${PORT}
+ENV NODE_ENV=development
+USER root
+HEALTHCHECK --interval=1s --timeout=5s --retries=10 \
+    CMD wget --spider -q http://localhost:${PORT}/healthcheck || exit 1
+CMD [ "npm", "run", "dev", "--", "--host" ]
 
 # Build stage
 FROM base AS builder
@@ -27,4 +31,6 @@ COPY package.json .
 EXPOSE ${PORT}
 ENV NODE_ENV=production
 USER node
+HEALTHCHECK --interval=1s --timeout=5s --retries=10 \
+    CMD wget --spider -q http://localhost:${PORT}/healthcheck || exit 1
 CMD [ "node", "build" ]

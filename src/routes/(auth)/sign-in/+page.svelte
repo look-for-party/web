@@ -15,7 +15,7 @@
 <!-- Uncomment to view Superforms debug info -->
 <!-- <SuperDebug data={$form} /> -->
 <h1 class="text-xl font-bold md:text-2xl">Welcome back</h1>
-<div class="w-full btn-group-vertical variant-ringed-surface [&>*+*]:border-surface-500">
+<div class="variant-ringed-surface btn-group-vertical w-full [&>*+*]:border-surface-500">
 	<a href="/sign-in/google">
 		<span><Fa6BrandsGoogle /></span><span class="flex-1 self-center">Continue with Google</span></a
 	>
@@ -80,7 +80,7 @@
 		</label>
 		<a href="/password-reset" class="anchor text-sm">Forgot password?</a>
 	</div>
-	<button type="submit" disabled={$delayed} class="w-full btn variant-filled-primary"
+	<button type="submit" disabled={$delayed} class="variant-filled-primary btn w-full"
 		>{#if $delayed}
 			<ProgressRadial width="w-6" />
 		{:else}

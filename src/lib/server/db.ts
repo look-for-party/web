@@ -13,7 +13,7 @@ export const redisClient = createClient({
 });
 
 if (!building) {
-	console.log('Connecting to Redis...');
+	console.info('Connecting to Redis...');
 	redisClient.on('error', (err) => console.error('Redis Client Error', err)).connect();
 }
 
@@ -28,5 +28,11 @@ const signals: Record<string, number> = {
 };
 
 Object.keys(signals).forEach((signal) => {
-	process.on(signal, shutdownGracefully);
+	process.on(signal, async () => {
+		console.info(
+			`Process received a ${signal} signal). Graceful shutdown `,
+			new Date().toISOString()
+		);
+		await shutdownGracefully();
+	});
 });

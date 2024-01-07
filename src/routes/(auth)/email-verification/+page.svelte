@@ -17,7 +17,7 @@
 		};
 	}}
 >
-	<button type="submit" disabled={submitting} class="w-full btn variant-filled-primary"
+	<button type="submit" disabled={submitting} class="variant-filled-primary btn w-full"
 		>{#if submitting}
 			<ProgressRadial width="w-6" />
 		{:else}

@@ -13,7 +13,7 @@
 
 <!-- <SuperDebug data={$form} /> -->
 <h1 class="text-xl font-bold md:text-2xl">Create an account</h1>
-<div class="w-full btn-group-vertical variant-ringed-surface [&>*+*]:border-surface-500">
+<div class="variant-ringed-surface btn-group-vertical w-full [&>*+*]:border-surface-500">
 	<a href="/sign-in/google">
 		<span><Fa6BrandsGoogle /></span><span class="flex-1 self-center">Sign up with Google</span></a
 	>
@@ -86,7 +86,7 @@
 			<a href="#top" class="anchor">code of conduct</a>.
 		</em>
 	</p>
-	<button type="submit" disabled={$delayed} class="w-full btn variant-filled-primary"
+	<button type="submit" disabled={$delayed} class="variant-filled-primary btn w-full"
 		>{#if $delayed}
 			<ProgressRadial width="w-6" />
 		{:else}

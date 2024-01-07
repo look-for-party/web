@@ -1,9 +1,10 @@
 {
 	"name": "look-for-party-web",
-	"version": "0.0.4",
+	"version": "0.0.1",
 	"private": true,
 	"scripts": {
 		"release": "standard-version",
+		"prepare": "husky install",
 		"commit": "cz",
 		"dev": "vite dev",
 		"build": "vite build",
@@ -16,7 +17,7 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"studio": "drizzle-kit studio",
+		"db:studio": "drizzle-kit studio",
 		"db:push": "drizzle-kit push:pg",
 		"db:generate": "drizzle-kit generate:pg",
 		"db:migrate": "node migrations/migrate"
