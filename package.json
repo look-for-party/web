@@ -17,7 +17,7 @@
 		"format": "prettier --write .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-		"studio": "drizzle-kit studio",
+		"db:studio": "drizzle-kit studio",
 		"db:push": "drizzle-kit push:pg",
 		"db:generate": "drizzle-kit generate:pg",
 		"db:migrate": "node migrations/migrate"
