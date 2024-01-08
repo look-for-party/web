@@ -3,8 +3,8 @@
 	import { LightSwitch } from '@skeletonlabs/skeleton';
 </script>
 
-<section class="h-full">
-	<div class="flex h-full flex-col items-center justify-center p-6">
+<main class="h-full">
+	<section class="flex h-full flex-col items-center justify-center overflow-auto p-6">
 		<!-- TODO: Hacky way to persist theme state across layouts. Perhaps another method? -->
 		<LightSwitch class="hidden" />
 		<a href="/" class="mb-6 flex items-center">
@@ -14,5 +14,5 @@
 		<div class="card w-full space-y-4 p-6 sm:max-w-lg sm:p-8 md:space-y-6">
 			<slot />
 		</div>
-	</div>
-</section>
+	</section>
+</main>
