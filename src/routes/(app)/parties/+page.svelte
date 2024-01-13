@@ -15,30 +15,23 @@
 		commitments: [],
 		interests: []
 	};
-
-	// TODO: get width from tailwind instead of hardcode
-	const mdWidth = 784;
-	let innerWidth: number;
 </script>
 
-<svelte:window bind:innerWidth />
 <Banner />
 <section id="parties">
-	{#if innerWidth <= mdWidth}
-		<div class="block space-y-8 p-4">
-			<PartyFilterMobile bind:filter />
-			<PartyListMobile {parties} />
+	<div class="block space-y-8 p-4 md:hidden">
+		<PartyFilterMobile bind:filter />
+		<PartyListMobile {parties} />
+	</div>
+
+	<div class="mx-auto hidden max-w-screen-xl flex-col space-y-8 p-8 md:flex">
+		<div class="w-full pl-64">
+			<SearchBar placeholder="Search by party name or keyword" />
 		</div>
-	{:else}
-		<div class="mx-auto flex max-w-screen-xl flex-col space-y-8 p-8">
-			<div class="w-full pl-64">
-				<SearchBar placeholder="Search by party name or keyword" />
-			</div>
-			<hr />
-			<div class="flex space-x-8">
-				<PartyFilter bind:filter />
-				<PartyList {parties} />
-			</div>
+		<hr />
+		<div class="flex space-x-8">
+			<PartyFilter bind:filter />
+			<PartyList {parties} />
 		</div>
-	{/if}
+	</div>
 </section>
