@@ -73,14 +73,14 @@
 	};
 </script>
 
-<section id="sidebar" class="flex flex-col space-y-8 w-56">
+<section id="sidebar" class="flex w-56 flex-col space-y-8">
 	<button
-		class="btn variant-soft enabled:hover:variant-filled-warning rounded-sm"
+		class="variant-soft btn rounded-sm enabled:hover:variant-filled-warning"
 		disabled={filterNum === 0}
 		on:click={clearFilters}
 	>
 		<span>Clear filters</span>
-		<span class="chip variant-ringed">{filterNum}</span>
+		<span class="variant-ringed chip">{filterNum}</span>
 	</button>
 	<SlideToggle name="slider-label" size="sm" active="bg-secondary-500" bind:checked={matchProfile}
 		>Match my profile
@@ -99,7 +99,7 @@
 		</div>
 		<div
 			data-popup="popupAutocomplete"
-			class="card overflow-y-auto max-h-48 w-1/5 min-w-[230px] p-4"
+			class="card max-h-48 w-1/5 min-w-[230px] overflow-y-auto p-4"
 			tabindex="-1"
 		>
 			<Autocomplete

@@ -28,8 +28,8 @@
 	};
 </script>
 
-<section id="party-list" class="flex-1 flex flex-col space-y-8">
-	<div class="w-full flex items-center justify-between">
+<section id="party-list" class="flex flex-1 flex-col space-y-8">
+	<div class="flex w-full items-center justify-between">
 		<p class="font-light text-surface-400">Showing 696 parties (0.420 ms)</p>
 		<div class="flex items-center space-x-2">
 			<span class="font-semibold">Sort:</span>
@@ -44,7 +44,7 @@
 		{#each parties as party}
 			<a
 				href="#top"
-				class="border-l-4 hover:border-l-8 border-l-primary-500 w-full p-4 card card-hover flex flex-col space-y-4 overflow-auto"
+				class="card card-hover flex w-full flex-col space-y-4 overflow-auto border-l-4 border-l-primary-500 p-4 hover:border-l-8"
 			>
 				<header class="flex space-x-4">
 					<div>
@@ -73,11 +73,11 @@
 					</button>
 				</header>
 				<section class="ml-6 flex flex-col space-y-2">
-					<div class="flex items-center w-full space-x-4">
+					<div class="flex w-full items-center space-x-4">
 						<Avatar src={party.leader.avatar} width="w-6" rounded="rounded-lg" />
 						<span class="font-thin">{party.leader.name}</span>
 					</div>
-					<div class="flex items-center w-full space-x-4">
+					<div class="flex w-full items-center space-x-4">
 						<span class="material-symbols-outlined"> calendar_clock </span>
 						<span class="font-thin">{party.requirement.commitment}</span>
 					</div>
@@ -86,7 +86,7 @@
 						<span class="material-symbols-outlined"> code </span>
 						<div>
 							{#each [...party.requirement.skills] as skill}
-								<button class="chip variant-ghost-primary mr-2 mb-2">{skill}</button>
+								<button class="variant-ghost-primary chip mb-2 mr-2">{skill}</button>
 							{/each}
 						</div>
 					</div>
@@ -94,7 +94,7 @@
 						<span class="material-symbols-outlined"> tag </span>
 						<div>
 							{#each [...party.requirement.interests] as interest}
-								<button class="chip variant-soft mr-2 mb-2">{interest}</button>
+								<button class="variant-soft chip mb-2 mr-2">{interest}</button>
 							{/each}
 						</div>
 					</div>

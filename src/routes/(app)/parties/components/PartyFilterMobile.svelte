@@ -27,28 +27,28 @@
 <section id="filter" class="space-y-4">
 	<div class="space-y-4">
 		<div class="flex items-end justify-between">
-			<h2 class="inline h2 font-semibold">All parties</h2>
-			<p class="font-light text-right text-surface-400">Showing 696 parties (0.420 ms)</p>
+			<h2 class="h2 inline font-semibold">All parties</h2>
+			<p class="text-right font-light text-surface-400">Showing 696 parties (0.420 ms)</p>
 		</div>
 		<div class="w-full">
 			<SearchBar placeholder="Search parties" />
 		</div>
 	</div>
-	<div class="snap-x scroll-px-4 snap-mandatory scroll-smooth flex gap-4 overflow-x-auto py-4">
+	<div class="flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto scroll-smooth py-4">
 		{#each ['Commitments', 'Skills', 'Interests'] as label}
 			<!-- Trigger -->
 			<button
-				class="btn card snap-align-none shrink-0 text-center"
+				class="card btn shrink-0 snap-align-none text-center"
 				use:popup={{
 					event: 'click',
 					target: label.toLowerCase()
 				}}>{label}</button
 			>
 			<!-- Popup -->
-			<div class="card p-4 z-10" data-popup={label.toLowerCase()}>
+			<div class="card z-10 p-4" data-popup={label.toLowerCase()}>
 				<!-- TODO: Complete these -->
 				<p>{label}</p>
-				<div class="arrow bg-surface-100-800-token" />
+				<div class="bg-surface-100-800-token arrow" />
 			</div>
 		{/each}
 	</div>

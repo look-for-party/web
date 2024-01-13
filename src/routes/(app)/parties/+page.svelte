@@ -25,12 +25,12 @@
 <Banner />
 <section id="parties">
 	{#if innerWidth <= mdWidth}
-		<div class="block p-4 space-y-8">
+		<div class="block space-y-8 p-4">
 			<PartyFilterMobile bind:filter />
 			<PartyListMobile {parties} />
 		</div>
 	{:else}
-		<div class="flex mx-auto max-w-screen-xl flex-col p-8 space-y-8">
+		<div class="mx-auto flex max-w-screen-xl flex-col space-y-8 p-8">
 			<div class="w-full pl-64">
 				<SearchBar placeholder="Search by party name or keyword" />
 			</div>
