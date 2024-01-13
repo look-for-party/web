@@ -4,7 +4,6 @@
 	import ChatDetails from './components/ChatDetails.svelte';
 
 	import type { MessageFeed, Person } from '$lib/types';
-
 	import { peopleMockData, messageFeedMockData } from '$lib/utils';
 
 	const people: Person[] = peopleMockData;
@@ -15,7 +14,7 @@
 	let isDetailsOpen: boolean = true;
 </script>
 
-<section class="chat card h-full flex flex-row">
+<section class="flex h-full">
 	<ChatNavigation {people} bind:currentPerson />
 	<!-- TODO: chat feed scroll up when smaller window -->
 	<ChatFeed {currentPerson} bind:messageFeed bind:currentMessage bind:isDetailsOpen />

@@ -15,10 +15,4 @@
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 </script>
 
-<AppShell>
-	<svelte:fragment slot="pageHeader">
-		<Header />
-	</svelte:fragment>
-	<!-- Router Slot -->
-	<slot />
-</AppShell>
+<slot />
