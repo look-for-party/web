@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { Avatar } from '@skeletonlabs/skeleton';
 
+	import PhArrowFatUpFill from '~icons/ph/arrow-fat-up-fill';
+	import LucideCalendarClock from '~icons/lucide/calendar-clock';
+	import LucideCode2 from '~icons/lucide/code-2';
+	import LucideTag from '~icons/lucide/tag';
+
 	import type { Party } from '$lib/types';
 
 	export let parties: Party[];
@@ -59,7 +64,7 @@
 						}`}
 						on:click={() => onVote(party, true)}
 					>
-						<span class="material-symbols-outlined"> voting_chip </span>
+						<PhArrowFatUpFill class="h-4 w-4" />
 						<span class="!ml-0">{party.upvotes}</span>
 					</button>
 				</header>
@@ -69,12 +74,12 @@
 						<span class="font-thin">{party.leader.name}</span>
 					</div>
 					<div class="flex w-full items-center space-x-4">
-						<span class="material-symbols-outlined"> calendar_clock </span>
+						<LucideCalendarClock class="h-6 w-6" />
 						<span class="font-thin">{party.requirement.commitment}</span>
 					</div>
 					<!-- TODO: variant-ghost-primary and a tick for skills and interests currently active in the filter, variant-soft for all others. allows you to press to enable/disable them -->
 					<div class="flex w-full space-x-4">
-						<span class="material-symbols-outlined"> code </span>
+						<LucideCode2 class="h-6 w-6" />
 						<div>
 							{#each [...party.requirement.skills] as skill}
 								<button class="variant-ghost-primary chip mb-2 mr-2">{skill}</button>
@@ -82,7 +87,7 @@
 						</div>
 					</div>
 					<div class="flex w-full space-x-4">
-						<span class="material-symbols-outlined"> tag </span>
+						<LucideTag class="h-6 w-6" />
 						<div>
 							{#each [...party.requirement.interests] as interest}
 								<button class="variant-soft chip mb-2 mr-2">{interest}</button>
