@@ -37,6 +37,7 @@ export const actions = {
 				message: 'An unknown error occurred'
 			});
 		}
+		// TODO: use toast instead of redirect, better UX
 		throw redirect(302, '/password-reset/sent');
 	}
 };

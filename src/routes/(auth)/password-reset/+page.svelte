@@ -32,7 +32,7 @@
 			<span class="text-sm font-semibold text-error-500">{$errors.email}</span>
 		{/if}
 	</label>
-	<div class="w-full btn-group-vertical variant-ringed-surface [&>*+*]:border-surface-500">
+	<div class="variant-ringed-surface btn-group-vertical w-full [&>*+*]:border-surface-500">
 		<button type="submit" disabled={$delayed}
 			>{#if $delayed}
 				<ProgressRadial width="w-6" />

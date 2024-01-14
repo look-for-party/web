@@ -14,7 +14,7 @@
 	let isDetailsOpen: boolean = true;
 </script>
 
-<section class="h-full flex">
+<section class="flex h-full">
 	<ChatNavigation {people} bind:currentPerson />
 	<!-- TODO: chat feed scroll up when smaller window -->
 	<ChatFeed {currentPerson} bind:messageFeed bind:currentMessage bind:isDetailsOpen />
