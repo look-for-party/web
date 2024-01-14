@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { db } from './db';
 import {
 	emailVerification as emailVerificationTable,
-	passwordReset as passwordVerificationTable
+	passwordReset as passwordResetTable
 } from './schema';
 
 const EXPIRES_IN = 1000 * 60 * 60 * 2; // 2 hours
@@ -53,8 +53,8 @@ export const validateEmailVerificationToken = async (token: string) => {
 export const generatePasswordResetToken = async (userId: string) => {
 	const storedUserTokens = await db
 		.select()
-		.from(passwordVerificationTable)
-		.where(eq(passwordVerificationTable.userId, userId));
+		.from(passwordResetTable)
+		.where(eq(passwordResetTable.userId, userId));
 	if (storedUserTokens.length > 0) {
 		const reusableStoredToken = storedUserTokens.find((token) => {
 			// check if expiration is within 1 hour
@@ -64,7 +64,7 @@ export const generatePasswordResetToken = async (userId: string) => {
 		if (reusableStoredToken) return reusableStoredToken.id;
 	}
 	const token = generateRandomString(63);
-	await db.insert(passwordVerificationTable).values({
+	await db.insert(passwordResetTable).values({
 		id: token,
 		userId: userId,
 		expires: new Date().getTime() + EXPIRES_IN
@@ -76,12 +76,10 @@ export const validatePasswordResetToken = async (token: string) => {
 	const storedToken = await db.transaction(async (tx) => {
 		const [storedToken] = await tx
 			.select()
-			.from(passwordVerificationTable)
-			.where(eq(passwordVerificationTable.id, token));
+			.from(passwordResetTable)
+			.where(eq(passwordResetTable.id, token));
 		if (!storedToken) throw new Error('Invalid token');
-		await tx
-			.delete(passwordVerificationTable)
-			.where(eq(passwordVerificationTable.id, storedToken.id));
+		await tx.delete(passwordResetTable).where(eq(passwordResetTable.id, storedToken.id));
 		return storedToken;
 	});
 	const tokenExpires = Number(storedToken.expires); // bigint => number conversion
