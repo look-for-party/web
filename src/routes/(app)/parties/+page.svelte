@@ -24,13 +24,17 @@
 		<PartyListMobile {parties} />
 	</div>
 
-	<div class="mx-auto hidden max-w-screen-xl flex-col space-y-8 p-8 md:flex">
-		<div class="w-full pl-64">
-			<SearchBar placeholder="Search by party name or keyword" />
-		</div>
-		<hr />
-		<div class="flex space-x-8">
+	<!--TODO: Use design token for divider color once https://github.com/skeletonlabs/skeleton/issues/2412 is resolved-->
+	<div
+		class=" mx-auto hidden max-w-screen-2xl divide-x-2 divide-surface-200 p-8 dark:divide-surface-700 md:flex"
+	>
+		<div class="mr-8">
 			<PartyFilter bind:filter />
+		</div>
+		<div class="flex flex-grow flex-col space-y-2 pl-8">
+			<div class="w-full">
+				<SearchBar placeholder="Search by party name or keyword" />
+			</div>
 			<PartyList {parties} />
 		</div>
 	</div>

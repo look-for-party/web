@@ -33,9 +33,9 @@
 	};
 </script>
 
-<section id="party-list" class="flex flex-1 flex-col space-y-8">
-	<div class="flex w-full items-center justify-between">
-		<p class="font-light text-surface-400">Showing 696 parties (0.420 ms)</p>
+<section id="party-list" class="flex flex-1 flex-col gap-8">
+	<div class="flex w-full flex-wrap items-center justify-between gap-2">
+		<p class="text-surface-400-500-token min-w-fit font-light">Showing 696 parties (0.420 ms)</p>
 		<div class="flex items-center space-x-2">
 			<span class="font-semibold">Sort:</span>
 			<TabGroup>
