@@ -15,7 +15,9 @@ ENV NODE_ENV=development
 USER root
 HEALTHCHECK --interval=1s --timeout=5s --retries=10 \
     CMD wget --spider -q http://localhost:${PORT}/healthcheck || exit 1
-CMD [ "npm", "run", "dev", "--", "--host" ]
+# CMD [ "npm", "run", "dev", "--", "--host" ]
+# Temporary (?) hack to get graceful shutdown working in development
+CMD [ "node", "/app/node_modules/.bin/vite", "dev", "--host" ]
 
 # Build stage
 FROM base AS builder
