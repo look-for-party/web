@@ -23,7 +23,7 @@
 </script>
 
 <div
-	class="card card-hover relative flex w-full flex-col gap-4 p-8 outline-1 outline-primary-500 hover:outline hover:outline-offset-8"
+	class="card card-hover relative flex w-full flex-col gap-4 p-8 outline-1 outline-primary-500 hover:outline hover:outline-offset-8 dark:shadow-black"
 >
 	<div class="space-y-4">
 		<header class="flex items-center space-x-4 xl:items-start">

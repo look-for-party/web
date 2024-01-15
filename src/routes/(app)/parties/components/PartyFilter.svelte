@@ -113,7 +113,7 @@
 		</div>
 		<div
 			data-popup="popupAutocomplete"
-			class="card max-h-96 w-56 overflow-y-auto p-2 text-left"
+			class="card max-h-96 w-56 overflow-y-auto p-2 text-left shadow-lg dark:shadow-black"
 			tabindex="-1"
 		>
 			<Autocomplete
