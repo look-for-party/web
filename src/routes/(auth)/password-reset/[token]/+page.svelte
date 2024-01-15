@@ -44,7 +44,7 @@
 			<span class="text-sm font-semibold text-error-500">{$errors.confirmPassword}</span>
 		{/if}
 	</label>
-	<button type="submit" disabled={$delayed} class="w-full btn variant-filled-primary"
+	<button type="submit" disabled={$delayed} class="variant-filled-primary btn w-full"
 		>{#if $delayed}
 			<ProgressRadial width="w-6" />
 		{:else}

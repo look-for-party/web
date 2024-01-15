@@ -86,16 +86,16 @@ export const theme: CustomThemeConfig = {
 		'--color-error-700': '191 73 97', // #bf4961
 		'--color-error-800': '153 58 77', // #993a4d
 		'--color-error-900': '125 48 63', // #7d303f
-		// surface | #292B38
-		'--color-surface-50': '223 223 225', // #dfdfe1
-		'--color-surface-100': '212 213 215', // #d4d5d7
-		'--color-surface-200': '202 202 205', // #cacacd
-		'--color-surface-300': '169 170 175', // #a9aaaf
-		'--color-surface-400': '105 107 116', // #696b74
-		'--color-surface-500': '41 43 56', // #292B38
-		'--color-surface-600': '37 39 50', // #252732
-		'--color-surface-700': '31 32 42', // #1f202a
-		'--color-surface-800': '25 26 34', // #191a22
-		'--color-surface-900': '20 21 27' // #14151b
+		// surface | https://www.tints.dev/surface/14151B | 900-0-0-100-0
+		'--color-surface-50': '240 241 244', // #F0F1F4
+		'--color-surface-100': '226 227 233', // #E2E3E9
+		'--color-surface-200': '196 199 212', // #C4C7D4
+		'--color-surface-300': '167 171 190', // #A7ABBE
+		'--color-surface-400': '138 142 168', // #8A8EA8
+		'--color-surface-500': '109 114 146', // #6D7292
+		'--color-surface-600': '85 89 114', // #555972
+		'--color-surface-700': '63 66 85', // #3F4255
+		'--color-surface-800': '41 43 56', // #292B38
+		'--color-surface-900': '20 21 27' // #14151B
 	}
 };
