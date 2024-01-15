@@ -37,7 +37,7 @@
 		if (idx === -1) {
 			filter.commitments.push(commitment);
 		} else {
-			filter.commitments.splice(idx);
+			filter.commitments.splice(idx, 1);
 		}
 		filter = filter;
 	};
@@ -46,7 +46,7 @@
 		if (idx === -1) {
 			filter.interests.push(interest);
 		} else {
-			filter.interests.splice(idx);
+			filter.interests.splice(idx, 1);
 		}
 		filter = filter;
 	};
@@ -167,7 +167,6 @@
 					</label>
 				</li>
 			{/each}
-			<!-- TODO: Buggy state saving behaviour -->
 			{#if showAll}
 				<ul class="list" transition:slide>
 					{#each interests.slice(5) as interest}
