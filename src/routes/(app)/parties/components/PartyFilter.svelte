@@ -97,7 +97,7 @@
 	</SlideToggle>
 	<div class="space-y-2">
 		<header class="flex items-center gap-2">
-			<LucideCode2 class="mt-1 h-6 w-6" />
+			<LucideCode2 class="h-6 w-6" />
 			<h3 class="h3 font-bold">Skills</h3>
 		</header>
 		<div use:popup={popupSettings}>
@@ -128,7 +128,7 @@
 
 	<div class="space-y-2">
 		<header class="flex items-center gap-2">
-			<LucideCalendarClock class="mt-1 h-6 w-6" />
+			<LucideCalendarClock class="h-6 w-6" />
 			<h3 class="h3 font-bold">Commitments</h3>
 		</header>
 		<ul class="list">
@@ -149,7 +149,7 @@
 	</div>
 	<div class="space-y-2">
 		<header class="flex items-center gap-2">
-			<LucideTag class="mt-1 h-6 w-6" />
+			<LucideTag class="h-6 w-6" />
 			<h3 class="h3 font-bold">Interests</h3>
 		</header>
 		<!-- TODO: Shouldn't hide checked items when show less-->
@@ -190,10 +190,10 @@
 			on:click={toggleShowAll}
 		>
 			{#if showAll}
-				<LucideMinus class="group-hover:text-primary-500 " />
+				<LucideMinus class="group-hover:text-primary-500" />
 				Show less
 			{:else}
-				<LucidePlus class="group-hover:text-primary-500 " />
+				<LucidePlus class="group-hover:text-primary-500" />
 				Show more
 			{/if}
 		</button>
