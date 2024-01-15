@@ -1,6 +1,15 @@
 <script lang="ts">
 	import { commitments, skills, interests } from '$lib/utils';
 	import type { Filter } from '../types';
+	import { slide } from 'svelte/transition';
+
+	import LucideCalendarClock from '~icons/lucide/calendar-clock';
+	import LucideCode2 from '~icons/lucide/code-2';
+	import LucideTag from '~icons/lucide/tag';
+	import LucideEraser from '~icons/lucide/eraser';
+	import LucidePlus from '~icons/lucide/plus';
+	import LucideMinus from '~icons/lucide/minus';
+
 	import {
 		Autocomplete,
 		InputChip,
@@ -75,10 +84,11 @@
 
 <section id="sidebar" class="flex w-56 flex-col space-y-8">
 	<button
-		class="variant-soft btn rounded-sm enabled:hover:variant-filled-warning"
+		class="btn rounded-sm enabled:variant-outline-warning enabled:hover:variant-filled-warning disabled:variant-soft"
 		disabled={filterNum === 0}
 		on:click={clearFilters}
 	>
+		<LucideEraser />
 		<span>Clear filters</span>
 		<span class="variant-ringed chip">{filterNum}</span>
 	</button>
@@ -86,7 +96,10 @@
 		>Match my profile
 	</SlideToggle>
 	<div class="space-y-2">
-		<p class="h6 font-bold">Skills</p>
+		<header class="flex items-center gap-2">
+			<LucideCode2 class="mt-1 h-6 w-6" />
+			<h3 class="h3 font-bold">Skills</h3>
+		</header>
 		<div use:popup={popupSettings}>
 			<InputChip
 				bind:input={skillInput}
@@ -95,11 +108,12 @@
 				name="chips"
 				placeholder="Select skills"
 				chips="variant-filled hover:variant-soft"
+				class="outline-1 outline-primary-500 transition-[outline-offset] focus-within:border-surface-400-500-token focus-within:outline focus-within:outline-offset-8"
 			/>
 		</div>
 		<div
 			data-popup="popupAutocomplete"
-			class="card max-h-48 w-1/5 min-w-[230px] overflow-y-auto p-4"
+			class="card max-h-96 w-56 overflow-y-auto p-2 text-left"
 			tabindex="-1"
 		>
 			<Autocomplete
@@ -107,12 +121,16 @@
 				options={skillOptions}
 				denylist={filter.skills}
 				on:selection={onInputChipSelect}
+				regionButton="w-full text-left !block whitespace-nowrap overflow-hidden text-ellipsis "
 			/>
 		</div>
 	</div>
 
 	<div class="space-y-2">
-		<p class="h6 font-bold">Commitments</p>
+		<header class="flex items-center gap-2">
+			<LucideCalendarClock class="mt-1 h-6 w-6" />
+			<h3 class="h3 font-bold">Commitments</h3>
+		</header>
 		<ul class="list">
 			{#each commitments as commitment}
 				<li class="list-item">
@@ -130,9 +148,13 @@
 		</ul>
 	</div>
 	<div class="space-y-2">
-		<p class="h6 font-bold">Interests</p>
+		<header class="flex items-center gap-2">
+			<LucideTag class="mt-1 h-6 w-6" />
+			<h3 class="h3 font-bold">Interests</h3>
+		</header>
+		<!-- TODO: Shouldn't hide checked items when show less-->
 		<ul class="list">
-			{#each showAll ? interests : interests.slice(0, 5) as interest}
+			{#each interests.slice(0, 5) as interest}
 				<li class="list-item">
 					<label class="flex items-center space-x-2">
 						<input
@@ -146,9 +168,35 @@
 				</li>
 			{/each}
 			<!-- TODO: Buggy state saving behaviour -->
-			<button class="underline" on:click={toggleShowAll}>
-				{showAll ? 'Show less' : 'Show more'}
-			</button>
+			{#if showAll}
+				<ul class="list" transition:slide>
+					{#each interests.slice(5) as interest}
+						<li class="list-item">
+							<label class="flex items-center space-x-2">
+								<input
+									class="checkbox"
+									type="checkbox"
+									on:click={() => onInterestCheck(interest)}
+									checked={filter.interests.includes(interest)}
+								/>
+								<p>{interest}</p>
+							</label>
+						</li>
+					{/each}
+				</ul>
+			{/if}
 		</ul>
+		<button
+			class="group flex items-center gap-1 decoration-primary-500 hover:underline"
+			on:click={toggleShowAll}
+		>
+			{#if showAll}
+				<LucideMinus class="group-hover:text-primary-500 " />
+				Show less
+			{:else}
+				<LucidePlus class="group-hover:text-primary-500 " />
+				Show more
+			{/if}
+		</button>
 	</div>
 </section>
