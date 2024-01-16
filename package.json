@@ -57,6 +57,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"ioredis": "^5.3.2",
+		"postgres": "^3.4.3",
 		"socket.io": "^4.7.2",
 		"socket.io-client": "^4.7.2"
 	}

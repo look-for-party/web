@@ -1,15 +1,19 @@
 import type { ViteDevServer } from 'vite';
 import { Server, type Socket } from 'socket.io'
-import { INIT, JOIN, BROADCAST } from './events';
-import type { BroadcaseSocketMessage, InitSocketMessage, JoinSocketMessage, RoomMessageInfo } from './types';
+import { INIT, JOIN, BROADCAST, LEAVE } from './events';
+import type { BroadcastSocketMessage, InitSocketMessageFromClient, InitSocketMessageFromServer, RoomMessageInfo } from './types';
 import { randomUUID } from 'crypto';
+import Redis from 'ioredis';
+// import { REDIS_URL } from '$env/dynamic/private';
+// console.log(process.env)
+// console.log(import.meta.env)
 
 export const webSocketServer = {
     name: 'web-socket-server',
     configureServer(server: ViteDevServer) {
         if (!server.httpServer) return
         const io = new Server(server.httpServer)
-
+        
         io.on('connection', (socket) => {
             initServerSideSocket(io, socket)
         })
@@ -17,22 +21,70 @@ export const webSocketServer = {
 } 
 
 function initServerSideSocket(io: Server, socket: Socket) {
+    // const subscriber = new Redis();
     socket.data.user = socket.handshake.auth.user
-    socket.on(JOIN, (join: JoinSocketMessage) => {
-        socket.join(join.rooms)
+    socket.on(INIT, (msg: InitSocketMessageFromClient) => {
+        socket.join(msg.rooms)
+        // if the user joins or leaves the party, must update immediately
+        // use redis to publish the changes (leave or join)
+        // published message will be "leave:userID" or "join:userID"
+        // msg.rooms.forEach(roomID => {
+        //     subscriber.subscribe(roomID, (err, msg) => {
+        //         if (err) {
+        //             console.error(err)
+        //             return
+        //         }
+        //         if (!msg) return
+        //         const [event, userID] = (msg as string).split(':')
+        //         if (event === 'join') {
+        //             if (socket.data.user.id === userID) {
+        //                 socket.join(roomID)
+        //             }
+        //             socket.emit(JOIN)
+        //         } else if (event === 'leave') {
+        //             if (socket.data.user.id === userID) {
+        //                 socket.leave(roomID)
+        //             }
+        //             socket.emit(LEAVE)
+        //         }
+        //     })
+        // })
+
         // initialize rooms data
         // consists of history chat, information about user, rooms, etc
 
 
         // mockdata, will be replaced data
-        const im: InitSocketMessage = {
+        const im: InitSocketMessageFromServer = {
             rooms: [
                 {
                     id: '1',
                     icon: '',
                     name: 'Room 1',
-                    members: [],
-                    history: []
+                    members: [
+                        {
+                            id: '1'
+                        },
+                        {
+                            id: '2'
+                        }
+                    ],
+                    history: [
+                        {
+                            id: '1',
+                            userID: '1',
+                            roomID: '1',
+                            content: 'Hello',
+                            time: new Date()
+                        },
+                        {
+                            id: '2',
+                            userID: '2',
+                            roomID: '1',
+                            content: 'Hi',
+                            time: new Date()
+                        }
+                    ]
                 }
             ]
         }
@@ -40,13 +92,14 @@ function initServerSideSocket(io: Server, socket: Socket) {
         socket.emit(INIT, im)
     })
 
-    socket.on(BROADCAST, (msg: BroadcaseSocketMessage) => {
+    socket.on(BROADCAST, (msg: BroadcastSocketMessage) => {
         const message = createMessage(socket, msg)
         io.to(msg.roomID).emit(BROADCAST, message)
     })
+
 }
 
-function createMessage(socket: Socket, msg: BroadcaseSocketMessage): RoomMessageInfo {
+function createMessage(socket: Socket, msg: BroadcastSocketMessage): RoomMessageInfo {
     // TODO: do something with database
     return {
         id: randomUUID(),

@@ -5,6 +5,8 @@
 
 	import type { MessageFeed, Person } from '$src/lib/types';
 	import { getCurrentTimestamp } from '$src/lib/utils';
+	import type { RoomMessageInfo } from '$src/lib/chat/types';
+	import { messageReceiver } from '$src/lib/chat/client';
 
 	let elemChat: HTMLElement;
 	export let messageFeed: MessageFeed[];
@@ -12,14 +14,14 @@
 	export let currentPerson: Person;
 	export let isDetailsOpen: boolean;
 
-	const addMessage = (): void => {
+	export const addMessage = (msg: RoomMessageInfo): void => {
 		const newMessage = {
 			id: faker.number.int(),
 			host: true,
 			avatar: faker.image.avatar(),
 			name: 'You',
 			timestamp: `Today @ ${getCurrentTimestamp()}`,
-			message: currentMessage,
+			message: msg.content,
 			color: 'variant-soft-primary'
 		};
 		// Update the message feed
@@ -45,9 +47,13 @@
 		if (['Enter'].includes(event.code)) {
 			event.preventDefault();
             dispatch('messageSent', { message: currentMessage });
-			addMessage();
 		}
 	};
+
+    messageReceiver.subscribe((msg) => {
+        if (msg)
+            addMessage(msg)
+    })
 
 	// For some reason, eslint thinks ScrollBehavior is undefined...
 	// eslint-disable-next-line no-undef
@@ -146,7 +152,9 @@
 					? 'material-symbols-outlined variant-filled-primary'
 					: 'material-symbols-outlined input-group-shim'}
 				style="font-size: 16px;"
-				on:click={addMessage}
+				on:click={() => {
+                    dispatch('messageSent', { message: currentMessage });
+                }}
 				disabled={!currentMessage}
 			>
 				send

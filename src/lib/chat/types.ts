@@ -1,3 +1,4 @@
+// socket.io types
 export type UserInfo = {
     id: string
 }
@@ -19,14 +20,23 @@ export type RoomMessageInfo = {
 }
 
 export type JoinSocketMessage = {
-    rooms: string | string[]
+    roomID: string
+    user: UserInfo
+}
+export type LeaveSocketMessage = {
+    roomID: string
+    user: UserInfo
 }
 
-export type InitSocketMessage = {
+export type InitSocketMessageFromClient = {
+    rooms: string[]
+}
+
+export type InitSocketMessageFromServer = {
     rooms: RoomInfo[]
 }
 
-export type BroadcaseSocketMessage = {
+export type BroadcastSocketMessage = {
     roomID: string
     content: string
 }

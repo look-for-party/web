@@ -5,7 +5,7 @@ const JOIN = 'join'
 // client side: it is the received message by client as all information about the message
 // server side: it is the message sent by user, received by server as raw socket message
 const BROADCAST = 'broadcast'
-const LEAVE = 'leave'   // only when user leave party
+const LEAVE = 'leave'   // only when user leave party, they also have to leave the room
 
 
 export {
