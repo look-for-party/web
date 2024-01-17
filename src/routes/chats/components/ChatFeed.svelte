@@ -5,8 +5,8 @@
 
 	import type { MessageFeed, Person } from '$src/lib/types';
 	import { getCurrentTimestamp } from '$src/lib/utils';
-	import type { RoomMessageInfo } from '$src/lib/chat/types';
-	import { messageReceiver } from '$src/lib/chat/client';
+	import type { BroadcastSocketMessage, RoomMessageInfo } from '$src/lib/chat';
+	import { messageReceiver, messageSender } from '$src/lib/chat';
 
 	let elemChat: HTMLElement;
 	export let messageFeed: MessageFeed[];
@@ -41,12 +41,19 @@
 		isDetailsOpen = !isDetailsOpen;
 	};
 
+    const sendMessage = (): void => {
+        const broadcastMessage: BroadcastSocketMessage = {
+            content: currentMessage,
+            roomID: '1',
+        };
+        messageSender.set(broadcastMessage);
+    }
+
 	// send message
-	const dispatch = createEventDispatcher();
 	const onPromptKeydown = (event: KeyboardEvent): void => {
 		if (['Enter'].includes(event.code)) {
 			event.preventDefault();
-            dispatch('messageSent', { message: currentMessage });
+            sendMessage();
 		}
 	};
 
@@ -152,9 +159,7 @@
 					? 'material-symbols-outlined variant-filled-primary'
 					: 'material-symbols-outlined input-group-shim'}
 				style="font-size: 16px;"
-				on:click={() => {
-                    dispatch('messageSent', { message: currentMessage });
-                }}
+				on:click={sendMessage}
 				disabled={!currentMessage}
 			>
 				send

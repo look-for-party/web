@@ -1,6 +1,8 @@
 // socket.io types
 export type UserInfo = {
     id: string
+    avatar: string  // url
+    name: string
 }
 
 export type RoomInfo = {
@@ -8,7 +10,8 @@ export type RoomInfo = {
     icon: string    // url
     name: string
     members: UserInfo[]
-    history: RoomMessageInfo[]
+    // undefined if not initialized, initialize when first time viewing the room
+    history?: RoomMessageInfo[] 
 }
 
 export type RoomMessageInfo = {
@@ -16,16 +19,21 @@ export type RoomMessageInfo = {
     userID: string
     roomID: string
     content: string
-    time: Date
+    timestamp: Date
 }
 
 export type JoinSocketMessage = {
-    roomID: string
+    room: RoomInfo
     user: UserInfo
 }
 export type LeaveSocketMessage = {
-    roomID: string
+    room: RoomInfo
     user: UserInfo
+}
+
+export type LoadHistorySocketMessage = {
+    roomID: string
+    history: RoomMessageInfo[]
 }
 
 export type InitSocketMessageFromClient = {

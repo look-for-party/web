@@ -3,9 +3,15 @@
 
 	import type { Person } from '$src/lib/types';
 	import SearchBar from '$src/lib/components/SearchBar.svelte';
+	import { messageReceiver } from '$src/lib/chat';
 
 	export let people: Person[];
 	export let currentPerson: Person;
+
+	let latestMessage: string = '';
+	messageReceiver.subscribe((msg) => {
+		if (msg) latestMessage = msg.content;
+	});
 </script>
 
 <div class="flex w-24 flex-col border-r border-surface-500/30 lg:w-80">

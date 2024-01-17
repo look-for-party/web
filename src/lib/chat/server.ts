@@ -23,74 +23,97 @@ export const webSocketServer = {
 function initServerSideSocket(io: Server, socket: Socket) {
     // const subscriber = new Redis();
     socket.data.user = socket.handshake.auth.user
-    socket.on(INIT, (msg: InitSocketMessageFromClient) => {
-        socket.join(msg.rooms)
-        // if the user joins or leaves the party, must update immediately
-        // use redis to publish the changes (leave or join)
-        // published message will be "leave:userID" or "join:userID"
-        // msg.rooms.forEach(roomID => {
-        //     subscriber.subscribe(roomID, (err, msg) => {
-        //         if (err) {
-        //             console.error(err)
-        //             return
-        //         }
-        //         if (!msg) return
-        //         const [event, userID] = (msg as string).split(':')
-        //         if (event === 'join') {
-        //             if (socket.data.user.id === userID) {
-        //                 socket.join(roomID)
-        //             }
-        //             socket.emit(JOIN)
-        //         } else if (event === 'leave') {
-        //             if (socket.data.user.id === userID) {
-        //                 socket.leave(roomID)
-        //             }
-        //             socket.emit(LEAVE)
-        //         }
-        //     })
-        // })
 
-        // initialize rooms data
-        // consists of history chat, information about user, rooms, etc
+    // get user rooms from database
+    const rooms = ['1']
+
+    socket.join(rooms)
+    // if the user joins or leaves the party, must update immediately
+    // use redis to publish the changes (leave or join)
+    // published message will be "leave:userID" or "join:userID"
+    // msg.rooms.forEach(roomID => {
+    //     subscriber.subscribe(roomID, (err, msg) => {
+    //         if (err) {
+    //             console.error(err)
+    //             return
+    //         }
+    //         if (!msg) return
+    //         const [event, userID] = (msg as string).split(':')
+    //         if (event === 'join') {
+    //             if (socket.data.user.id === userID) {
+    //                 socket.join(roomID)
+    //             }
+    //             socket.emit(JOIN)
+    //         } else if (event === 'leave') {
+    //             if (socket.data.user.id === userID) {
+    //                 socket.leave(roomID)
+    //             }
+    //             socket.emit(LEAVE)
+    //         }
+    //     })
+    // })
+
+    // initialize rooms data
+    // consists of history chat, information about user, rooms, etc
 
 
-        // mockdata, will be replaced data
-        const im: InitSocketMessageFromServer = {
-            rooms: [
-                {
-                    id: '1',
-                    icon: '',
-                    name: 'Room 1',
-                    members: [
-                        {
-                            id: '1'
-                        },
-                        {
-                            id: '2'
-                        }
-                    ],
-                    history: [
-                        {
-                            id: '1',
-                            userID: '1',
-                            roomID: '1',
-                            content: 'Hello',
-                            time: new Date()
-                        },
-                        {
-                            id: '2',
-                            userID: '2',
-                            roomID: '1',
-                            content: 'Hi',
-                            time: new Date()
-                        }
-                    ]
-                }
-            ]
-        }
+    // mockdata, will be replaced data
+    const im: InitSocketMessageFromServer = {
+        rooms: [
+            {
+                id: '1',
+                icon: '',
+                name: 'Room 1',
+                members: [
+                    {
+                        id: '1',
+                        name: 'deez nuts',
+                        avatar: ''
+                    },
+                    {
+                        id: '2',
+                        name: 'peter griffin',
+                        avatar: ''
+                    }
+                ],
+                history: [
+                    {
+                        id: '1',
+                        userID: '1',
+                        roomID: '1',
+                        content: 'Hello',
+                        timestamp: new Date()
+                    },
+                    {
+                        id: '2',
+                        userID: '2',
+                        roomID: '1',
+                        content: 'Hi',
+                        timestamp: new Date()
+                    }
+                ]
+            },
+            {
+                id: '2',
+                icon: '',
+                name: 'Room 2',
+                members: [
+                    {
+                        id: '1',
+                        name: 'deez nuts',
+                        avatar: ''
+                    },
+                    {
+                        id: '3',
+                        name: 'lois griffin',
+                        avatar: ''
+                    }
+                ],
+            }
+        ]
+    }
 
-        socket.emit(INIT, im)
-    })
+    socket.emit(INIT, im)
 
     socket.on(BROADCAST, (msg: BroadcastSocketMessage) => {
         const message = createMessage(socket, msg)
@@ -106,6 +129,6 @@ function createMessage(socket: Socket, msg: BroadcastSocketMessage): RoomMessage
         userID: socket.data.user.id,
         roomID: msg.roomID,
         content: msg.content,
-        time: new Date()
+        timestamp: new Date()
     }
 }

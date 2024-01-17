@@ -5,8 +5,8 @@
 	import type { MessageFeed, Person } from '$src/lib/types';
 	import { peopleMockData, messageFeedMockData } from '$src/lib/utils';
 	import { fade } from 'svelte/transition';
-    import { connect, messageSender, initStore } from '$src/lib/chat/client';
-	import type { UserInfo } from '$src/lib/chat/types';
+    import { connect, currentRoomStore } from '$src/lib/chat';
+	import type { UserInfo } from '$src/lib/chat';
 
 	const people: Person[] = peopleMockData;
 	let currentPerson: Person = people[0];
@@ -17,12 +17,14 @@
 
 	export let user: UserInfo = {
 		id: '1',
+        name: 'John Doe',
+        avatar: 'https://i.pravatar.cc/150?img=1',
 	}
 
-    connect({ user })
+    connect(user)
 </script>
 
-{#if !$initStore}
+{#if !$currentRoomStore}
 	<div class="flex flex-col justify-center items-center h-full">
 		<div class="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-100"></div>
 		<span class="my-6">LOADING MESSAGES</span>
@@ -36,13 +38,6 @@
 			bind:messageFeed
 			bind:currentMessage
 			bind:isDetailsOpen
-			on:messageSent={(e) => {
-				const bsm = {
-					roomID: '1',
-					content: e.detail.message
-				}
-                messageSender.set(bsm)
-			}}
 		/>
 		{#if isDetailsOpen}
 			<ChatDetails {currentPerson} />
